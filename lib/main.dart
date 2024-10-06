@@ -22,9 +22,9 @@ class gradeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home:LoginScreen(),
       //SplashView(),
-      //onboardingView(),
+     // onboardingView(),
       //StartView(),
     );
   }

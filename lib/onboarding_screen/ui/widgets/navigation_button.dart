@@ -21,7 +21,9 @@ class NavigationButton extends StatelessWidget {
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
+              
               backgroundColor: const Color(0xff0062ff),
+              
             ),
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
