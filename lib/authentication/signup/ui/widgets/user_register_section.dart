@@ -16,25 +16,25 @@ class UserRegisterSection extends StatelessWidget {
         Gap(5),
         CustomTextField(
           hintText: 'Enter your full name',
-          prefixIcon: Icons.email_outlined,
+          prefixIcon: Icons.person_outline_rounded,
         ),
         CustomTextfieldLabel(label: 'Email'),
         Gap(5),
         CustomTextField(
           hintText: 'Enter your email',
-          prefixIcon: Icons.lock_outline_rounded,
+          prefixIcon: Icons.email_outlined,
         ),
         CustomTextfieldLabel(label: 'Username'),
         Gap(5),
         CustomTextField(
           hintText: 'Enter your username',
-          prefixIcon: Icons.email_outlined,
+          prefixIcon: Icons.person_outline_rounded,
         ),
         CustomTextfieldLabel(label: 'Password'),
         Gap(5),
         CustomTextField(
           hintText: 'Enter your password',
-          prefixIcon: Icons.email_outlined,
+          prefixIcon: Icons.lock_outline_rounded,
         ),
         Gap(10),
         Align(

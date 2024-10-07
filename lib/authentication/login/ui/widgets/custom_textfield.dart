@@ -29,7 +29,9 @@ class CustomTextField extends StatelessWidget {
               fontWeight: FontWeight.w100),
           prefixIcon: Icon(
             prefixIcon,
+            
             color: Colors.grey.withOpacity(0.8),
+            size: 21,
           ),
           contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
           filled: true,
