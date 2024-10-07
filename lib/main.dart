@@ -24,8 +24,8 @@ class gradeApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home:
-      //RegisterScreen(),
-    LoginScreen(),
+      RegisterScreen(),
+   // LoginScreen(),
       //SplashView(),
      // onboardingView(),
       //StartView(),

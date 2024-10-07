@@ -7,6 +7,10 @@ import 'package:medify/authentication/login/ui/widgets/custom_textfield_label.da
 import 'package:medify/authentication/login/ui/widgets/forgot_login_text.dart';
 import 'package:medify/authentication/login/ui/widgets/navigate_gredient_button.dart';
 import 'package:medify/authentication/login/ui/widgets/navigate_reverse_arrow.dart';
+import 'package:medify/authentication/login/ui/widgets/switch__method_section.dart';
+import 'package:medify/authentication/signup/ui/widgets/register_navigation_section.dart';
+import 'package:medify/authentication/signup/ui/widgets/sitch_method_register_section.dart';
+import 'package:medify/authentication/signup/ui/widgets/user_register_section.dart';
 import 'package:medify/core/utils/app_images.dart';
 import 'package:medify/onboarding_screen/ui/widgets/dots.dart';
 
@@ -15,81 +19,17 @@ class RigesterBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.only(left: 25, right: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Gap(15),
-          CustomTextfieldLabel(label: 'Full Name'),
-          Gap(5),
-          CustomTextField(
-            hintText: 'Enter your full name',
-            prefixIcon: Icons.email_outlined,
-          ),
-          CustomTextfieldLabel(label: 'Email'),
-          Gap(5),
-          CustomTextField(
-            hintText: 'Enter your email',
-            prefixIcon: Icons.lock_outline_rounded,
-          ),
-          CustomTextfieldLabel(label: 'Username'),
-          Gap(5),
-          CustomTextField(
-            hintText: 'Enter your username',
-            prefixIcon: Icons.email_outlined,
-          ),
-          CustomTextfieldLabel(label: 'Password'),
-          Gap(5),
-          CustomTextField(
-            hintText: 'Enter your password',
-            prefixIcon: Icons.email_outlined,
-          ),
+          UserRegisterSection(),
           Gap(10),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              'I agree to all Term, Privacy Policy and fees',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xff667085),
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Gap(15),
-          CustomFilledButton(text: 'Sign up'),
-          Gap(10),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              'OR',
-              style: TextStyle(fontSize: 15),
-            ),
-          ),
-          Gap(15),
-          CustomButtonWithBorder(
-            icon: Assets.assetsImagesGoogle,
-            text: 'Sign in with Google',
-          ),
-          Gap(7),
-          CustomButtonWithBorder(
-              icon: Assets.assetsImagesfacebook, text: 'Sign in with Facebook'),
+          SwitchMethodRegisterSection(),
           Gap(25),
-          Dots(),
-          Gap(30),
-          Row(
-            children: [
-              ReverseArrow(
-                onPressed: () {},
-              ),
-              Gap(30),
-              GradientButton(
-                onpressed: () {},
-              ),
-            ],
-          ),
+         RegisterNavigationSection(),
           Gap(18),
         ],
       ),
