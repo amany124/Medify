@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medify/chat/ui/views/all_chats.dart';
 import 'package:medify/core/utils/widgets/bottom_navigation_content.dart';
 import 'package:medify/helpers/tapProvider.dart';
+import 'package:medify/social/ui/views/social_view.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavscreens extends StatelessWidget {
@@ -15,7 +16,7 @@ class BottomNavscreens extends StatelessWidget {
       index: currentindex,
       children: [
         wid(message: 'Home'),
-        wid(message: 'Social'),
+        SocialScreen(),
         wid(message: 'Doctors'),
         AllChats(),
         wid(message: 'HealthCare'),

@@ -1,3 +1,4 @@
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medify/helpers/tapProvider.dart';
@@ -35,7 +36,7 @@ class bottomnavigationContent extends StatelessWidget {
           icon: Padding(
             padding: const EdgeInsets.only(bottom: 7),
             child: Icon(
-              CupertinoIcons.house_alt,
+              Icons.home_outlined,
               size: 25,
               color: context.watch<tapProvider>().currentindex == 0
                   ? primarycolor // Selected color
@@ -83,12 +84,12 @@ class bottomnavigationContent extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          label: 'HealthCare',
+          label: 'Notifications',
           icon: Padding(
              padding: const EdgeInsets.only(bottom: 7),
             child: Icon(
                size: 25,
-             CupertinoIcons.heart_circle,
+             CupertinoIcons.bell,
               color: context.watch<tapProvider>().currentindex == 4
                   ? primarycolor
                   : Colors.grey,

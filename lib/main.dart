@@ -6,6 +6,7 @@ import 'package:medify/helpers/tapProvider.dart';
 import 'package:medify/home/ui/views/home.dart';
 
 import 'package:medify/onboarding_screen/ui/views/onboarding_screen.dart';
+import 'package:medify/social/ui/views/social_view.dart';
 import 'package:medify/start_screen/ui/views/start_view.dart';
 import 'package:provider/provider.dart';
 import 'splash/ui/views/splash_view.dart';
@@ -29,7 +30,8 @@ class gradeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home:
+       Home(),
       //RegisterScreen(),
       // LoginScreen(),
       //SplashView(),

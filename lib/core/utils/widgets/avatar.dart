@@ -36,6 +36,7 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
+       backgroundColor: Color.fromARGB(255, 251, 223, 223),
       backgroundImage: AssetImage('assets/images/doc_test2.png'),
     );
   }
@@ -67,6 +68,7 @@ class AvatarWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
         radius: 28,
+         backgroundColor: Color.fromARGB(255, 251, 223, 223),
         backgroundImage: AssetImage('assets/images/doc_test2.png'),
         child: Stack(children: [
           Align(
