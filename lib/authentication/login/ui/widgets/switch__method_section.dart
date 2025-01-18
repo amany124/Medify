@@ -10,7 +10,7 @@ class SwitchMethodSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  const Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
          Align(
@@ -35,7 +35,7 @@ class SwitchMethodSection extends StatelessWidget {
           ),
           Gap(7),
           CustomButtonWithBorder(
-              icon: Assets.assetsImagesfacebook, text: 'Sign in with Facebook'),
+              icon: Assets.assetsImagesFacebook, text: 'Sign in with Facebook'),
           Gap(18),
           Align(
             alignment: Alignment.center,

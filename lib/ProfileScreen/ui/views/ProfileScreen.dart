@@ -163,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                             child: const Text("Save"),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.blueAccent,
+                              backgroundColor: Colors.blueAccent,
                               padding: const EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 30),
                               shape: RoundedRectangleBorder(
