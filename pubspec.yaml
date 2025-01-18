@@ -44,6 +44,7 @@ dependencies:
   feather_icons: ^1.2.0
   jiffy: ^6.2.1
   device_preview: ^1.1.0
+  image_picker: ^1.0.8
 
 dev_dependencies:
   flutter_test:
