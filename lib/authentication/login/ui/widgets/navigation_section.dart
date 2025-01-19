@@ -13,14 +13,14 @@ class NavigationSection extends StatelessWidget {
     return  Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-         Dots(),
-          Gap(40),
+         const Dots(),
+          const Gap(40),
           Row(
             children: [
               ReverseArrow(
                 onPressed: () {},
               ),
-              Gap(30),
+              const Gap(30),
               GradientButton(
                 onpressed: () {},
               ),

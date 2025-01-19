@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:medify/chat/ui/views/messages_page.dart';
 import 'package:medify/chat/ui/widgets/DateLable.dart';
 import 'package:medify/chat/ui/widgets/FreindMessageBubble.dart';
 import 'package:medify/chat/ui/widgets/MessageBubble.dart';

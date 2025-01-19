@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 class custumCircleButton extends StatelessWidget {
   VoidCallback? ontap;
-  custumCircleButton({this.ontap});
+  custumCircleButton({super.key, this.ontap});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ontap,
       child: Padding(
-        padding: EdgeInsets.only(right: 20, bottom: 5),
+        padding: const EdgeInsets.only(right: 20, bottom: 5),
         child: Container(
           width: 50,
           height: 50,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.blue,
             shape: BoxShape.circle,
           ),
           child: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.send,
               color: Colors.white,
             ),

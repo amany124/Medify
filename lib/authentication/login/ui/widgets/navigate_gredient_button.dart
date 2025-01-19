@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
   final void Function()? onpressed;
-  const GradientButton({this.onpressed});
+  const GradientButton({super.key, this.onpressed});
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 250.0, // Set the width of the button
       height: 58.0, // Set the height of the button
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [
             Color(0xff1677FF),
             Color(0xff1677FF),
@@ -29,7 +29,7 @@ class GradientButton extends StatelessWidget {
           ),
         ),
         onPressed: onpressed,
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(

@@ -15,14 +15,14 @@ class RegisterNavigationSection extends StatelessWidget {
     (
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-         Dots(),
-          Gap(30),
+         const Dots(),
+          const Gap(30),
           Row(
             children: [
               ReverseArrow(
                 onPressed: () {},
               ),
-              Gap(30),
+              const Gap(30),
               GradientButton(
                 onpressed: () {},
               ),

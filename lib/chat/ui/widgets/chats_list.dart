@@ -5,7 +5,7 @@ import 'package:medify/chat/ui/widgets/chat_item.dart';
 import 'package:medify/helpers/helpers.dart';
 
 class ChatsList extends StatelessWidget {
-   ChatsList({super.key});
+   const ChatsList({super.key});
 
   @override
   Widget build(BuildContext context) {

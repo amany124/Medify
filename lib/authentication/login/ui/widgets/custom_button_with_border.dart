@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/core/utils/app_images.dart';
 
 class CustomButtonWithBorder extends StatelessWidget {
   const CustomButtonWithBorder({super.key, required this.icon, required this.text , });
@@ -26,7 +24,7 @@ class CustomButtonWithBorder extends StatelessWidget {
     
        
           children: [
-             Gap(40),
+             const Gap(40),
             Image.asset(
              icon ,
              
@@ -34,7 +32,7 @@ class CustomButtonWithBorder extends StatelessWidget {
               width: 35,
             ),
             //  Gap(gap),
-            Gap(30),
+            const Gap(30),
              Text(
            text ,  
               style:const TextStyle(

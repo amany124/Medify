@@ -15,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
         elevation: 0,
         title: const CustomLogo(),
       ),
-      body: SingleChildScrollView(child: const RigesterBody()),
+      body: const SingleChildScrollView(child: RigesterBody()),
     );
   }
 }

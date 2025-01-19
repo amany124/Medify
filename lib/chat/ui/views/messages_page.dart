@@ -7,7 +7,6 @@ import 'package:medify/chat/ui/widgets/AppBarTitle.dart';
 import 'package:medify/chat/ui/widgets/ChatTextField.dart';
 import 'package:medify/chat/ui/widgets/RenderMessages.dart';
 import 'package:medify/chat/ui/widgets/icon_buttons.dart';
-import 'package:medify/core/utils/widgets/avatar.dart';
 
 
 class MessagesPage extends StatelessWidget {

@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
         elevation: 0,
         title: const CustomLogo(),
       ),
-      body: SingleChildScrollView(child: const LoginBody()),
+      body: const SingleChildScrollView(child: LoginBody()),
     );
   }
 }

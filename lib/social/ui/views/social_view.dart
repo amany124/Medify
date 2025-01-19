@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/core/utils/widgets/avatar.dart';
 import 'package:medify/core/utils/widgets/bottom_navigation_content.dart';
 import 'package:medify/social/ui/widgets/post_widget.dart';
 import 'package:medify/social/ui/widgets/stories.dart';

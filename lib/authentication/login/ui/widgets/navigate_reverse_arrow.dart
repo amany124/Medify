@@ -14,7 +14,7 @@ class ReverseArrow extends StatelessWidget {
       height: 58,
       width: 58,
       decoration: BoxDecoration(
-        color: Color(0xffF3F9FF), // Light blue background color
+        color: const Color(0xffF3F9FF), // Light blue background color
         borderRadius: BorderRadius.circular(16.0), // Rounded border
       ),
       child: ElevatedButton(
@@ -25,7 +25,7 @@ class ReverseArrow extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0), // Match border radius
           ),
         ),
-        onPressed: onPressed, child: Icon(
+        onPressed: onPressed, child: const Icon(
           Icons.arrow_back,
           color: Color(0xff1677FF), // Dark blue icon color
         ),)

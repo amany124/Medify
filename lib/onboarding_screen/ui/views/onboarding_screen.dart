@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:medify/core/utils/app_images.dart';
@@ -9,6 +8,7 @@ import 'package:medify/onboarding_screen/ui/widgets/text_scetion.dart';
 import '../widgets/doctor_image.dart';
 import '../widgets/navigation_button.dart';
 
+// ignore: camel_case_types
 class onboardingView extends StatelessWidget {
   const onboardingView({super.key});
 

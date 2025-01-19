@@ -13,11 +13,11 @@ class ChatTextField extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             child: Container(
               width: 290,
               height: 58,
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(32),
@@ -27,7 +27,7 @@ class ChatTextField extends StatelessWidget {
                     spreadRadius: 1.5,
                     blurRadius: 1,
                     offset:
-                        Offset(3, 4), // changes the position of the shadow
+                        const Offset(3, 4), // changes the position of the shadow
                   ),
                 ],
               ),
