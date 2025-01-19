@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:glass/glass.dart';
+ import 'package:glass/glass.dart';
 //import 'package:graduation_project/core/utils/app_images.dart';
 //import 'package:graduation_project/core/utils/app_styles.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -112,7 +112,7 @@ class PublicProfile extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Gap(16),
+                 Gap(16),
                 const Customposts(
                   name: 'Rahma Ahmed',
                   date: '16 Feb at 19:56',
