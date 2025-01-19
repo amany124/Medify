@@ -24,9 +24,9 @@ class FreindMessageBubble extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(_borderRadius),
                   topRight: Radius.circular(_borderRadius),
                   bottomRight: Radius.circular(_borderRadius),
@@ -37,7 +37,7 @@ class FreindMessageBubble extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
                 child: Text(
                   message,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                 ),

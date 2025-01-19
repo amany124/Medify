@@ -62,7 +62,7 @@ class IconBorder extends StatelessWidget {
           child: Icon(
             icon,
             size: 24,
-            color: Color.fromARGB(255, 146, 146, 148),
+            color: const Color.fromARGB(255, 146, 146, 148),
           ),
         ),
       ),

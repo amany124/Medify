@@ -3,6 +3,8 @@ import 'package:medify/ProfileScreen/ui/widgets/ProfileAppbarContent.dart';
 import 'package:medify/ProfileScreen/ui/widgets/ProfileTextField.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -59,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    child: ProfileAppbarContent(),
+                    child: const ProfileAppbarContent(),
                   ),
                 ),
               ),
@@ -161,7 +163,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 isEditing = false;
                               });
                             },
-                            child: const Text("Save"),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueAccent,
                               padding: const EdgeInsets.symmetric(
@@ -170,6 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
+                            child: const Text("Save"),
                           ),
                       ],
                     ),

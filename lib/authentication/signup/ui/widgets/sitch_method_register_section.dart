@@ -10,7 +10,7 @@ class SwitchMethodRegisterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return  Column(
+    return  const Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
          Align(

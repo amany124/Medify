@@ -7,6 +7,8 @@ import 'package:medify/core/utils/widgets/avatar.dart';
 import 'package:medify/core/utils/widgets/bottom_navigation_content.dart';
 
 class HeartAnalysisPage extends StatefulWidget {
+  const HeartAnalysisPage({super.key});
+
   @override
   _HeartAnalysisPageState createState() => _HeartAnalysisPageState();
 }
@@ -20,7 +22,7 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F8FE),
       appBar: AppBar(
-        title: Row(
+        title: const Row(
       children: [
         AppLogo(hight:45),
         Gap(7),
@@ -32,10 +34,10 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
         ),
       ],
     ),
-        leading: Icon(Icons.menu, color: Colors.black,),
+        leading: const Icon(Icons.menu, color: Colors.black,),
         actions: [
           Avatar.small(),
-          Gap(10),
+          const Gap(10),
         ],
         backgroundColor:  Colors.white,
         centerTitle: true,
@@ -80,7 +82,7 @@ class _ImagePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
     return Wrap(
       children: [
@@ -89,7 +91,7 @@ class _ImagePickerWidget extends StatelessWidget {
           title: const Text('Open gallery'),
           onTap: () async {
             final pickedFile =
-                await _picker.pickImage(source: ImageSource.gallery);
+                await picker.pickImage(source: ImageSource.gallery);
             if (pickedFile != null) {
               onImageSelected();
             }
@@ -101,7 +103,7 @@ class _ImagePickerWidget extends StatelessWidget {
           title: const Text('Open camera'),
           onTap: () async {
             final pickedFile =
-                await _picker.pickImage(source: ImageSource.camera);
+                await picker.pickImage(source: ImageSource.camera);
             if (pickedFile != null) {
               onImageSelected();
             }
@@ -131,10 +133,10 @@ class _ResultsContainer extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
+      child: const Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
             "Analysis Results",
             style: TextStyle(

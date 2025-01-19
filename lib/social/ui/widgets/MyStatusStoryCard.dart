@@ -17,7 +17,7 @@ class MyStatusStoryCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AvatarWithIcon(),
+        const AvatarWithIcon(),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(top: 16.0),

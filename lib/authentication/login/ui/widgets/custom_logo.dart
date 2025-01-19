@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/core/utils/app_images.dart';
 import 'package:medify/core/utils/widgets/app_logo.dart';
 import 'package:medify/core/utils/widgets/app_name.dart';
 

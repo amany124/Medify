@@ -1,4 +1,3 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medify/helpers/tapProvider.dart';
@@ -24,7 +23,7 @@ class bottomnavigationContent extends StatelessWidget {
         fontSize: 16,
         color: primarycolor,
       ),
-      unselectedLabelStyle: TextStyle(
+      unselectedLabelStyle: const TextStyle(
         fontSize: 16,
         color: Colors.grey,
       ),

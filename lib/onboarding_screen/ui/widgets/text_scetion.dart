@@ -21,7 +21,7 @@ class TextScetion extends StatelessWidget {
           ),
           Gap(5),
           Text(
-            '" Welcome to Medify ! Your health journey starts here.We\'re here to support you with personalized care and easy access to medical professionals. Let\’s take the first step towards better health together!"',
+            '" Welcome to Medify ! Your health journey starts here.We\'re here to support you with personalized care and easy access to medical professionals. Let’s take the first step towards better health together!"',
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 16,

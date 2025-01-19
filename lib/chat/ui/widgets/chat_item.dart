@@ -36,8 +36,8 @@ class ChatItem extends StatelessWidget {
             padding: const EdgeInsets.all(4.0),
             child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right:22, ),
+                const Padding(
+                  padding: EdgeInsets.only(right:22, ),
                   child: AvatarWithOnlineCircle(),
                 ),
                 Expanded(
@@ -83,7 +83,7 @@ class ChatItem extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        '${messageData.dateMessage}',
+                        messageData.dateMessage,
                         style: const TextStyle(
                           fontSize: 12,
                           letterSpacing: -0.2,

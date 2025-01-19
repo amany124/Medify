@@ -14,12 +14,12 @@ class AllChats extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(
+        leading: const Icon(
           CupertinoIcons.back,
           color: Colors.black,
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Message',
           style: TextStyle(
             color: Colors.black,
@@ -38,7 +38,7 @@ class AllChats extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
+      body: const Column(
         children: [
           SearchBarWidget(),
           Expanded(child: ChatsList()),

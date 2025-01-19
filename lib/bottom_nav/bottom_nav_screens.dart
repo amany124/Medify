@@ -14,7 +14,7 @@ class BottomNavscreens extends StatelessWidget {
     // the widget returns page based on current index from tap provider
     return IndexedStack(
       index: currentindex,
-      children: [
+      children: const [
         wid(message: 'Home'),
         SocialScreen(),
         wid(message: 'Doctors'),

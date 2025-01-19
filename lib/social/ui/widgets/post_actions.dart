@@ -1,7 +1,5 @@
 
- import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medify/social/ui/views/social_view.dart';
 import 'package:medify/social/ui/widgets/custom_icon_with_text.dart';
 
 class PostActions extends StatelessWidget {

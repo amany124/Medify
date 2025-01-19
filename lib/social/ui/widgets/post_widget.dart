@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medify/social/ui/widgets/comment_section.dart';
 import 'package:medify/social/ui/widgets/post_actions.dart';
