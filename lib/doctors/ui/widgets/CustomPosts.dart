@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:gradient_borders/gradient_borders.dart';
+ import 'package:gradient_borders/gradient_borders.dart';
+//import 'package:graduation_project/core/utils/app_styles.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../core/utils/app_styles.dart';
 
@@ -39,7 +40,7 @@ class Customposts extends StatelessWidget {
               const Color(0xff1877F2),
               const Color(0xff1877F2).withOpacity(0.8),
             ],
-          ),
+           ),
           width: 2,
         ),
       ),
