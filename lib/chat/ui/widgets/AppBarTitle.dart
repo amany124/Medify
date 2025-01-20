@@ -5,9 +5,9 @@ import 'package:medify/core/utils/widgets/avatar.dart';
 
 class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
-    Key? key,
+    super.key,
     required this.messageData,
-  }) : super(key: key);
+  });
 
   final messageModel messageData;
 

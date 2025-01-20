@@ -8,12 +8,12 @@ class CustomIconWithText extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const CustomIconWithText({
-    Key? key,
+    super.key,
     required this.icon,
     required this.count,
     this.splashColor = Colors.grey, // Default splash color.
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

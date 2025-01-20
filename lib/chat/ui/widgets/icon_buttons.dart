@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class IconBackground extends StatelessWidget {
   const IconBackground({
-    Key? key,
+    super.key,
     required this.icon,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final IconData icon;
   final VoidCallback onTap;
@@ -35,10 +35,10 @@ class IconBackground extends StatelessWidget {
 
 class IconBorder extends StatelessWidget {
   const IconBorder({
-    Key? key,
+    super.key,
     required this.icon,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final IconData icon;
   final VoidCallback onTap;

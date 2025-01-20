@@ -10,12 +10,12 @@ class Post extends StatefulWidget {
   final String imageUrl;
 
   const Post({
-    Key? key,
+    super.key,
     required this.username,
     required this.timestamp,
     required this.content,
     required this.imageUrl,
-  }) : super(key: key);
+  });
 
   @override
   _PostState createState() => _PostState();

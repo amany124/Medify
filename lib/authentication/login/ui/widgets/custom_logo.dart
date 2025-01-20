@@ -10,7 +10,7 @@ class CustomLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        AppLogo(hight: 54),
+        AppLogo(height: 54),
         Gap(7),
         AppName(
           color: Colors.black,

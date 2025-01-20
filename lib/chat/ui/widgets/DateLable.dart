@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class DateLable extends StatelessWidget {
   const DateLable({
-    Key? key,
+    super.key,
     required this.lable,
-  }) : super(key: key);
+  });
 
   final String lable;
 

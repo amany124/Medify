@@ -9,11 +9,11 @@ class Dots extends StatelessWidget {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(Icons.circle,size: 11,color: Colors.blue,),
-        Gap(10),
-        Icon(Icons.circle,size: 11,color: Color(0xffE7EAEB),),
-        Gap(10),
-        Icon(Icons.circle,size: 11,color: Color(0xffE7EAEB),),
+        Icon(Icons.circle,size: 8,color: Colors.blue,),
+        Gap(5),
+        Icon(Icons.circle,size: 8,color: Colors.grey,),
+        Gap(5),
+        Icon(Icons.circle,size: 8,color: Colors.grey,),
 
       ],
     );
