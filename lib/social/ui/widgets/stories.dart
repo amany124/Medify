@@ -4,7 +4,7 @@ import 'package:medify/social/ui/widgets/MyStatusStoryCard.dart';
 import 'package:medify/social/ui/widgets/StoryCard.dart';
 
 class Stories extends StatelessWidget {
-  const Stories({Key? key}) : super(key: key);
+  const Stories({super.key});
 
   @override
   Widget build(BuildContext context) {

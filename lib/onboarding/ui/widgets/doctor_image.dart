@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class doctorImage extends StatelessWidget {
-  const doctorImage({
+class DoctorImage extends StatelessWidget {
+  const DoctorImage({
     super.key,
   });
 

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/core/utils/app_images.dart';
-import 'package:medify/onboarding_screen/ui/widgets/dots.dart';
-import 'package:medify/onboarding_screen/ui/widgets/text_scetion.dart';
-
+import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_images.dart';
+import '../../../core/utils/app_styles.dart';
 import '../widgets/doctor_image.dart';
 import '../widgets/navigation_button.dart';
+import '../widgets/text_scetion.dart';
 
-// ignore: camel_case_types
-class onboardingView extends StatelessWidget {
-  const onboardingView({super.key});
+class OnboardingView extends StatelessWidget {
+  const OnboardingView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,27 +24,26 @@ class onboardingView extends StatelessWidget {
               Assets.assetsImagesAppLogo,
               height: 50,
             ),
-            const Gap(3),
-            const Text(
+            const Gap(8),
+            Text(
               'Medify',
-              style: TextStyle(
-                color: Color(0xff223A6A),
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+              style: AppStyles.bold22.copyWith(
+                color: AppColors.primaryColor,
               ),
             ),
           ],
         ),
       ),
       body: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          doctorImage(),
-          Gap(50),
+          Spacer(),
+          DoctorImage(),
+          Gap(40),
           TextScetion(),
-          Gap(60),
-          Dots(),
-          Gap(80),
+          Spacer(),
           NavigationButton(),
+          Gap(30),
         ],
       ),
     );

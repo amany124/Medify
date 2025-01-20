@@ -7,10 +7,10 @@ class PostHeader extends StatelessWidget {
   final String timestamp;
 
   const PostHeader({
-    Key? key,
+    super.key,
     required this.username,
     required this.timestamp,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

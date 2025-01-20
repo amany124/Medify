@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/authentication/login/ui/widgets/custom_filled_button.dart';
-import 'package:medify/authentication/login/ui/widgets/custom_textfield.dart';
-import 'package:medify/authentication/login/ui/widgets/custom_textfield_label.dart';
+
+import '../../../login/ui/widgets/custom_filled_button.dart';
+import '../../../login/ui/widgets/custom_textfield.dart';
+import '../../../login/ui/widgets/custom_textfield_label.dart';
+//import 'package:graduation_project/features/authentication/login/ui/widgets/custom_filled_button.dart';
+//import 'package:graduation_project/features/authentication/login/ui/widgets/custom_textfield.dart';
+//import 'package:graduation_project/features/authentication/login/ui/widgets/custom_textfield_label.dart';
 
 class UserRegisterSection extends StatelessWidget {
   const UserRegisterSection({super.key});

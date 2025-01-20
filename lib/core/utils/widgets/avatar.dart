@@ -5,11 +5,11 @@ class Avatar extends StatelessWidget {
   String? networkurl;
   String? image;
   Avatar({
-    Key? key,
+    super.key,
     // required this.networkurl,
     required this.radius,
     this.image,
-  }) : super(key: key);
+  });
 
   Avatar.small({super.key, 
     //Key? key,

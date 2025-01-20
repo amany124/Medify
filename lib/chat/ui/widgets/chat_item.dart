@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medify/chat/models/messageModel.dart';
 import 'package:medify/chat/ui/views/messages_page.dart';
@@ -6,9 +5,9 @@ import 'package:medify/core/utils/widgets/avatar.dart';
 
 class ChatItem extends StatelessWidget {
   const ChatItem({
-    Key? key,
+    super.key,
     required this.messageData,
-  }) : super(key: key);
+  });
 
   final messageModel messageData;
 

@@ -5,7 +5,7 @@ import 'package:medify/chat/ui/widgets/custumCircleButton.dart';
 
 
 class ChatTextField extends StatelessWidget {
-  const ChatTextField({Key? key}) : super(key: key);
+  const ChatTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
