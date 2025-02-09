@@ -2,9 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:medify/helpers/tapProvider.dart';
 import 'package:provider/provider.dart';
-import 'authentication/signup/ui/views/intial_sign_up_view.dart';
-import 'doctors/ui/views/DoctorPublicProfile.dart';
-
+import 'notification/ui/views/notification_page.dart';
 
 void main() {
   runApp(
@@ -25,15 +23,16 @@ class gradeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: IntialSignUpView(),
-      //HeartAnalysisPage(),
-       //NotificationView(),
-      // Home(),
-      //RegisterScreen(),
-       //LoginScreen(),
-      //StartView(),
-      // onboardingView(),
-      //StartView(),
+      home:
+          // IntialSignUpView(),
+          //HeartAnalysisPage(),
+          //NotificationView(),
+          // Home(),
+          //RegisterScreen(),
+          //LoginScreen(),
+          //StartView(),
+          // OnboardingView(),
+          NotificationView(),
     );
   }
 }
