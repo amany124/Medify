@@ -20,7 +20,17 @@ class SplashViewBody extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: const SplashContainerChild(),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Color(0xff577CEF).withValues(alpha: 0.3),
+            ),
+          ),
+          SplashContainerChild(),
+        ],
+      ),
     );
   }
 }

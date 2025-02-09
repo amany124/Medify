@@ -94,9 +94,9 @@ class Assets {
   /// assets/images/feedback.svg
   static const String assetsImagesFeedback = "assets/images/feedback.svg";
 
-  /// Assets for assetsImagesFemale pic1
-  /// assets/images/female pic1.jpg
-  static const String assetsImagesFemalepic1 = "assets/images/female pic1.jpg";
+  /// Assets for assetsImagesFemalepic1
+  /// assets/images/femalepic1.jpg
+  static const String assetsImagesFemalepic1 = "assets/images/femalepic1.jpg";
 
   /// Assets for assetsImagesFilter
   /// assets/images/filter.svg
@@ -150,6 +150,10 @@ class Assets {
   /// assets/images/information.svg
   static const String assetsImagesInformation = "assets/images/information.svg";
 
+  /// Assets for assetsImagesLeftStack
+  /// assets/images/left_stack.svg
+  static const String assetsImagesLeftStack = "assets/images/left_stack.svg";
+
   /// Assets for assetsImagesLogout
   /// assets/images/logout.svg
   static const String assetsImagesLogout = "assets/images/logout.svg";
@@ -178,9 +182,13 @@ class Assets {
   /// assets/images/phone.svg
   static const String assetsImagesPhone = "assets/images/phone.svg";
 
-  /// Assets for assetsImagesProfile background2 png
-  /// assets/images/profile background2 png.png
-  static const String assetsImagesProfilebackground2png = "assets/images/profile background2 png.png";
+  /// Assets for assetsImagesProfilebackground2png
+  /// assets/images/profilebackground2png.png
+  static const String assetsImagesProfilebackground2png = "assets/images/profilebackground2png.png";
+
+  /// Assets for assetsImagesRightStack
+  /// assets/images/right_stack.svg
+  static const String assetsImagesRightStack = "assets/images/right_stack.svg";
 
   /// Assets for assetsImagesSearch
   /// assets/images/search.svg
@@ -194,6 +202,10 @@ class Assets {
   /// assets/images/sign_up_background.jpg
   static const String assetsImagesSignUpBackground = "assets/images/sign_up_background.jpg";
 
+  /// Assets for assetsImagesSmilingMaleDoctor
+  /// assets/images/smiling-male-doctor.png
+  static const String assetsImagesSmilingMaleDoctor = "assets/images/smiling-male-doctor.png";
+
   /// Assets for assetsImagesSocial
   /// assets/images/social.svg
   static const String assetsImagesSocial = "assets/images/social.svg";
@@ -206,9 +218,9 @@ class Assets {
   /// assets/images/Star.svg
   static const String assetsImagesStar = "assets/images/Star.svg";
 
-  /// Assets for assetsImagesTes doc pic 1
-  /// assets/images/tes doc pic 1.png
-  static const String assetsImagesTesdocpic1 = "assets/images/tes doc pic 1.png";
+  /// Assets for assetsImagesTesdocpic1
+  /// assets/images/tesdocpic1.png
+  static const String assetsImagesTesdocpic1 = "assets/images/tesdocpic1.png";
 
   /// Assets for assetsImagesTypes
   /// assets/images/types.jpg

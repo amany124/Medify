@@ -1,12 +1,12 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/utils/app_images.dart';
-import '../../../core/utils/app_styles.dart';
-import '../widgets/doctor_image.dart';
-import '../widgets/navigation_button.dart';
-import '../widgets/text_scetion.dart';
+import 'package:medify/core/utils/app_images.dart';
+import '../widgets/inner_shadow.dart';
+import '../widgets/introduction_card.dart';
+import '../widgets/introwhitecard.dart';
+import '../widgets/welcome_message.dart';
 
 class OnboardingView extends StatelessWidget {
   const OnboardingView({super.key});
@@ -14,38 +14,98 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          children: [
-            SvgPicture.asset(
-              Assets.assetsImagesAppLogo,
-              height: 50,
-            ),
-            const Gap(8),
-            Text(
-              'Medify',
-              style: AppStyles.bold22.copyWith(
-                color: AppColors.primaryColor,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: const Color(0xff577CEF),
+      body: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FadeInDown(
+                duration: const Duration(milliseconds: 1500),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: SvgPicture.asset(
+                    Assets.assetsImagesLeftStack,
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xff83BAF7),
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ),
+              FadeInDown(
+                duration: const Duration(milliseconds: 1500),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: InnerShadow(
+                    offsetX: 1,
+                    offsetY: -7,
+                    blurRadius: 9,
+                    color: Colors.black.withValues(alpha: .25), // Shadow color
+                    child: Transform.scale(
+                      scale: 1.1,
+                      child: SvgPicture.asset(
+                        Assets.assetsImagesRightStack,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Gap(20),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              FadeInLeft(
+                  duration: const Duration(milliseconds: 1500),
+                  child: const IntroductionCard()),
+              FadeInLeft(
+                  duration: const Duration(milliseconds: 1500),
+                  child: IntroWhiteCard()),
+              Positioned(
+                right: -65,
+                top: -110,
+                bottom: 0,
+                child: FadeInDown(
+                  duration: const Duration(milliseconds: 1500),
+                  child: Container(
+                    height: 214,
+                    width: 214,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color(0xff577CEF),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: -5,
+                child: FadeInDown(
+                  duration: const Duration(milliseconds: 1500),
+                  child: Image.asset(
+                    Assets.assetsImagesSmilingMaleDoctor,
+                  ),
+                ),
+              )
+            ],
+          ),
           Spacer(),
-          DoctorImage(),
-          Gap(40),
-          TextScetion(),
-          Spacer(),
-          NavigationButton(),
-          Gap(30),
+          SlideInUp(
+              duration: const Duration(milliseconds: 3000),
+              curve: Curves.easeInOut,
+            child: WelcomeMessageWidget()),
+          Gap(54),
         ],
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
