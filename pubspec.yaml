@@ -31,7 +31,7 @@ dependencies:
   animate_do: ^3.3.4
   animated_text_kit: ^4.2.2
   cupertino_icons: ^1.0.2
-  device_preview: ^1.2.0
+  device_preview: ^1.1.0
   feather_icons: ^1.2.0
   flutter:
     sdk: flutter
@@ -45,7 +45,7 @@ dependencies:
   provider: ^6.0.5
 
 dev_dependencies:
-  flutter_lints: ^5.0.0
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
 

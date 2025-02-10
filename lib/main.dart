@@ -28,27 +28,6 @@ class gradeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: //AboutusView(),
-     // HeartAnalysisPage(),
-      // NotificationView(),
-       //Home(),
-      //RegisterScreen(),
-      // LoginScreen(),
-     // SplashView(),
-      // onboardingView(),
-    //  StartView(),
-    SocialScreen(),
-   //SettingsView(),
-  // ProfileScreen(),
- // PublicProfile(),
- //HeartDiseases(),
- //FeedbackView(),
- //Favoritedoctors(),
- //DoctorProfile(),
- //AllChats(),
-//AppointmentPage(),
-//ProfileView(),
-
       home:
           // IntialSignUpView(),
           //HeartAnalysisPage(),
