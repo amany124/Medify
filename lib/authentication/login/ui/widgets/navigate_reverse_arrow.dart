@@ -4,9 +4,9 @@ class ReverseArrow extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const ReverseArrow({
-    Key? key,
+    super.key,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-//import 'package:graduation_project/features/about%20us/ui/views/aboutus_view.dart';
-//import 'package:graduation_project/core/utils/app_images.dart';
-//import 'package:graduation_project/features/favorite_docs/ui/views/FavoriteDoctors.dart';
-//import 'package:graduation_project/features/heart%20diseases/ui/views/heart_diseases.dart';
-//import 'package:graduation_project/features/onboarding/ui/views/start_view.dart';
-//import 'package:graduation_project/features/profile/ui/views/MyAppointments_view.dart';
-//import 'package:graduation_project/features/profile/ui/views/myprofile_view.dart';
-//import 'package:graduation_project/features/profile/ui/widgets/profile_item.dart';
-//import 'package:graduation_project/features/settings/ui/views/settings.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_styles.dart';
-//import '../../../../core/widgets/custom_button.dart';
 import '../../../about us/ui/views/aboutus_view.dart';
 import '../../../core/utils/app_images.dart';
 import '../../../core/utils/widgets/custom_button.dart';
 import '../../../favorite_docs/ui/views/FavoriteDoctors.dart';
 import '../../../feedback/feedback_view.dart';
 import '../../../heart diseases/ui/views/heart_diseases.dart';
+import '../../../onboarding/ui/views/start_view.dart';
 import '../../../settings/ui/views/settings.dart';
-import '../../../start_screen/ui/views/start_view.dart';
+//import '../../../start_screen/ui/views/start_view.dart';
 import '../views/MyAppointments_view.dart';
 import 'profile_item.dart';
 

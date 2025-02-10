@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-//import 'package:graduation_project/core/utils/app_images.dart';
-//import 'package:graduation_project/features/profile/ui/widgets/profile_item_text.dart';
-//import 'package:graduation_project/features/profile/ui/widgets/profile_itemicon.dart';
-//import 'package:graduation_project/features/settings/ui/views/password_manager.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../core/utils/app_images.dart';

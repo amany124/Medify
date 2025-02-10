@@ -1,13 +1,12 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:medify/chat/models/storyModel.dart';
 import 'package:medify/core/utils/widgets/avatar.dart';
 
 class StoryCard extends StatelessWidget {
   StoryCard({
-    Key? key,
+    super.key,
     required this.storyData,
-  }) : super(key: key);
+  });
 
   storyModel storyData;
 

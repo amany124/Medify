@@ -1,54 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:medify/core/utils/app_images.dart';
+import '../../../onboarding/ui/views/onboarding_view.dart';
+import '../widgets/splash_body.dart';
+import 'dart:async';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(minutes:1), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const OnboardingView(),),);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              Assets.assetsImagesSplashBackground,
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              Assets.assetsImagesAppLogo,
-              height: 120,
-            ),
-            const Gap(15),
-            const Text(
-              'Medify',
-              style: TextStyle(
-                fontSize: 32,
-                color: Color(0xff223A6A),
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Poppins',
-              ),
-            ),
-            const Gap(3),
-            const Text(
-              'Medical App',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xff223A6A),
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-              ),
-            )
-          ],
-        ),
-      ),
+    return const Scaffold(
+      body: SplashViewBody(),
     );
   }
 }

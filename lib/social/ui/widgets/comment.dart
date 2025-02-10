@@ -8,11 +8,11 @@ class Comment extends StatelessWidget {
   final String timestamp;
 
   const Comment({
-    Key? key,
+    super.key,
     required this.username,
     required this.content,
     required this.timestamp,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

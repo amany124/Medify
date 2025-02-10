@@ -42,7 +42,7 @@ class AppStyles {
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w400,
     fontSize: 16,
-    color:Color.fromARGB(255, 66, 65, 65),
+    color: Color.fromARGB(255, 66, 65, 65),
   );
   // 18
   static TextStyle regular18 = const TextStyle(
@@ -100,13 +100,32 @@ class AppStyles {
     fontSize: 16,
     color: Color(0xFFFFFFFF),
   );
+  // semi-bold 18
+  static TextStyle semiBold18 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    fontSize: 18,
+    color: Color(0xFFFFFFFF),
+  );
+  //13
+  static TextStyle semiBold13 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    fontSize: 13,
+    color: AppColors.primaryColor,
+  );
   static TextStyle semiBold14 = const TextStyle(
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w600,
     fontSize: 14,
     color: AppColors.primaryColor,
   );
-
+  static TextStyle semiBold24 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    fontSize: 24,
+    color: AppColors.primaryColor,
+  );
   // bold 18
   static TextStyle bold18 = const TextStyle(
     fontFamily: 'Poppins',

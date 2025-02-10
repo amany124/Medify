@@ -3,10 +3,10 @@
 
 class MessageBubble extends StatelessWidget {
   const MessageBubble({
-    Key? key,
+    super.key,
     required this.message,
     required this.messageDate,
-  }) : super(key: key);
+  });
 
   final String message;
   final String messageDate;

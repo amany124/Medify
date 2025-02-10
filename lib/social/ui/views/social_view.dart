@@ -7,7 +7,7 @@ import 'package:medify/social/ui/widgets/post_widget.dart';
 import 'package:medify/social/ui/widgets/stories.dart';
 
 class SocialScreen extends StatelessWidget {
-  const SocialScreen({Key? key}) : super(key: key);
+  const SocialScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

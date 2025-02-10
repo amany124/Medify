@@ -24,7 +24,7 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
       appBar: AppBar(
         title: const Row(
       children: [
-        AppLogo(hight:45),
+        AppLogo(height:45),
         Gap(7),
         AppName(
           color: Colors.black,

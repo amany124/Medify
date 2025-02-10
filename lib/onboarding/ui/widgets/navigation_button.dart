@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../../../core/utils/app_styles.dart';
+import '../views/start_view.dart';
+//import 'package:graduation_project/core/utils/app_styles.dart';
+//import 'package:graduation_project/features/onboarding/ui/views/start_view.dart';
+
 class NavigationButton extends StatelessWidget {
   const NavigationButton({super.key});
 
@@ -9,7 +14,7 @@ class NavigationButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // IconButton(
           //   onPressed: () {},
@@ -19,24 +24,28 @@ class NavigationButton extends StatelessWidget {
           //   ),
           // ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const StartView()),
+              );
+            },
             style: ElevatedButton.styleFrom(
-              
               backgroundColor: const Color(0xff0062ff),
-              
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
               child: Row(
                 children: [
                   Text(
                     'Next',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: AppStyles.regular18,
                   ),
-                  Gap(6),
-                  Icon(
+                  const Gap(10),
+                  const Icon(
                     Icons.arrow_forward,
                     color: Colors.white,
                   ),

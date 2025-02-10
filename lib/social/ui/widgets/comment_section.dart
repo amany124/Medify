@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:medify/social/ui/widgets/comment.dart';
 
 class CommentSection extends StatelessWidget {
-  const CommentSection({Key? key}) : super(key: key);
+  const CommentSection({super.key});
 
   @override
   Widget build(BuildContext context) {

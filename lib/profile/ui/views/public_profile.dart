@@ -112,7 +112,7 @@ class PublicProfile extends StatelessWidget {
                     ),
                   ],
                 ),
-                 Gap(16),
+                 const Gap(16),
                 const Customposts(
                   name: 'Rahma Ahmed',
                   date: '16 Feb at 19:56',

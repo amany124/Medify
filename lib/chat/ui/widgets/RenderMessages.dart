@@ -5,7 +5,7 @@ import 'package:medify/chat/ui/widgets/FreindMessageBubble.dart';
 import 'package:medify/chat/ui/widgets/MessageBubble.dart';
 
 class RenderMessages extends StatelessWidget {
-  const RenderMessages({Key? key}) : super(key: key);
+  const RenderMessages({super.key});
 
   @override
   Widget build(BuildContext context) {

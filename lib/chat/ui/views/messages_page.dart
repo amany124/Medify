@@ -17,9 +17,9 @@ class MessagesPage extends StatelessWidget {
       );
 
   const MessagesPage({
-    Key? key,
+    super.key,
     required this.messageData,
-  }) : super(key: key);
+  });
 
   final messageModel messageData;
 
