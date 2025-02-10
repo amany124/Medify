@@ -1,7 +1,19 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:medify/HeartAnaysis/ui/views/diseases_analysis.dart';
+import 'package:medify/chat/ui/views/all_chats.dart';
+import 'package:medify/chat/ui/views/messages_page.dart';
+import 'package:medify/doctors/ui/views/DoctorPublicProfile.dart';
+import 'package:medify/heart%20diseases/ui/views/heart_diseases.dart';
 import 'package:medify/helpers/tapProvider.dart';
+import 'package:medify/home/ui/views/home.dart';
+import 'package:medify/onboarding_screen/ui/views/onboarding_screen.dart';
+import 'package:medify/profile/ui/views/profile_view.dart';
+import 'package:medify/profile/ui/views/public_profile.dart';
+import 'package:medify/settings/ui/views/settings.dart';
+import 'package:medify/social/ui/views/social_view.dart';
+import 'package:medify/splash/ui/views/splash_view.dart';
+import 'package:medify/start_screen/ui/views/start_view.dart';
 
 import 'package:provider/provider.dart';
 
@@ -35,14 +47,26 @@ class gradeApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: //AboutusView(),
-      //HeartAnalysisPage(),
-       NotificationView(),
-      // Home(),
+     // HeartAnalysisPage(),
+      // NotificationView(),
+       //Home(),
       //RegisterScreen(),
-       //LoginScreen(),
-      //SplashView(),
+      // LoginScreen(),
+     // SplashView(),
       // onboardingView(),
-      //StartView(),
+    //  StartView(),
+    SocialScreen(),
+   //SettingsView(),
+  // ProfileScreen(),
+ // PublicProfile(),
+ //HeartDiseases(),
+ //FeedbackView(),
+ //Favoritedoctors(),
+ //DoctorProfile(),
+ //AllChats(),
+//AppointmentPage(),
+//ProfileView(),
+
     );
   }
 }

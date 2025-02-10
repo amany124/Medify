@@ -16,7 +16,10 @@ class PostHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Avatar.small(),
+        CircleAvatar(
+          radius: 20,
+          backgroundImage: AssetImage('assets/images/female pic1.jpg'),
+        ),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
