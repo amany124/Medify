@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medify/core/routing/extensions.dart';
+import 'package:medify/core/routing/routes.dart';
 import 'package:medify/core/utils/widgets/app_logo.dart';
 import 'package:medify/core/utils/widgets/app_name.dart';
 import 'package:medify/core/utils/widgets/avatar.dart';
@@ -23,23 +25,29 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
       backgroundColor: const Color(0xFFF3F8FE),
       appBar: AppBar(
         title: const Row(
-      children: [
-        AppLogo(height:45),
-        Gap(7),
-        AppName(
-          color: Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.normal,
-
+          children: [
+            AppLogo(height: 45),
+            Gap(7),
+            AppName(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+            ),
+          ],
         ),
-      ],
-    ),
-        leading: const Icon(Icons.menu, color: Colors.black,),
+        leading: IconButton(
+            onPressed: () {
+              context.pushNamed(Routes.sidebar);
+            },
+            icon: Icon(
+              Icons.menu,
+              color: Colors.black,
+            )),
         actions: [
           Avatar.small(),
           const Gap(10),
         ],
-        backgroundColor:  Colors.white,
+        backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
       ),

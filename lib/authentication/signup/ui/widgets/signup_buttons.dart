@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/core/routing/extensions.dart';
+import 'package:medify/core/routing/routes.dart';
 
 import '../../../../core/utils/app_images.dart';
 import 'custom_sign_up_button.dart';
@@ -19,7 +21,7 @@ class SignupButtons extends StatelessWidget {
           icon: Assets.assetsImagesDoctorIcon,
           type: 'Doctor',
           onTap: () {
-            print('Doctor');
+            context.pushNamed(Routes.signUpAsDoctor);
           },
         ),
         const Gap(15),
@@ -27,7 +29,7 @@ class SignupButtons extends StatelessWidget {
           icon: Assets.assetsImagesPatientIcon,
           type: 'Patient',
           onTap: () {
-            //print('Patient');
+            context.pushNamed(Routes.signUpAsPatient);
           },
         ),
       ],

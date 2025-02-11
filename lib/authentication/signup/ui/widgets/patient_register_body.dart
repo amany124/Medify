@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/authentication/signup/ui/widgets/patient_register_section.dart';
 
 import 'register_navigation_section.dart';
-import 'sitch_method_register_section.dart';
-import 'user_register_section.dart';
+
+import 'doctor_register_section.dart';
 //import 'package:graduation_project/features/authentication/signup/ui/widgets/register_navigation_section.dart';
 //import 'package:graduation_project/features/authentication/signup/ui/widgets/sitch_method_register_section.dart';
 //import 'package:graduation_project/features/authentication/signup/ui/widgets/user_register_section.dart';
 
-class RigesterBody extends StatelessWidget {
-  const RigesterBody({super.key});
+class PatientRigesterBody extends StatelessWidget {
+  const PatientRigesterBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,10 @@ class RigesterBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Gap(15),
-          UserRegisterSection(),
-          Gap(10),
-          SwitchMethodRegisterSection(),
-          Gap(25),
-          RegisterNavigationSection(),
-          Gap(18),
+          PatientRegisterSection(),
+          RegisterNavigationSection(
+            isdoctor: false,
+          ),
         ],
       ),
     );

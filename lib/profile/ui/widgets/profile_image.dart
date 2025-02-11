@@ -14,7 +14,7 @@ class ProfileImage extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundImage: const AssetImage(
-        Assets.assetsImagesCat,
+        Assets.femalepic1,
       ),
     );
   }

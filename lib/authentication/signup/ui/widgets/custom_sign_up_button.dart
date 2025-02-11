@@ -24,9 +24,9 @@ class CustomSignUpButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
-          vertical: 8,
+          vertical: 2,
         ),
-        height: 40,
+        height:60,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [

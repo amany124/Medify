@@ -41,7 +41,7 @@ class PublicProfile extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 70),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -54,7 +54,7 @@ class PublicProfile extends StatelessWidget {
                         top: 50,
                         left: 10,
                         right: 10,
-                        bottom: 10,
+                        bottom: 30,
                       ),
                       child: Column(
                         children: [
@@ -106,7 +106,7 @@ class PublicProfile extends StatelessWidget {
                         backgroundColor: Colors.white,
                         radius: 50,
                         backgroundImage: AssetImage(
-                          Assets.assetsImagesCat,
+                          Assets.femalepic1,
                         ),
                       ),
                     ),
@@ -123,7 +123,7 @@ class PublicProfile extends StatelessWidget {
                   like: ' 8',
                   eye: '23',
                 ),
-                const Gap(16),
+                const Gap(20),
                 const Customposts(
                   name: 'Rahma Ahmed',
                   date: '16 Feb at 19:56',
@@ -134,7 +134,7 @@ class PublicProfile extends StatelessWidget {
                   like: '8',
                   eye: '23',
                 ),
-                const Gap(16),
+                const Gap(20),
                 const Customposts(
                   name: 'Rahma Ahmed',
                   date: '16 Feb at 19:56',

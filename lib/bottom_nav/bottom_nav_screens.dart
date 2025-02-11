@@ -1,7 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:medify/HeartAnaysis/ui/views/diseases_analysis.dart';
 import 'package:medify/chat/ui/views/all_chats.dart';
 import 'package:medify/core/utils/widgets/bottom_navigation_content.dart';
+import 'package:medify/doctors/ui/views/doc_view.dart';
 import 'package:medify/helpers/tapProvider.dart';
+import 'package:medify/notification/ui/views/notification_page.dart';
 import 'package:medify/social/ui/views/social_view.dart';
 import 'package:provider/provider.dart';
 
@@ -15,26 +20,26 @@ class BottomNavscreens extends StatelessWidget {
     return IndexedStack(
       index: currentindex,
       children: const [
-        wid(message: 'Home'),
+        HeartAnalysisPage(),
         SocialScreen(),
-        wid(message: 'Doctors'),
+        DocsView(),
         AllChats(),
-        wid(message: 'HealthCare'),
+        NotificationView(),
       ],
     );
   }
 }
 
-class wid extends StatelessWidget {
-  const wid({super.key, required this.message});
-  final String message;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(message),
-      ),
-      bottomNavigationBar: bottomnavigationContent(),
-    );
-  }
-}
+// class wid extends StatelessWidget {
+//   const wid({super.key, required this.message});
+//   final String message;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: Text(message),
+//       ),
+//       bottomNavigationBar: bottomnavigationContent(),
+//     );
+//   }
+// }

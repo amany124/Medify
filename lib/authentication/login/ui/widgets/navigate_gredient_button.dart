@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
   final void Function()? onpressed;
-  const GradientButton({super.key, this.onpressed});
+  const GradientButton({super.key, this.onpressed,required this.label});
+  final String label;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,11 +30,11 @@ class GradientButton extends StatelessWidget {
           ),
         ),
         onPressed: onpressed,
-        child: const Row(
+        child:  Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Next',
+              label,
               style: TextStyle(
                 fontSize: 16.0,
                 fontFamily: 'Inter', // Optional: Add font family if needed

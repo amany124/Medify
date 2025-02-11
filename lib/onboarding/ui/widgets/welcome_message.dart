@@ -1,6 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/core/routing/app_router.dart';
+import 'package:medify/core/routing/extensions.dart';
+import 'package:medify/core/routing/routes.dart';
 
 import '../../../core/utils/app_styles.dart';
 
@@ -26,7 +29,7 @@ class WelcomeMessageWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: .25),
+            color: Colors.black.withOpacity(0.25),
             offset: const Offset(0, 2.45),
             blurRadius: 2.45,
           ),
@@ -64,7 +67,7 @@ class WelcomeMessageWidget extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              // Add action
+              context.pushNamed(Routes.startScreen);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,

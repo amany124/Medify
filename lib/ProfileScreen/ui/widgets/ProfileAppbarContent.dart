@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medify/core/utils/app_images.dart';
 
 class ProfileAppbarContent extends StatelessWidget {
   const ProfileAppbarContent({
@@ -7,16 +8,16 @@ class ProfileAppbarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-         SizedBox(height: 60),
-         CircleAvatar(
+        SizedBox(height: 60),
+        CircleAvatar(
           radius: 50,
-          backgroundImage: AssetImage('assets/images/female pic1.jpg'),
+          backgroundImage: AssetImage(Assets.femalepic2),
         ),
-         SizedBox(height: 10),
-         Text(
+        SizedBox(height: 10),
+        Text(
           "James Martin",
           style: TextStyle(
             fontSize: 22,
@@ -24,8 +25,8 @@ class ProfileAppbarContent extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-         SizedBox(height: 5),
-         Text(
+        SizedBox(height: 5),
+        Text(
           "Senior Graphic Designer",
           style: TextStyle(
             fontSize: 16,

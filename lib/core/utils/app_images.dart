@@ -46,9 +46,11 @@ class Assets {
   /// assets/images/calender.svg
   static const String assetsImagesCalender = "assets/images/calender.svg";
 
-  /// Assets for assetsImagesCat
-  /// assets/images/cat.png
-  static const String assetsImagesCat = "assets/images/cat.png";
+  /// Assets for assetsimagesfemale
+  /// assets/images/femalepic1.jpg
+  static const String femalepic1 = "assets/images/cute_doc.png";
+  static const String femalepic2 = "assets/images/22.png";
+
 
   /// Assets for assetsImagesChat
   /// assets/images/chat.svg

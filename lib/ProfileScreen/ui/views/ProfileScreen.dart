@@ -40,6 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              
               pinned: true,
               floating: false,
               snap: false,
@@ -56,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
-                          'assets/images/profile background2 png.png',
+                          'assets/images/profilebackground2png.png',
                         ),
                         fit: BoxFit.cover,
                       ),

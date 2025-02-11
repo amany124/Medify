@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:medify/core/utils/widgets/avatar.dart';
 
+import '../../../core/utils/app_images.dart';
+
 class PostHeader extends StatelessWidget {
   final String username;
   final String timestamp;
@@ -16,7 +18,10 @@ class PostHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Avatar.small(),
+        CircleAvatar(
+          radius: 20,
+          backgroundImage: AssetImage(Assets.femalepic1)
+        ),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -20,7 +20,7 @@ class AppointmentsViewBody extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const ProfileImage(
                     radius: 30,
@@ -28,32 +28,31 @@ class AppointmentsViewBody extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    'Hello Rahma !',
-                    style: AppStyles.bold20.copyWith(
-                      // color: AppColors.blueColor,
-                      color: Colors.black,
-                    ),
-                  )
+                  // Text(
+                  //   'Hello Rahma !',
+                  //   style: AppStyles.bold20.copyWith(
+                  //     // color: AppColors.blueColor,
+                  //     color: Colors.black38,
+                  //   ),
+                  // )
                 ],
               ),
             ),
             const SliverToBoxAdapter(
               child: Gap(10),
             ),
-            const SliverToBoxAdapter(
-              child: Gap(20),
-            ),
+            // const SliverToBoxAdapter(
+            //   child: Gap(20),
+            // ),
             SliverToBoxAdapter(
-              child: Center(
-                child: Text(
-                  'My Appointments',
-                  style: AppStyles.bold20.copyWith(
-                    // color: AppColors.blueColor,
-                    color: Colors.black,
-                  ),
+              child: Text(
+                'My Appointments',
+                style: AppStyles.bold20.copyWith(
+                  // color: AppColors.blueColor,
+                  color: Colors.black,
                 ),
-              ),
+              textAlign: TextAlign.center,
+               ),
             ),
             const SliverToBoxAdapter(
               child: Gap(30),
