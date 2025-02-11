@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/HeartAnaysis/ui/views/diseases_analysis.dart';
+import 'package:medify/bottom_nav/bottom_nav_screens.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/core/theme/app_colors.dart';
+import 'package:medify/heart%20diseases/ui/views/heart_diseases.dart';
 import 'package:medify/onboarding/ui/widgets/welcome_message.dart';
 
 import '../widgets/welcome_message_widget.dart';
@@ -154,6 +157,10 @@ class _SuccessScreenState extends State<Congratulations>
                       ElevatedButton(
                         onPressed: () {
                           context.pushNamed(Routes.bottomNavThatHasAllScreens);
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) {
+                          //   return HeartAnalysisPage();
+                          // }));
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.white,

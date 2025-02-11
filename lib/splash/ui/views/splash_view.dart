@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../onboarding/ui/views/onboarding_view.dart';
 import '../widgets/splash_body.dart';
-import 'dart:async';
+import'dart:async';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

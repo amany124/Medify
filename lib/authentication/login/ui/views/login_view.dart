@@ -9,9 +9,10 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: const DecorationImage(
+        image:  DecorationImage(
           image: AssetImage('assets/images/auth_background.png'),
           fit: BoxFit.cover,
+          
         ),
       ),
       child: Scaffold(
