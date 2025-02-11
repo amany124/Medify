@@ -26,7 +26,8 @@ class WelcomeMessageWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: .25),
+            
+             color: Colors.black.withValues(alpha: .25),
             offset: const Offset(0, 2.45),
             blurRadius: 2.45,
           ),
