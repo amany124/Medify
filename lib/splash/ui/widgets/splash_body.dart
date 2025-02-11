@@ -25,7 +25,8 @@ class SplashViewBody extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color(0xff577CEF).withValues(alpha: 0.3),
+              //edited..........
+              // color: Color(0xff577CEF).withValues(alpha: 0.3),
             ),
           ),
           SplashContainerChild(),

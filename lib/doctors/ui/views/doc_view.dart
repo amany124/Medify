@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/core/utils/widgets/bottom_navigation_content.dart';
 //import 'package:graduation_project/features/about%20us/ui/views/aboutus_view.dart';
 import '../../../about us/ui/views/aboutus_view.dart';
 import '../widgets/CustomSearchBar.dart';
@@ -11,8 +12,11 @@ class DocsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: bottomnavigationContent(),
       appBar: const CustomAppBar(
         title: 'Top Rated Doctors',
+        
+        
       ),
       body: SafeArea(
         child: Padding(
@@ -24,8 +28,9 @@ class DocsView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Gap(14),
                     CustomSearchBar(),
-                    Gap(20),
+                    Gap(15),
                   ],
                 ),
               ),

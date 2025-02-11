@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medify/core/utils/app_images.dart';
 
 class Avatar extends StatelessWidget {
   double radius = 22;
@@ -11,21 +12,24 @@ class Avatar extends StatelessWidget {
     this.image,
   });
 
-  Avatar.small({super.key, 
+  Avatar.small({
+    super.key,
     //Key? key,
     // required this.networkurl,
     this.radius = 20,
     this.image,
   });
 
-  Avatar.medium({super.key, 
+  Avatar.medium({
+    super.key,
     //Key? key,
     //  required this.networkurl,
     this.radius = 27,
     this.image,
   });
 
-  Avatar.large({super.key, 
+  Avatar.large({
+    super.key,
     //Key? key,
     // required this.networkurl,
     this.radius = 44,
@@ -36,8 +40,8 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-       backgroundColor: const Color.fromARGB(255, 251, 223, 223),
-      backgroundImage: const AssetImage('assets/images/doc_test2.png'),
+      backgroundColor: const Color.fromARGB(255, 251, 223, 223),
+      backgroundImage: const AssetImage(Assets.femalepic2),
     );
   }
 }
@@ -50,7 +54,7 @@ class AvatarWithOnlineCircle extends StatelessWidget {
     return const CircleAvatar(
         radius: 28,
         backgroundColor: Color.fromARGB(255, 251, 223, 223),
-        backgroundImage: AssetImage('assets/images/doc_test2.png'),
+        backgroundImage: AssetImage(Assets.femalepic2),
         child: Stack(children: [
           Align(
               alignment: Alignment.bottomRight,
@@ -72,8 +76,8 @@ class AvatarWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CircleAvatar(
         radius: 28,
-         backgroundColor: Color.fromARGB(255, 251, 223, 223),
-        backgroundImage: AssetImage('assets/images/doc_test2.png'),
+        backgroundColor: Color.fromARGB(255, 251, 223, 223),
+        backgroundImage: AssetImage(Assets.femalepic1),
         child: Stack(children: [
           Align(
             alignment: Alignment.bottomRight,

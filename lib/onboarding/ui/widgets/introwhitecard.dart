@@ -19,7 +19,8 @@ class IntroWhiteCard extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: .50),
+              
+               color: Colors.black.withOpacity(0.50),
               offset: const Offset(0, 10),
               blurRadius: 20,
             ),

@@ -106,7 +106,7 @@ class DoctorProfile extends StatelessWidget {
                         backgroundColor: Colors.white,
                         radius: 50,
                         backgroundImage: AssetImage(
-                          Assets.assetsImagesCat,
+                          Assets.femalepic1,
                         ),
                       ),
                     ),

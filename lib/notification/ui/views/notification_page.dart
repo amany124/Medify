@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/core/utils/widgets/bottom_navigation_content.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../core/utils/app_images.dart';
@@ -12,22 +13,26 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Notifications',
-          style: AppStyles.bold22.copyWith(
-            color: AppColors.blueColor,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-          color: AppColors.blueColor,
-        ),
-      ),
+      bottomNavigationBar: bottomnavigationContent(),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+        
+      //   elevation: 0,
+      //   title: Text(
+      //     'Notifications',
+      //     style: AppStyles.bold22.copyWith(
+      //       color: AppColors.blueColor,
+      //     ),
+      //   ),
+      //    centerTitle: true,
+      //   // leading: IconButton(
+      //   //   onPressed: () {
+      //   //     Navigator.pop(context);
+      //   //   },
+      //   //   icon: const Icon(Icons.arrow_back_ios),
+      //   //   color: AppColors.blueColor,
+      //   // ),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: ListView(
@@ -55,20 +60,22 @@ class NotificationView extends StatelessWidget {
             ),
             NotificationTile(
               title: 'Scheduled Change',
-              subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              subtitle:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               time: '2H',
               iconPath: Assets.assetsImagesCalendar,
             ),
             NotificationTile(
               title: 'Medical Notes',
-              subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              subtitle:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               time: '3H',
               iconPath: Assets.assetsImagesNote1, //here
             ),
             Gap(15),
             SectionTitle(title: 'Yesterday'),
             Gap(15),
-               NotificationTile(
+            NotificationTile(
               title: 'Scheduled Appointment',
               subtitle:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -76,9 +83,9 @@ class NotificationView extends StatelessWidget {
               iconPath: Assets.assetsImagesCalendar,
             ),
             Gap(15),
-            SectionTitle(title:'15 April'),
+            SectionTitle(title: '15 April'),
             Gap(15),
-               NotificationTile(
+            NotificationTile(
               title: 'Scheduled Appointment',
               subtitle:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',

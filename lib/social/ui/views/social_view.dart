@@ -12,6 +12,7 @@ class SocialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         title: Row(
           children: [
@@ -81,6 +82,7 @@ class SocialScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: bottomnavigationContent(),
+   
     );
   }
 }

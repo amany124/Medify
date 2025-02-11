@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:graduation_project/core/theme/app_colors.dart';
-//import 'package:graduation_project/core/utils/app_styles.dart';
-//import 'package:graduation_project/features/profile/ui/widgets/profile_view_body.dart';
-
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_styles.dart';
 import '../widgets/profile_view_body.dart';
@@ -13,8 +9,9 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const ProfileViewBody(),
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         centerTitle: true,
         title: Text(
           'My Profile',
@@ -33,6 +30,9 @@ class ProfileView extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+      ),
+      body: SingleChildScrollView(
+        child: const ProfileViewBody(),
       ),
     );
   }

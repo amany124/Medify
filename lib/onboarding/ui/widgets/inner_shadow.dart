@@ -27,7 +27,7 @@ class InnerShadow extends StatelessWidget {
               return RadialGradient(
                 center: Alignment.topLeft,
                 radius: 1.0,
-                colors: [color.withValues(alpha: .25), Colors.transparent],
+                colors: [color.withOpacity(0.25), Colors.transparent],
                 stops: [0.0, 1.0],
               ).createShader(bounds);
             },

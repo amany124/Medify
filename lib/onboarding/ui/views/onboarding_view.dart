@@ -41,7 +41,7 @@ class OnboardingView extends StatelessWidget {
                     offsetX: 1,
                     offsetY: -7,
                     blurRadius: 9,
-                    color: Colors.black.withValues(alpha: .25), // Shadow color
+                    color: Colors.black.withOpacity(0.25), // Shadow color
                     child: Transform.scale(
                       scale: 1.1,
                       child: SvgPicture.asset(

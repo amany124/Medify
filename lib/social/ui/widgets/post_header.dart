@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:medify/core/utils/widgets/avatar.dart';
 
+import '../../../core/utils/app_images.dart';
+
 class PostHeader extends StatelessWidget {
   final String username;
   final String timestamp;
@@ -18,7 +20,7 @@ class PostHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 20,
-          backgroundImage: AssetImage('assets/images/female pic1.jpg'),
+          backgroundImage: AssetImage(Assets.femalepic1)
         ),
         const SizedBox(width: 10),
         Column(

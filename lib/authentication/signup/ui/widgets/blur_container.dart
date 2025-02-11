@@ -18,7 +18,7 @@ class BlurContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      height: 300,
+      height: 330,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: const BoxDecoration(),
       child: const Column(

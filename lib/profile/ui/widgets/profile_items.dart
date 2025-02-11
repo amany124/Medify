@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/core/routing/extensions.dart';
+import 'package:medify/core/routing/routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../about us/ui/views/aboutus_view.dart';
@@ -18,30 +20,20 @@ class ProfileItems extends StatelessWidget {
   const ProfileItems({
     super.key,
   });
-  static List<ProfileItem> getitems(context) => [
-        const ProfileItem(
+  static List<ProfileItem> getitems(BuildContext context) => [
+        ProfileItem(
           text: 'Profile',
           iconPath: Assets.assetsImagesPerson,
-          // onTap: () {
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => const MyprofileView(),
-          //     ),
-          //   );
-          // },
+          onTap: () {
+            context.pushNamed(Routes.privateProfile);
+          },
         ),
         // favorite doc
         ProfileItem(
           text: 'Favorite Doctors',
           iconPath: Assets.assetsImagesFavoriteDoctors,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Favoritedoctors(),
-              ),
-            );
+           context.pushNamed(Routes.favoritedoctors);
           },
         ),
         // Your Appointments
@@ -49,12 +41,7 @@ class ProfileItems extends StatelessWidget {
           text: 'Your Appointments',
           iconPath: Assets.assetsImagesAppointment,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AppointmentsView(),
-              ),
-            );
+            context.pushNamed(Routes.myAppointments);
           },
         ),
         // history
@@ -67,12 +54,7 @@ class ProfileItems extends StatelessWidget {
           text: 'Settings',
           iconPath: Assets.assetsImagesSetting,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SettingsView(),
-              ),
-            );
+           context.pushNamed(Routes.settingsScreen);
           },
         ),
         // heart diseases
@@ -80,12 +62,7 @@ class ProfileItems extends StatelessWidget {
             text: 'heart diseases',
             iconPath: Assets.assetsImagesAnatomicalHeart,
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HeartDiseases(),
-                ),
-              );
+             context.pushNamed(Routes.heartDiseases);
             }),
 
         // about us
@@ -93,12 +70,7 @@ class ProfileItems extends StatelessWidget {
           text: 'about us',
           iconPath: Assets.assetsImagesInformation,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AboutusView(),
-              ),
-            );
+            context.pushNamed(Routes.aboutUs);
           },
         ),
         //feedback
@@ -106,12 +78,7 @@ class ProfileItems extends StatelessWidget {
           text: ' feedback',
           iconPath: Assets.assetsImagesFeedback,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const FeedbackView(),
-              ),
-            );
+           context.pushNamed(Routes.feedbackScreen);
           },
         ),
         // visit website

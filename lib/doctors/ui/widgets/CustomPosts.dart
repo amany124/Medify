@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
- import 'package:gradient_borders/gradient_borders.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../core/utils/app_styles.dart';
 
@@ -39,7 +39,7 @@ class Customposts extends StatelessWidget {
               const Color(0xff1877F2),
               const Color(0xff1877F2).withOpacity(0.8),
             ],
-           ),
+          ),
           width: 2,
         ),
       ),
@@ -48,7 +48,7 @@ class Customposts extends StatelessWidget {
         children: [
           ListTile(
             leading: const CircleAvatar(
-              backgroundImage: AssetImage(Assets.assetsImagesCat),
+              backgroundImage: AssetImage(Assets.femalepic1),
             ),
             title: Text(
               name,
@@ -83,7 +83,7 @@ class Customposts extends StatelessWidget {
                     const Icon(Icons.remove_red_eye, size: 18),
                     const Gap(4),
                     Text(
-                     eye ,
+                      eye,
                       style: AppStyles.regular12.copyWith(
                         color: Colors.black,
                       ),
