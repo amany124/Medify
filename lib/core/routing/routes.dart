@@ -25,4 +25,6 @@ class Routes {
   static const String feedbackScreen = '/FeedbackView';
   static const String favoritedoctors = '/favoritedoctors';
   static const String aboutUs = '/AboutusView';
+  //CongratulationsView
+  static const String congradulations = '/congradulations';
 }
