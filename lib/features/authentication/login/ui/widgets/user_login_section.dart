@@ -158,6 +158,7 @@ class _UserLoginSectionState extends State<UserLoginSection> {
                       return;
                     }
                     context.read<LoginCubit>().login(
+<<<<<<< HEAD
                           loginUserModel: LoginUserModel(
                             email: _email!,
                             password: _password!,
@@ -165,6 +166,13 @@ class _UserLoginSectionState extends State<UserLoginSection> {
                           ),
                         );
                         
+=======
+                            loginUserModel: LoginUserModel(
+                          email: _email!,
+                          password: _password!,
+                          role: _selectedRole!,
+                        ))
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
                   }
                 },
               );

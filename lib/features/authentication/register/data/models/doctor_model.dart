@@ -3,7 +3,11 @@ class DoctorModel {
   String email;
   String username;
   String password;
+<<<<<<< HEAD
   String? role;
+=======
+  String role;
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
   String gender;
   String nationality;
   String clinicName;
@@ -16,7 +20,11 @@ class DoctorModel {
     required this.email,
     required this.username,
     required this.password,
+<<<<<<< HEAD
      this.role,
+=======
+    required this.role,
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
     required this.gender,
     required this.nationality,
     required this.clinicName,
@@ -31,7 +39,11 @@ class DoctorModel {
       email: map['email'],
       username: map['username'],
       password: map['password'],
+<<<<<<< HEAD
       role: map['role'] ?? '',
+=======
+      role: map['role'],
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
       gender: map['gender'],
       nationality: map['nationality'],
       clinicName: map['clinicName'],

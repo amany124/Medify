@@ -43,12 +43,17 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:medify/core/routing/app_router.dart';
 import 'package:provider/provider.dart';
+<<<<<<< HEAD
 import 'core/helpers/cache_manager.dart';
 import 'core/helpers/tapProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // ✅ إصلاح مشكلة التهيئة
   await CacheManager.init(); // تأكد من التهيئة الصحيحة
+=======
+
+import 'core/helpers/tapProvider.dart';
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
 
   runApp(
     MultiProvider(
@@ -68,7 +73,13 @@ class GradeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return MaterialApp(
+=======
+    // note that : we are working on iphone 12 pro max
+    // do not delete this comment
+    return const MaterialApp(
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
       debugShowCheckedModeBanner: false,
       builder: DevicePreview.appBuilder, // ✅ حل مشكلة context
       onGenerateRoute: AppRouter.generateRoute,

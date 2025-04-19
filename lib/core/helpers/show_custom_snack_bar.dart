@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:medify/core/theme/app_colors.dart';
+=======
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
 import 'package:medify/core/widgets/app_logo.dart';
 
 void showCustomSnackBar(text, BuildContext context, {bool isError = false}) {
@@ -14,7 +17,11 @@ void showCustomSnackBar(text, BuildContext context, {bool isError = false}) {
           decoration: BoxDecoration(
             color: isError
                 ? Colors.red.shade700
+<<<<<<< HEAD
                 : AppColors.secondaryColor.withValues(alpha: 0.8), // SnackBar background color
+=======
+                : Colors.green.shade600, // SnackBar background color
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(

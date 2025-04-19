@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
+<<<<<<< HEAD
 import 'package:medify/features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
+=======
+import 'package:medify/features/ProfileScreen/ui/views/ProfileScreen.dart';
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
 import 'package:medify/features/about%20us/ui/views/aboutus_view.dart';
 import 'package:medify/features/authentication/login/ui/cubits/cubit/login_cubit.dart';
 import 'package:medify/features/authentication/login/ui/views/login_view.dart';
@@ -32,7 +36,10 @@ import 'package:medify/features/settings/ui/views/password_manager.dart';
 import 'package:medify/features/settings/ui/views/settings.dart';
 import 'package:medify/features/social/ui/views/social_view.dart';
 
+<<<<<<< HEAD
 import '../../features/ProfileScreen/data/repos/profile_repo.dart';
+=======
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
 import '../../features/authentication/login/data/repos/login_repo.dart';
 import '../../features/authentication/register/ui/views/register_as_patient.dart';
 import '../services/api_service.dart';
@@ -86,6 +93,7 @@ class AppRouter {
                   child: const LoginScreen(),
                 ));
       case Routes.privateProfile:
+<<<<<<< HEAD
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) => GetProfileCubit(
@@ -99,10 +107,14 @@ class AppRouter {
                     ..getDoctorProfile(),
                   child: const PrivateProfileScreen(),
                 ));
+=======
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
 
       case Routes.bottomNavThatHasAllScreens:
         return MaterialPageRoute(builder: (_) => const BottomNavscreens());
       case Routes.sidebar:
+<<<<<<< HEAD
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) => GetProfileCubit(
@@ -116,6 +128,9 @@ class AppRouter {
                     ..getDoctorProfile(),
                   child: const ProfileView(),
                 ));
+=======
+        return MaterialPageRoute(builder: (_) => const ProfileView());
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
       case Routes.mainScreen:
         return MaterialPageRoute(builder: (_) => const HeartAnalysisPage());
       case Routes.socialScreen:

@@ -1,11 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:medify/core/failures/failure.dart';
+<<<<<<< HEAD
 import 'package:medify/core/utils/keys.dart';
 import 'package:medify/features/authentication/login/data/models/login_user_model.dart';
 import 'package:medify/features/authentication/register/data/models/response_user_model.dart';
 import '../../../../../core/constant/endpoints.dart';
 import '../../../../../core/helpers/cache_manager.dart';
+=======
+import 'package:medify/features/authentication/login/data/models/login_user_model.dart';
+import 'package:medify/features/authentication/register/data/models/response_user_model.dart';
+
+import '../../../../../core/constant/endpoints.dart';
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
 import '../../../../../core/services/api_service.dart';
 
 abstract class LoginRepo {
@@ -27,8 +34,11 @@ class LoginRepoImpl implements LoginRepo {
       );
       final String token = response.data['token'];
       //TODO: save token in shared preferences
+<<<<<<< HEAD
       print(token);
       await CacheManager.setData(key: Keys.token, value: token);
+=======
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
       return Right(ResponseUserModel.fromJson(response.data['user']));
     } on DioException catch (e) {
       print(e.response!.data);
