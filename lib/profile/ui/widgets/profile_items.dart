@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/authentication/signup/ui/widgets/signup_buttons.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -33,7 +34,7 @@ class ProfileItems extends StatelessWidget {
           text: 'Favorite Doctors',
           iconPath: Assets.assetsImagesFavoriteDoctors,
           onTap: () {
-           context.pushNamed(Routes.favoritedoctors);
+            context.pushNamed(Routes.favoritedoctors);
           },
         ),
         // Your Appointments
@@ -41,20 +42,25 @@ class ProfileItems extends StatelessWidget {
           text: 'Your Appointments',
           iconPath: Assets.assetsImagesAppointment,
           onTap: () {
-            context.pushNamed(Routes.myAppointments);
+            isdoctor
+                ? context.pushNamed(Routes.showdocappointments)
+                : context.pushNamed(Routes.myAppointments);
           },
         ),
         // history
-        const ProfileItem(
+        ProfileItem(
           text: 'History',
           iconPath: Assets.assetsImagesHistory,
+          onTap: () {
+            context.pushNamed(Routes.notificationScreen);
+          },
         ),
         // settings
         ProfileItem(
           text: 'Settings',
           iconPath: Assets.assetsImagesSetting,
           onTap: () {
-           context.pushNamed(Routes.settingsScreen);
+            context.pushNamed(Routes.settingsScreen);
           },
         ),
         // heart diseases
@@ -62,7 +68,7 @@ class ProfileItems extends StatelessWidget {
             text: 'heart diseases',
             iconPath: Assets.assetsImagesAnatomicalHeart,
             onTap: () {
-             context.pushNamed(Routes.heartDiseases);
+              context.pushNamed(Routes.heartDiseases);
             }),
 
         // about us
@@ -78,7 +84,7 @@ class ProfileItems extends StatelessWidget {
           text: ' feedback',
           iconPath: Assets.assetsImagesFeedback,
           onTap: () {
-           context.pushNamed(Routes.feedbackScreen);
+            context.pushNamed(Routes.feedbackScreen);
           },
         ),
         // visit website

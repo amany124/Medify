@@ -5,7 +5,9 @@ import 'package:medify/HeartAnaysis/ui/views/diseases_analysis.dart';
 import 'package:medify/ProfileScreen/ui/views/ProfileScreen.dart';
 import 'package:medify/about%20us/ui/views/aboutus_view.dart';
 import 'package:medify/authentication/login/ui/views/login_view.dart';
+import 'package:medify/authentication/signup/ui/views/doctor_appointment.dart';
 import 'package:medify/authentication/signup/ui/views/intial_sign_up_view.dart';
+import 'package:medify/authentication/signup/ui/views/patient_appointment.dart';
 import 'package:medify/authentication/signup/ui/views/register_as_doctor.dart';
 import 'package:medify/authentication/signup/ui/views/register_as_patient.dart';
 import 'package:medify/authentication/signup/ui/widgets/intial_sign_up_view_body.dart';
@@ -46,6 +48,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => RegisterAsDoctor());
       case Routes.signUpAsPatient:
         return MaterialPageRoute(builder: (_) => RegisterAsPatient());
+      case Routes.showdocappointments:
+        return MaterialPageRoute(builder: (_) => DoctorAppointment());
+      case Routes.showpaintappointments:
+        return MaterialPageRoute(builder: (_) => PatientAppointment());
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case Routes.privateProfile:

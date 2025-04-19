@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
+import 'package:medify/core/utils/app_images.dart';
 import 'package:medify/core/utils/widgets/app_logo.dart';
 import 'package:medify/core/utils/widgets/app_name.dart';
 import 'package:medify/core/utils/widgets/avatar.dart';
@@ -22,7 +23,7 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F8FE),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Row(
           children: [
@@ -36,13 +37,14 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
           ],
         ),
         leading: IconButton(
-            onPressed: () {
-              context.pushNamed(Routes.sidebar);
-            },
-            icon: Icon(
-              Icons.menu,
-              color: Colors.black,
-            )),
+          onPressed: () {
+            context.pushNamed(Routes.sidebar);
+          },
+          icon: Icon(
+            Icons.menu,
+            color: Colors.black,
+          ),
+        ),
         actions: [
           Avatar.small(),
           const Gap(10),
@@ -55,27 +57,42 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
         child: showResults
             ? _ResultsContainer() // Displays the analysis results.
             : Image.asset(
-                'assets/images/gif.gif',
-                width: 150,
-                height: 150,
+                Assets.heartanalysis,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
               ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              builder: (context) => _ImagePickerWidget(
+                onImageSelected: () {
+                  setState(() {
+                    showResults = true;
+                  });
+                },
+              ),
+            ),
+            backgroundColor: const Color(0xFF1E88E5),
+            child: const Icon(Icons.add, size: 30),
           ),
-          builder: (context) => _ImagePickerWidget(
-            onImageSelected: () {
-              setState(() {
-                showResults = true;
-              });
-            },
+          const SizedBox(height: 8),
+          const Text(
+            "Upload file for analysis",
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF1E88E5),
+            ),
           ),
-        ),
-        backgroundColor: const Color(0xFF1E88E5),
-        child: const Icon(Icons.add, size: 30),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: bottomnavigationContent(),

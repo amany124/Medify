@@ -7,7 +7,7 @@ import '../../../../core/utils/app_images.dart';
 import 'custom_sign_up_button.dart';
 //import 'package:graduation_project/features/authentication/signup/ui/widgets/custom_sign_up_button.dart';
 //import 'package:graduation_project/core/utils/app_images.dart';
-
+  bool isdoctor =true ;
 class SignupButtons extends StatelessWidget {
   const SignupButtons({
     super.key,
@@ -22,6 +22,7 @@ class SignupButtons extends StatelessWidget {
           type: 'Doctor',
           onTap: () {
             context.pushNamed(Routes.signUpAsDoctor);
+            isdoctor = true;
           },
         ),
         const Gap(15),
@@ -30,6 +31,7 @@ class SignupButtons extends StatelessWidget {
           type: 'Patient',
           onTap: () {
             context.pushNamed(Routes.signUpAsPatient);
+            isdoctor = false;
           },
         ),
       ],

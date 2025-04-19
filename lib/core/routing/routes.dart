@@ -15,6 +15,8 @@ class Routes {
   static const String doctorPublicProfile = '/doctorPublicProfile';
   static const String myAppointments = '/AppointmentsView';
   static const String doctorAppointments = '/MyAppointmentsPage';
+  static const String showdocappointments = '/DoctorAppointment';
+  static const String showpaintappointments = '/PatientAppointment';
   static const String appointDate = '/AppointmentPage';
   static const String notificationScreen = '/NotificationView';
   static const String allChats = '/AllChats';

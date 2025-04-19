@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../../../../core/utils/app_images.dart';
@@ -28,7 +29,7 @@ class DoctorCard extends StatelessWidget {
       elevation: 5,
       //  shape: ,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(9.0),
         child: Row(
           children: [
             Image.asset(

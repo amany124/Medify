@@ -35,7 +35,7 @@ class SettingsView extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
+        padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 80),
         child: Column(
           children: [
             ProfileItem(

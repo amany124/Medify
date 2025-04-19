@@ -39,6 +39,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => tapProvider()),
       ],
+      // child: gradeApp(),
       child: DevicePreview(
         enabled: true,
         builder: (context) => ChangeNotifierProvider(
