@@ -78,7 +78,7 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
         child: const Icon(Icons.add, size: 30),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: BottomnavigationContent(),
+      bottomNavigationBar: const BottomnavigationContent(),
     );
   }
 }

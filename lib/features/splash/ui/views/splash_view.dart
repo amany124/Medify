@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:medify/core/helpers/cache_manager.dart';
 
 import '../../../onboarding/ui/views/onboarding_view.dart';
 import '../widgets/splash_body.dart';

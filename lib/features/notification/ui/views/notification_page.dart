@@ -12,7 +12,7 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomnavigationContent(),
+      bottomNavigationBar: const BottomnavigationContent(),
       // appBar: AppBar(
       //   backgroundColor: Colors.white,
 

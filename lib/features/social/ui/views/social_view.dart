@@ -76,7 +76,7 @@ class SocialScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomnavigationContent(),
+      bottomNavigationBar: const BottomnavigationContent(),
     );
   }
 }

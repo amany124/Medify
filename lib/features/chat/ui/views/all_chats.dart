@@ -43,7 +43,7 @@ class AllChats extends StatelessWidget {
           Expanded(child: ChatsList()),
         ],
       ),
-      bottomNavigationBar: BottomnavigationContent(),
+      bottomNavigationBar: const BottomnavigationContent(),
     );
   }
 }
