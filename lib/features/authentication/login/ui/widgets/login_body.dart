@@ -17,16 +17,15 @@ class LoginBody extends StatelessWidget {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          showCustomSnackBar(
-              'Welcome ${state.responseUserModel.name}', context);
-          print(state.responseUserModel.name);
+          showCustomSnackBar('Welcome ${state.userModel.name}', context);
+          print(state.userModel.name);
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CongratulationsView(
-                userName: state.responseUserModel.name,
+                userName: state.userModel.name,
                 isSignUp: false,
-                isdoctor: state.responseUserModel.role == 'doctor',
+                isdoctor: state.userModel.role == 'doctor',
               ),
             ),
           );

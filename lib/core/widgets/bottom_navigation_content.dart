@@ -1,7 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/core/helpers/tapProvider.dart';
+import 'package:medify/features/authentication/register/data/models/auth_response_model.dart';
+import 'package:medify/features/authentication/register/data/models/user_model.dart';
+import 'package:medify/features/social/ui/cubits/get_posts_cubit/get_posts_cubit.dart';
 import 'package:provider/provider.dart';
+
+import '../../features/authentication/register/data/models/user_model.dart';
+import '../../features/social/data/models/get_posts_request_model.dart';
 
 class BottomnavigationContent extends StatelessWidget {
   const BottomnavigationContent({super.key});
@@ -14,7 +21,9 @@ class BottomnavigationContent extends StatelessWidget {
       currentIndex: context.watch<tapProvider>().currentindex,
       onTap: (index) {
         context.read<tapProvider>().updatecurrentindex(index);
+        //  the code for getting posts for the selected index
       },
+
       selectedItemColor: primarycolor,
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,

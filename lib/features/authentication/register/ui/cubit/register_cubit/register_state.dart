@@ -7,7 +7,7 @@ final class RegisterInitial extends RegisterState {}
 final class RegisterLoading extends RegisterState {}
 
 final class RegisterSuccess extends RegisterState {
-  final ResponseUserModel registerUserModel;
+  final UserModel registerUserModel;
 
   RegisterSuccess(this.registerUserModel);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
 
@@ -134,13 +135,8 @@ class ProfileItems extends StatelessWidget {
                             backgroundColor: const Color(0xff2260FF),
                             buttonWidth: 124,
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const StartView(),
-                                ),
-                              );
-                              // Navigator.pop(context);
+                              LocalData.setIsLogin(false);
+                              context.pushReplacementNamed(Routes.startScreen);
                             },
                           ),
                         ],

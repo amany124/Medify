@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
 import 'package:medify/features/ProfileScreen/ui/views/ProfileScreen.dart';
@@ -29,10 +31,15 @@ import 'package:medify/features/profile/ui/views/profile_view.dart';
 import 'package:medify/features/profile/ui/views/public_profile.dart';
 import 'package:medify/features/settings/ui/views/password_manager.dart';
 import 'package:medify/features/settings/ui/views/settings.dart';
+import 'package:medify/features/social/ui/cubits/create_post_cubit/create_post_cubit.dart';
+import 'package:medify/features/social/ui/cubits/get_posts_cubit/get_posts_cubit.dart';
+import 'package:medify/features/social/ui/views/socail_page.dart';
 import 'package:medify/features/social/ui/views/social_view.dart';
+import 'package:medify/features/social/ui/widgets/create_post_Page.dart';
 
 import '../../features/authentication/login/data/repos/login_repo.dart';
 import '../../features/authentication/register/ui/views/register_as_patient.dart';
+import '../../features/social/data/repos/social_repo.dart';
 import '../services/api_service.dart';
 
 class AppRouter {
@@ -40,8 +47,14 @@ class AppRouter {
     // this argument to be passed to any screen like this (arguments as class name)
     // final arguments = settings.arguments;
     switch (settings.name) {
-      case Routes.onboardingScreen:
-        return MaterialPageRoute(builder: (_) => const OnboardingView());
+      case Routes.intialScreen:
+        return MaterialPageRoute(builder: (_) {
+          if (LocalData.getIsLogin()) {
+            return const BottomNavscreens();
+          } else {
+            return const OnboardingView();
+          }
+        });
       case Routes.startScreen:
         return MaterialPageRoute(builder: (_) => const StartView());
       case Routes.IntialSignUpView:
@@ -93,7 +106,27 @@ class AppRouter {
       case Routes.mainScreen:
         return MaterialPageRoute(builder: (_) => const HeartAnalysisPage());
       case Routes.socialScreen:
-        return MaterialPageRoute(builder: (_) => const SocialScreen());
+        return MaterialPageRoute(
+          builder: (_) => SocailPage(),
+        );
+      case Routes.createPostpage:
+        return MaterialPageRoute(
+          builder: (_) {
+            final isEditing =
+                (settings.arguments as Map<String, dynamic>)['isEditing'] ?? false;
+                 final content =
+                (settings.arguments as Map<String, dynamic>)['contentText'] ;
+                 final postId =
+                (settings.arguments as Map<String, dynamic>)['postId'] ;
+
+            return CreatePostPage(
+              isEditing: isEditing,
+              contentText: content,
+              postId: postId,
+            );
+          },
+        );
+
       case Routes.mainDoctorsScreen:
         return MaterialPageRoute(builder: (_) => const DocsView());
 

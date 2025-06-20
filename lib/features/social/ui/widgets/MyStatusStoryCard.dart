@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:medify/core/widgets/avatar.dart';
 
-import '../../models/story_model.dart';
+import '../../data/models/story_model.dart';
 
 class MyStatusStoryCard extends StatelessWidget {
   MyStatusStoryCard({

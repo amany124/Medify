@@ -3,22 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:medify/core/routing/app_router.dart';
 import 'package:provider/provider.dart';
 
+import 'core/di/di.dart';
+import 'core/helpers/local_data.dart';
 import 'core/helpers/tapProvider.dart';
 
-void main() {
+void main() async {
+  setup();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Future.wait([
+    LocalData.init(),
+  ]);
+
   runApp(
     // this multi privider for bottom nav bar to work
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => tapProvider()),
       ],
-      child: DevicePreview(
-        enabled: true,
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => tapProvider(),
-          child: const gradeApp(),
-        ),
-      ),
+      child: Builder(builder: (context) {
+        return DevicePreview(
+          enabled: true,
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => tapProvider(),
+            child: const gradeApp(),
+          ),
+        );
+      }),
     ),
   );
 }

@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
+
+import 'package:medify/core/helpers/tapProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:medify/features/chat/ui/views/all_chats.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
-import 'package:medify/core/helpers/tapProvider.dart';
 import 'package:medify/features/notification/ui/views/notification_page.dart';
-import 'package:medify/features/social/ui/views/social_view.dart';
-import 'package:provider/provider.dart';
+import 'package:medify/features/social/ui/views/socail_page.dart';
+
+import '../HeartAnaysis/ui/views/diseases_analysis.dart';
 
 class BottomNavscreens extends StatelessWidget {
   const BottomNavscreens({super.key});
 
+  static const pages = [
+    HeartAnalysisPage(),
+    SocailPage(),
+    DocsView(),
+    AllChats(),
+    NotificationView(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     int currentindex = context.watch<tapProvider>().currentindex;
-    // the widget returns page based on current index from tap provider
     return IndexedStack(
       index: currentindex,
-      children: const [
-        HeartAnalysisPage(),
-        SocialScreen(),
-        DocsView(),
-        AllChats(),
-        NotificationView(),
-      ],
+      children: pages,
     );
   }
 }

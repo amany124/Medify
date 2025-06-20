@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "C:/graduation project/medify/linux/flutter"
+    "cmake.sourceDirectory": "C:/graduation project/medify/linux/flutter",
+    "C_Cpp.errorSquiggles": "enabled"
 }
