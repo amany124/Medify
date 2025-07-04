@@ -7,8 +7,10 @@ class Endpoints {
   static String getPosts(String doctorId) =>
       '$baseUrl/api/doctors/public-profile/$doctorId';
   static String deletePost(String postId) =>
-      '$baseUrl/api/doctors/posts/$postId'; 
+      '$baseUrl/api/doctors/posts/$postId';
   static String updatePost(String postId) =>
       '$baseUrl/api/doctors/posts/$postId';
-
+  static const String sendMessage = '$baseUrl/api/messages';
+  static const String getConversation = '$baseUrl/api/messages/conversations';
+  static String getMessages(String userId) => '$baseUrl/api/messages/$userId';
 }

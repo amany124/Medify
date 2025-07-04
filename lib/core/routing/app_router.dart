@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medify/core/di/di.dart';
 import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
@@ -16,6 +18,7 @@ import 'package:medify/features/authentication/register/ui/views/register_as_doc
 import 'package:medify/features/booking/ui/views/booking.dart';
 import 'package:medify/features/bottom_nav/bottom_nav_screens.dart';
 import 'package:medify/features/chat/models/messageModel.dart';
+import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
 import 'package:medify/features/chat/ui/views/all_chats.dart';
 import 'package:medify/features/chat/ui/views/messages_page.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
@@ -39,6 +42,7 @@ import 'package:medify/features/social/ui/widgets/create_post_Page.dart';
 
 import '../../features/authentication/login/data/repos/login_repo.dart';
 import '../../features/authentication/register/ui/views/register_as_patient.dart';
+import '../../features/chat/models/get_conversation_request_model.dart';
 import '../../features/social/data/repos/social_repo.dart';
 import '../services/api_service.dart';
 
@@ -113,11 +117,12 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) {
             final isEditing =
-                (settings.arguments as Map<String, dynamic>)['isEditing'] ?? false;
-                 final content =
-                (settings.arguments as Map<String, dynamic>)['contentText'] ;
-                 final postId =
-                (settings.arguments as Map<String, dynamic>)['postId'] ;
+                (settings.arguments as Map<String, dynamic>)['isEditing'] ??
+                    false;
+            final content =
+                (settings.arguments as Map<String, dynamic>)['contentText'];
+            final postId =
+                (settings.arguments as Map<String, dynamic>)['postId'];
 
             return CreatePostPage(
               isEditing: isEditing,
@@ -142,15 +147,41 @@ class AppRouter {
       case Routes.notificationScreen:
         return MaterialPageRoute(builder: (_) => const NotificationView());
       case Routes.allChats:
-        return MaterialPageRoute(builder: (_) => const AllChats());
-      case Routes.messagesPage:
+        // prrovide chat cubit with get it
+
         return MaterialPageRoute(
-            builder: (_) => MessagesPage(
-                messageData: messageModel(
-                    senderName: 'Amany',
-                    messageContent: 'hi',
-                    messageDate: DateTime(2023, 5, 1),
-                    dateMessage: '14/5/2025')));
+            builder: (_) => BlocProvider(
+                  create: (context) => getIt<ChatCubit>()
+                    ..getConversation(
+                      requestModel: GetConversationRequestModel(
+                        token: LocalData.getAuthResponseModel()!.token,
+                      ),
+                    ),
+                  child: const AllChats(),
+                ));
+
+      // case Routes.messagesPage:
+      //   return MaterialPageRoute(
+      //     builder: (_) => BlocProvider(
+      //       create: (context) => getIt<ChatCubit>(),
+      //       child: MessagesPage(
+      //         messageData: MessageModel(
+      //           senderName: 'Amany',
+      //           messageContent: 'hi',
+      //           messageDate: DateTime(2023, 5, 1),
+      //           dateMessage: '14/5/2025',
+      //         ),
+      //       ),
+      //     ),
+      //   );
+      // case Routes.messagesPage:
+      //   return MaterialPageRoute(
+      //       builder: (_) => MessagesPage(
+      //           messageData: messageModel(
+      //               senderName: 'Amany',
+      //               messageContent: 'hi',
+      //               messageDate: DateTime(2023, 5, 1),
+      //               dateMessage: '14/5/2025')));
 
       case Routes.settingsScreen:
         return MaterialPageRoute(builder: (_) => const SettingsView());

@@ -15,12 +15,14 @@ final class CreatePostCubitError extends SocialState {
 }
 
 final class DeletePostLoading extends SocialState {}
+
 final class DeletePostSuccess extends SocialState {
-   final DeletePostsResponseModel deletePostsResponseModel;
-   DeletePostSuccess(this.deletePostsResponseModel);
+  final DeletePostsResponseModel deletePostsResponseModel;
+  DeletePostSuccess(this.deletePostsResponseModel);
 }
+
 final class DeletePostError extends SocialState {
-   DeletePostError(this.message);
+  DeletePostError(this.message);
   final String message;
 }
 
@@ -39,10 +41,12 @@ final class GetPostsError extends SocialState {
 }
 
 final class UpdatePostLoading extends SocialState {}
+
 final class UpdatePostSuccess extends SocialState {
   final UpdatePostResponseModel updatePostResponseModel;
- UpdatePostSuccess(this.updatePostResponseModel);
+  UpdatePostSuccess(this.updatePostResponseModel);
 }
+
 final class UpdatePostError extends SocialState {
   final String message;
   UpdatePostError(this.message);

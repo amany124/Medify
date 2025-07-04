@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:medify/features/chat/models/send_message_request_model.dart';
 import 'package:medify/features/chat/ui/widgets/customPrefixIcon.dart';
 import 'package:medify/features/chat/ui/widgets/custumCircleButton.dart';
+import 'package:provider/provider.dart';
 
-class ChatTextField extends StatelessWidget {
-  const ChatTextField({super.key});
+import '../../../../core/helpers/local_data.dart';
+import '../../models/get_conversation_response_model.dart';
+import '../chat_cubit/chat_cubit.dart';
+
+class ChatTextField extends StatefulWidget {
+  const ChatTextField({
+    super.key,
+    required this.messageData,
+  });
+
+  final GetConversationResponseModel messageData;
+
+  @override
+  State<ChatTextField> createState() => _ChatTextFieldState();
+}
+
+class _ChatTextFieldState extends State<ChatTextField> {
+  final conentController = TextEditingController();
+
+  @override
+  void dispose() {
+    conentController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +53,10 @@ class ChatTextField extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(left: 5),
                 child: TextField(
+                  controller: conentController,
                   //textAlign: TextAlign.justify,
                   decoration: InputDecoration(
                     prefixIcon: customPrefixIcon(),
@@ -46,7 +71,19 @@ class ChatTextField extends StatelessWidget {
             ),
           ),
         ),
-        custumCircleButton(),
+        custumCircleButton(
+          ontap: () {
+            context.read<ChatCubit>().sendMessage(
+                  requestModel: SendMessageRequestModel(
+                    receiverId:
+                        widget.messageData.lastMessage?.receiverId ?? '',
+                    content: conentController.text,
+                    token: LocalData.getAuthResponseModel()!.token,
+                  ),
+                );
+            conentController.clear();
+          },
+        ),
       ],
     );
   }

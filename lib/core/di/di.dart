@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:medify/features/chat/repo/chat_repo.dart';
+import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
 import 'package:medify/features/social/ui/cubits/delete_post_cubit/delete_post_cubit.dart';
 import 'package:medify/features/social/ui/cubits/update_post_cubit/update_post_cubit.dart';
@@ -24,6 +26,13 @@ setup() {
       ));
 
   getIt.registerLazySingleton<SocialCubit>(() => SocialCubit(
+        getIt(),
+      ));
+  getIt.registerLazySingleton<ChatRepo>(() => ChatRepoImpl(
+        apiServices: getIt(),
+      ));
+
+  getIt.registerLazySingleton<ChatCubit>(() => ChatCubit(
         getIt(),
       ));
 }
