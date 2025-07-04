@@ -37,7 +37,12 @@ class ProfileItems extends StatelessWidget {
           text: 'Your Appointments',
           iconPath: Assets.assetsImagesAppointment,
           onTap: () {
-            context.pushNamed(Routes.myAppointments);
+            String role = CacheManager.getData(key: Keys.role);
+            if (role == 'Doctor') {
+              context.pushNamed(Routes.doctorAppointment);
+            } else {
+              context.pushNamed(Routes.patientAppointments);
+            }
           },
         ),
         // history
@@ -144,6 +149,9 @@ class ProfileItems extends StatelessWidget {
                               );
                               // Clear the user data and navigate to the start view
                               await CacheManager.clearData(key: Keys.token);
+
+                              await CacheManager.clearData(key: Keys.role);
+
                               // Navigator.pop(context);
                             },
                           ),

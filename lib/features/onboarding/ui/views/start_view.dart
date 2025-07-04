@@ -76,6 +76,17 @@ class StartView extends StatelessWidget {
                 },
                 borderColor: AppColors.secondaryColor,
               ),
+              const Gap(15),
+              CustomButton(
+                text: "Continue as guest",
+                backgroundColor: Colors.white,
+                textColor: AppColors.secondaryColor,
+                buttonWidth: 200,
+                onPressed: () {
+                  context.pushNamed(Routes.availability);
+                },
+                borderColor: AppColors.secondaryColor,
+              ),
             ],
           ),
         ),

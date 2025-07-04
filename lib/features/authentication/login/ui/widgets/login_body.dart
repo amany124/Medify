@@ -29,6 +29,11 @@ class LoginBody extends StatelessWidget {
           showCustomSnackBar(
               'Welcome ${state.responseUserModel.name}', context);
           print(state.responseUserModel.name);
+          //cache the user data
+          await CacheManager.setData(
+            key: Keys.role,
+            value: state.responseUserModel.role,
+          );
           Navigator.push(
             context,
             MaterialPageRoute(

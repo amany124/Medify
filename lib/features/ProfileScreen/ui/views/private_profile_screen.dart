@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:medify/core/helpers/cache_manager.dart';
 import 'package:medify/core/utils/app_styles.dart';
 import 'package:medify/features/authentication/register/data/models/doctor_model.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
@@ -21,6 +22,20 @@ class PrivateProfileScreen extends StatefulWidget {
 }
 
 class PrivateProfileScreenState extends State<PrivateProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final role = CacheManager.getData(key: 'role');
+      print('role is $role');
+      if (role == 'Doctor') {
+        context.read<GetProfileCubit>().getDoctorProfile();
+      } else {
+        context.read<GetProfileCubit>().getPatientProfile();
+      }
+    });
+  }
+
   bool isEditing = false;
 
   // Common controllers

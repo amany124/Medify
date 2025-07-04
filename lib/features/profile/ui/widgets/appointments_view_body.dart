@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-//import 'package:graduation_project/features/profile/ui/widgets/doctor_cards.dart';
-//import 'package:graduation_project/features/profile/ui/widgets/profile_image.dart';
+import 'package:medify/core/routing/extensions.dart';
 
 import '../../../../core/utils/app_styles.dart';
 import 'doctor_cards.dart';
@@ -18,41 +17,29 @@ class AppointmentsViewBody extends StatelessWidget {
         child: CustomScrollView(
           clipBehavior: Clip.none,
           slivers: [
-            const SliverToBoxAdapter(
-              child: Column(
+            SliverToBoxAdapter(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ProfileImage(
+                  IconButton(
+                      onPressed: () {
+                        context.pop();
+                      },
+                      icon: const Icon(Icons.arrow_back_ios)),
+                  Text(
+                    'My Appointments',
+                    style: AppStyles.bold20.copyWith(
+                      // color: AppColors.blueColor,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Spacer(),
+                  const ProfileImage(
                     radius: 30,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  // Text(
-                  //   'Hello Rahma !',
-                  //   style: AppStyles.bold20.copyWith(
-                  //     // color: AppColors.blueColor,
-                  //     color: Colors.black38,
-                  //   ),
-                  // )
                 ],
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: Gap(10),
-            ),
-            // const SliverToBoxAdapter(
-            //   child: Gap(20),
-            // ),
-            SliverToBoxAdapter(
-              child: Text(
-                'My Appointments',
-                style: AppStyles.bold20.copyWith(
-                  // color: AppColors.blueColor,
-                  color: Colors.black,
-                ),
-              textAlign: TextAlign.center,
-               ),
             ),
             const SliverToBoxAdapter(
               child: Gap(30),

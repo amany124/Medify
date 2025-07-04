@@ -3,11 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:medify/core/failures/failure.dart';
 import 'package:medify/core/utils/keys.dart';
 import 'package:medify/features/authentication/login/data/models/login_user_model.dart';
-import 'package:medify/features/authentication/register/data/models/response_user_model.dart';
 
 import '../../../../../core/constant/endpoints.dart';
 import '../../../../../core/helpers/cache_manager.dart';
 import '../../../../../core/services/api_service.dart';
+import '../../../register/data/models/response_user_model.dart';
 
 abstract class LoginRepo {
   // Add your repository methods here
@@ -27,8 +27,6 @@ class LoginRepoImpl implements LoginRepo {
         data: loginUserModel.toJson(),
       );
       final String token = response.data['token'];
-      //TODO: save token in shared preferences
-      print(token);
       await CacheManager.setData(key: Keys.token, value: token);
       return Right(ResponseUserModel.fromJson(response.data['user']));
     } on DioException catch (e) {
