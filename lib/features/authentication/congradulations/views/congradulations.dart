@@ -159,7 +159,7 @@ class _SuccessScreenState extends State<CongratulationsView>
                       const Gap(100),
                       ElevatedButton(
                         onPressed: () {
-                          context.pushNamed(Routes.bottomNavThatHasAllScreens);
+                          context.pushReplacementNamed(Routes.bottomNavThatHasAllScreens);
                           // Navigator.push(context,
                           //     MaterialPageRoute(builder: (context) {
                           //   return HeartAnalysisPage();

@@ -53,7 +53,7 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
       ),
       body: Center(
         child: showResults
-            ? _ResultsContainer() // Displays the analysis results.
+            ? _ResultsContainer()
             : Image.asset(
                 'assets/images/gif.gif',
                 width: 150,
@@ -78,7 +78,6 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
         child: const Icon(Icons.add, size: 30),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: const BottomnavigationContent(),
     );
   }
 }

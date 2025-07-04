@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/utils/app_styles.dart';
+import '../../data/models/doctor_model.dart';
 import '../views/DoctorPublicProfile.dart';
 import 'favorite_icon.dart';
 
 class DocCard extends StatelessWidget {
+  final DoctorModel doctor;
+
   const DocCard({
     super.key,
+    required this.doctor,
   });
 
   @override
@@ -19,7 +24,9 @@ class DocCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DoctorProfile(),
+            builder: (context) => DoctorProfile(
+              doctor: doctor,
+            ),
           ),
         );
       },
@@ -32,8 +39,38 @@ class DocCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
             child: Row(
               children: [
-                Image.asset(
-                  Assets.assetsImagesDoc,
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: AppColors.primaryColor.withOpacity(0.3),
+                      width: 2,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: doctor.profileImage.isNotEmpty
+                        ? Image.network(
+                            doctor.profileImage,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: AppColors.iconBackColor,
+                                child: const Icon(
+                                  Icons.person,
+                                  size: 40,
+                                  color: AppColors.primaryColor,
+                                ),
+                              );
+                            },
+                          )
+                        : Image.asset(
+                            Assets.assetsImagesDoc,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
                 const Gap(12),
                 Expanded(
@@ -41,14 +78,20 @@ class DocCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(children: [
-                        Text(
-                          'Dr. Rahma Ahmed',
-                          style: AppStyles.semiBold16.copyWith(
-                            color: Colors.black,
+                        Expanded(
+                          child: Text(
+                            'Dr. ${doctor.name}',
+                            style: AppStyles.semiBold16.copyWith(
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const Spacer(),
-                        const FavoriteIcon(),
+                        FavoriteIcon(
+                          doctorId: doctor.id,
+                          doctorName: doctor.name,
+                          initialFavorite: doctor.isFavorite,
+                        ),
                       ]),
                       const Gap(5),
                       //divider
@@ -60,10 +103,13 @@ class DocCard extends StatelessWidget {
                       const Gap(5),
                       Row(
                         children: [
-                          Text(
-                            'Senior Surgeon | The City Hospital',
-                            style: AppStyles.regular12.copyWith(
-                              color: Colors.black,
+                          Expanded(
+                            child: Text(
+                              doctor.specialty,
+                              style: AppStyles.regular12.copyWith(
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -76,7 +122,20 @@ class DocCard extends StatelessWidget {
                           ),
                           const Gap(8),
                           Text(
-                            '4.9',
+                            doctor.rating.toString(),
+                            style: AppStyles.regular12.copyWith(
+                              color: Colors.black,
+                            ),
+                          ),
+                          const Gap(12),
+                          const Icon(
+                            Icons.work_history_outlined,
+                            color: AppColors.secondaryColor,
+                            size: 14,
+                          ),
+                          const Gap(4),
+                          Text(
+                            '${doctor.experience} ${doctor.experience == 1 ? 'year' : 'years'}',
                             style: AppStyles.regular12.copyWith(
                               color: Colors.black,
                             ),

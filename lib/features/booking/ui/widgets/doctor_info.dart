@@ -2,29 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/utils/app_images.dart';
+import '../../../doctors/data/models/doctor_model.dart';
 
 class DoctorInfoSection extends StatelessWidget {
-  const DoctorInfoSection({super.key});
+  const DoctorInfoSection({super.key, required this.doctor});
+  final DoctorModel doctor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: const BoxDecoration(
-        color: Colors.blue,
-        // borderRadius: BorderRadius.vertical(
-        //   bottom: Radius.circular(20),
-        // ),
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(110),)
-      ),
+      decoration: BoxDecoration(
+          color: const Color(0xff1877F2).withOpacity(0.8),
+          // borderRadius: BorderRadius.vertical(
+          //   bottom: Radius.circular(20),
+          // ),
+          borderRadius: const BorderRadius.only(
+            bottomRight: Radius.circular(110),
+          )),
       child: Row(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
               Assets.assetsImagesDoctor,
-              width:120,  
-              height: 240,      
+              width: 120,
+              height: 240,
               fit: BoxFit.cover,
             ),
           ),
@@ -34,24 +37,24 @@ class DoctorInfoSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Dr. Devy Shety',
-                  style: TextStyle(
+                Text(
+                  doctor.name,
+                  style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Text(
-                  'Heart Surgeon',
-                  style: TextStyle(
+                Text(
+                  doctor.specialty,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white70,
                   ),
                 ),
                 const Gap(8),
                 Row(
-                  children: List.generate(5, (index) {
+                  children: List.generate(doctor.rating.toInt() , (index) {
                     return const Icon(Icons.star,
                         color: Colors.yellow, size: 20);
                   }),

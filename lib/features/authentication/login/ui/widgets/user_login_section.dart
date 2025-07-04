@@ -43,16 +43,16 @@ class _UserLoginSectionState extends State<UserLoginSection> {
             onSaved: (value) {
               _email = value;
             },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your email';
-              }
-              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                  .hasMatch(value)) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
+            // validator: (value) {
+            //   if (value == null || value.isEmpty) {
+            //     return 'Please enter your email';
+            //   }
+            //   if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+            //       .hasMatch(value)) {
+            //     return 'Please enter a valid email';
+            //   }
+            //   return null;
+            // },
           ),
           const Gap(10),
 
@@ -65,15 +65,15 @@ class _UserLoginSectionState extends State<UserLoginSection> {
               _password = value;
             },
             prefixIcon: Icons.lock_outline_rounded,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your password';
-              }
-              if (value.length < 6) {
-                return 'Password must be at least 6 characters';
-              }
-              return null;
-            },
+            // validator: (value) {
+            //   if (value == null || value.isEmpty) {
+            //     return 'Please enter your password';
+            //   }
+            //   if (value.length < 6) {
+            //     return 'Password must be at least 6 characters';
+            //   }
+            //   return null;
+            // },
           ),
           const Gap(22),
 

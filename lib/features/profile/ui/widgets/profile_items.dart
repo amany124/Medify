@@ -25,19 +25,26 @@ class ProfileItems extends StatelessWidget {
           },
         ),
         // favorite doc
-        ProfileItem(
-          text: 'Favorite Doctors',
-          iconPath: Assets.assetsImagesFavoriteDoctors,
-          onTap: () {
-            context.pushNamed(Routes.favoritedoctors);
-          },
-        ),
+        // Show "Favorite Doctors" only if the role is not 'Doctor'
+        if (CacheManager.getData(key: Keys.role) != 'Doctor')
+          ProfileItem(
+            text: 'Favorite Doctors',
+            iconPath: Assets.assetsImagesFavoriteDoctors,
+            onTap: () {
+              context.pushNamed(Routes.favoriteDoctors);
+            },
+          ),
         // Your Appointments
         ProfileItem(
           text: 'Your Appointments',
           iconPath: Assets.assetsImagesAppointment,
           onTap: () {
-            context.pushNamed(Routes.myAppointments);
+            String role = CacheManager.getData(key: Keys.role);
+            if (role == 'Doctor') {
+              context.pushNamed(Routes.doctorAppointment);
+            } else {
+              context.pushNamed(Routes.patientAppointments);
+            }
           },
         ),
         // history
@@ -144,6 +151,9 @@ class ProfileItems extends StatelessWidget {
                               );
                               // Clear the user data and navigate to the start view
                               await CacheManager.clearData(key: Keys.token);
+
+                              await CacheManager.clearData(key: Keys.role);
+
                               // Navigator.pop(context);
                             },
                           ),

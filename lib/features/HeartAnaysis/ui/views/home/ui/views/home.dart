@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../bottom_nav/bottom_nav_screens.dart';
+import '../../../../../../bottom_nav/bottom_nav_screens.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

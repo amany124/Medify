@@ -1,10 +1,18 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class ForgotLogintext extends StatelessWidget {
   final String text1;
   final String text2;
+  final VoidCallback? onTap;
 
-  const ForgotLogintext({super.key, required this.text1, required this.text2});
+  const ForgotLogintext({
+    super.key,
+    required this.text1,
+    required this.text2,
+    this.onTap,
+  });
+
   @override
   Widget build(BuildContext context) {
     return RichText(
@@ -13,18 +21,21 @@ class ForgotLogintext extends StatelessWidget {
           TextSpan(
             text: text1,
             style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 14.9,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.bold),
+              color: Colors.grey,
+              fontSize: 14.9,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(
-            text: text2 ,
+            text: text2,
             style: const TextStyle(
-                color: Color(0xff0958D9),
-                fontSize: 14.9,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.bold),
+              color: Color(0xff0958D9),
+              fontSize: 14.9,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.bold,
+            ),
+            recognizer: TapGestureRecognizer()..onTap = onTap,
           ),
         ],
       ),

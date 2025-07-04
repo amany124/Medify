@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medify/core/utils/app_images.dart';
 
+import '../../../../core/helpers/cache_manager.dart';
+import '../../../../core/utils/keys.dart';
+
 class ProfileAppbarContent extends StatelessWidget {
   const ProfileAppbarContent({
     super.key,
@@ -27,9 +30,9 @@ class ProfileAppbarContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        const Text(
-          "Senior Graphic Designer",
-          style: TextStyle(
+        Text(
+          CacheManager.getData(key: Keys.role),
+          style: const TextStyle(
             fontSize: 16,
             color: Colors.white70,
           ),

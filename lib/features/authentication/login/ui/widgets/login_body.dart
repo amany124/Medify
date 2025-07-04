@@ -29,7 +29,12 @@ class LoginBody extends StatelessWidget {
           showCustomSnackBar(
               'Welcome ${state.responseUserModel.name}', context);
           print(state.responseUserModel.name);
-          Navigator.push(
+          //cache the user data
+          await CacheManager.setData(
+            key: Keys.role,
+            value: state.responseUserModel.role,
+          );
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => CongratulationsView(
@@ -53,8 +58,8 @@ class LoginBody extends StatelessWidget {
             UserLoginSection(),
             Gap(18),
             SwitchMethodSection(),
-            Gap(40),
-            NavigationSection(),
+            // Gap(40),
+            // NavigationSection(),
           ],
         ),
       ),

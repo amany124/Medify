@@ -17,16 +17,27 @@ class BlurContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      height: 330,
+      height: 340,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: const BoxDecoration(),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AppLogoWithTitle(),
-          Gap(15),
-          SignupButtons(),
-          Gap(15),
+          Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.blueAccent,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+          const Gap(5),
+          const AppLogoWithTitle(),
+          const Gap(15),
+          const SignupButtons(),
+          const Gap(15),
           // SignUpVectorLine(),
         ],
       ),
