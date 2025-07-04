@@ -34,7 +34,7 @@ class gradeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // note that : we are working on iphone 12 pro max
     // do not delete this comment
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRouter.generateRoute,
       theme: ThemeData(

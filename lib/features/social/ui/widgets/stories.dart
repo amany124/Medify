@@ -22,7 +22,7 @@ class Stories extends StatelessWidget {
                   top: 10,
                 ),
                 child: MyStatusStoryCard(
-                  storyData: storyModel(
+                  storyData: StoryModel(
                     name: 'amona',
                     image: 'assets/images/doc_test2.png',
                   ),
@@ -35,7 +35,7 @@ class Stories extends StatelessWidget {
               child: SizedBox(
                 width: 60,
                 child: StoryCard(
-                  storyData: storyModel(
+                  storyData: StoryModel(
                     name: 'amona',
                     image: 'assets/images/doc_test2.png',
                   ),

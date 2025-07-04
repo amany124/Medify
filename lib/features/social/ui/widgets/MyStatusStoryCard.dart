@@ -9,7 +9,7 @@ class MyStatusStoryCard extends StatelessWidget {
     required this.storyData,
   });
 
-  storyModel storyData;
+  StoryModel storyData;
 
   @override
   Widget build(BuildContext context) {

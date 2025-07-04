@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,17 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
-import 'package:medify/core/services/api_service.dart';
 import 'package:medify/core/theme/app_colors.dart';
 import 'package:medify/core/widgets/bottom_navigation_content.dart';
-import 'package:medify/features/social/data/repos/social_repo.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
-import 'package:medify/features/social/ui/widgets/post_widget.dart';
-import 'package:provider/provider.dart';
 
-import '../../data/models/create_post_request_model.dart';
 import '../../data/models/get_posts_request_model.dart';
-import '../cubits/create_post_cubit/create_post_cubit.dart';
 import '../widgets/post_list_view.dart';
 
 class SocialView extends StatelessWidget {
@@ -75,7 +68,7 @@ class SocialView extends StatelessWidget {
               'isEditing': false,
             });
           },
-          child: Icon(
+          child: const Icon(
             CupertinoIcons.add,
             color: AppColors.primaryColor,
           ),

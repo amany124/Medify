@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medify/core/widgets/bottom_navigation_content.dart';
 import 'package:medify/features/chat/ui/widgets/chats_list.dart';
 import 'package:medify/features/chat/ui/widgets/search_bar.dart';
 
@@ -43,7 +42,6 @@ class AllChats extends StatelessWidget {
           Expanded(child: ChatsList()),
         ],
       ),
-      bottomNavigationBar: const BottomnavigationContent(),
     );
   }
 }

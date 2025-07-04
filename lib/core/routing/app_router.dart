@@ -1,22 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medify/core/di/di.dart';
+import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
 import 'package:medify/features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/Scheduling/views/Scheduling.dart'
     show ScheduleTimingsPage;
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:medify/core/di/di.dart';
-import 'package:medify/core/helpers/local_data.dart';
-import 'package:medify/core/routing/routes.dart';
-import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
-import 'package:medify/features/ProfileScreen/ui/views/ProfileScreen.dart';
 import 'package:medify/features/about%20us/ui/views/aboutus_view.dart';
 import 'package:medify/features/authentication/login/ui/cubits/cubit/login_cubit.dart';
 import 'package:medify/features/authentication/login/ui/views/login_view.dart';
@@ -30,23 +22,12 @@ import 'package:medify/features/authentication/reset_password/presentation/views
 import 'package:medify/features/booking/data/repos/availability_cubit.dart';
 import 'package:medify/features/booking/ui/views/booking.dart';
 import 'package:medify/features/bottom_nav/bottom_nav_screens.dart';
-import 'package:medify/features/chat/models/messageModel.dart';
 import 'package:medify/features/chat/ui/views/all_chats.dart';
-import 'package:medify/features/chat/ui/views/messages_page.dart';
 import 'package:medify/features/doctors/data/models/doctor_model.dart';
 import 'package:medify/features/doctors/ui/pages/favorite_doctors_screen.dart';
 import 'package:medify/features/doctors/ui/views/DoctorPublicProfile.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
 import 'package:medify/features/doctors/ui/views/myappointment.dart';
-import 'package:medify/features/booking/ui/views/booking.dart';
-import 'package:medify/features/bottom_nav/bottom_nav_screens.dart';
-import 'package:medify/features/chat/models/messageModel.dart';
-import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
-import 'package:medify/features/chat/ui/views/all_chats.dart';
-import 'package:medify/features/chat/ui/views/messages_page.dart';
-import 'package:medify/features/doctors/ui/views/doc_view.dart';
-import 'package:medify/features/doctors/ui/views/myappointment.dart';
-import 'package:medify/features/favorite_docs/ui/views/FavoriteDoctors.dart';
 import 'package:medify/features/feedback/feedback_view.dart';
 import 'package:medify/features/heart%20diseases/ui/views/heart_diseases.dart';
 import 'package:medify/features/notification/ui/views/notification_page.dart';
@@ -58,29 +39,19 @@ import 'package:medify/features/profile/ui/views/profile_view.dart';
 import 'package:medify/features/profile/ui/views/public_profile.dart';
 import 'package:medify/features/settings/ui/views/password_manager.dart';
 import 'package:medify/features/settings/ui/views/settings.dart';
-import 'package:medify/features/social/ui/views/social_view.dart';
 
 import '../../features/ProfileScreen/data/repos/profile_repo.dart';
 import '../../features/authentication/login/data/repos/login_repo.dart';
 import '../../features/authentication/register/ui/views/register_as_patient.dart';
 import '../../features/booking/data/repos/appointment_repo.dart';
-import '../../features/doctor_appointment.dart';
-import 'package:medify/features/social/ui/cubits/create_post_cubit/create_post_cubit.dart';
-import 'package:medify/features/social/ui/cubits/get_posts_cubit/get_posts_cubit.dart';
-import 'package:medify/features/social/ui/views/socail_page.dart';
-import 'package:medify/features/social/ui/views/social_view.dart';
-import 'package:medify/features/social/ui/widgets/create_post_Page.dart';
-
-import '../../features/authentication/login/data/repos/login_repo.dart';
-import '../../features/authentication/register/ui/views/register_as_patient.dart';
 import '../../features/chat/models/get_conversation_request_model.dart';
-import '../../features/social/data/repos/social_repo.dart';
+import '../../features/chat/ui/chat_cubit/chat_cubit.dart';
+import '../../features/doctor_appointment.dart';
+import '../../features/social/ui/views/socail_page.dart' show SocailPage;
 import '../services/api_service.dart';
 
 class AppRouter {
   static Route generateRoute(RouteSettings settings) {
-    // this argument to be passed to any screen like this (arguments as class name)
-    // final arguments = settings.arguments;
     switch (settings.name) {
       case Routes.onboardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingView());
@@ -97,7 +68,6 @@ class AppRouter {
       case Routes.IntialSignUpView:
         return MaterialPageRoute(builder: (_) => const IntialSignUpView());
       case Routes.availability:
-        //ScheduleTimingsPage
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => AvailabilityCubit(
@@ -177,11 +147,10 @@ class AppRouter {
       case Routes.mainScreen:
         return MaterialPageRoute(builder: (_) => const HeartAnalysisPage());
       case Routes.socialScreen:
-        return MaterialPageRoute(builder: (_) => const SocialScreen());
+        return MaterialPageRoute(builder: (_) => const SocailPage());
       case Routes.mainDoctorsScreen:
         return MaterialPageRoute(builder: (_) => const TopDoctorsView());
       case Routes.doctorPublicProfile:
-        // Check if arguments contain doctorId
         if (settings.arguments != null &&
             settings.arguments is Map<String, dynamic>) {
           final args = settings.arguments as Map<String, dynamic>;
@@ -191,26 +160,21 @@ class AppRouter {
                 builder: (_) => DoctorProfile(doctor: doctorId));
           }
         }
-        // Fallback to PublicProfile if no doctorId is provided
         return MaterialPageRoute(builder: (_) => const PublicProfile());
       case Routes.myAppointments:
         return MaterialPageRoute(builder: (_) => const AppointmentsView());
-
       case Routes.doctorAppointments:
         return MaterialPageRoute(builder: (_) => const MyAppointmentsPage());
       case Routes.appointment:
         return MaterialPageRoute(
             builder: (_) => AppointmentPage(
-                  // Pass the doctor model as an argument
                   doctor: settings.arguments as DoctorModel,
                 ));
       case Routes.notificationScreen:
         return MaterialPageRoute(builder: (_) => const NotificationView());
       case Routes.allChats:
-        return MaterialPageRoute(builder: (_) => const AllChats());
-      case Routes.messagesPage:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider<ChatCubit>(
+            builder: (_) => BlocProvider(
                   create: (context) => getIt<ChatCubit>()
                     ..getConversation(
                       requestModel: GetConversationRequestModel(
@@ -219,29 +183,6 @@ class AppRouter {
                     ),
                   child: const AllChats(),
                 ));
-
-      // case Routes.messagesPage:
-      //   return MaterialPageRoute(
-      //     builder: (_) => BlocProvider(
-      //       create: (context) => getIt<ChatCubit>(),
-      //       child: MessagesPage(
-      //         messageData: MessageModel(
-      //           senderName: 'Amany',
-      //           messageContent: 'hi',
-      //           messageDate: DateTime(2023, 5, 1),
-      //           dateMessage: '14/5/2025',
-      //         ),
-      //       ),
-      //     ),
-      //   );
-      // case Routes.messagesPage:
-      //   return MaterialPageRoute(
-      //       builder: (_) => MessagesPage(
-      //           messageData: messageModel(
-      //               senderName: 'Amany',
-      //               messageContent: 'hi',
-      //               messageDate: DateTime(2023, 5, 1),
-      //               dateMessage: '14/5/2025')));
 
       case Routes.settingsScreen:
         return MaterialPageRoute(builder: (_) => const SettingsView());
@@ -259,8 +200,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PatientAppointment());
       case Routes.doctorAppointment:
         return MaterialPageRoute(builder: (_) => const DoctorAppointment());
-      //ResetPasswordOtpView
-
       case Routes.resetPasswordRequest:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
