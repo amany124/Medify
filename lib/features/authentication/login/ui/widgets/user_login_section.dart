@@ -43,6 +43,7 @@ class _UserLoginSectionState extends State<UserLoginSection> {
             onSaved: (value) {
               _email = value;
             },
+<<<<<<< HEAD
             // validator: (value) {
             //   if (value == null || value.isEmpty) {
             //     return 'Please enter your email';
@@ -53,6 +54,18 @@ class _UserLoginSectionState extends State<UserLoginSection> {
             //   }
             //   return null;
             // },
+=======
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  .hasMatch(value)) {
+                return 'Please enter a valid email';
+              }
+              return null;
+            },
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
           ),
           const Gap(10),
 
@@ -65,6 +78,7 @@ class _UserLoginSectionState extends State<UserLoginSection> {
               _password = value;
             },
             prefixIcon: Icons.lock_outline_rounded,
+<<<<<<< HEAD
             // validator: (value) {
             //   if (value == null || value.isEmpty) {
             //     return 'Please enter your password';
@@ -74,6 +88,17 @@ class _UserLoginSectionState extends State<UserLoginSection> {
             //   }
             //   return null;
             // },
+=======
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              if (value.length < 6) {
+                return 'Password must be at least 6 characters';
+              }
+              return null;
+            },
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
           ),
           const Gap(22),
 
@@ -158,6 +183,10 @@ class _UserLoginSectionState extends State<UserLoginSection> {
                       return;
                     }
                     context.read<LoginCubit>().login(
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
                           loginUserModel: LoginUserModel(
                             email: _email!,
                             password: _password!,
@@ -165,6 +194,16 @@ class _UserLoginSectionState extends State<UserLoginSection> {
                           ),
                         );
                         
+<<<<<<< HEAD
+=======
+=======
+                            loginUserModel: LoginUserModel(
+                          email: _email!,
+                          password: _password!,
+                          role: _selectedRole!,
+                        ))
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
                   }
                 },
               );

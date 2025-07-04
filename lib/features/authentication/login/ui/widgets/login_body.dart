@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
 // ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
@@ -5,6 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
 import 'package:medify/core/utils/keys.dart';
+<<<<<<< HEAD
+=======
+=======
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
 import 'package:medify/features/authentication/login/ui/cubits/cubit/login_cubit.dart';
 import 'package:medify/features/authentication/login/ui/widgets/navigation_section.dart';
 import 'package:medify/features/authentication/login/ui/widgets/switch__method_section.dart';
@@ -19,6 +31,10 @@ class LoginBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
       listener: (context, state) async {
         if (state is LoginSuccess) {
           await CacheManager.setData(
@@ -26,6 +42,7 @@ class LoginBody extends StatelessWidget {
             value: true,
           );
 
+<<<<<<< HEAD
           showCustomSnackBar(
               'Welcome ${state.responseUserModel.name}', context);
           print(state.responseUserModel.name);
@@ -34,6 +51,15 @@ class LoginBody extends StatelessWidget {
             key: Keys.role,
             value: state.responseUserModel.role,
           );
+=======
+=======
+      listener: (context, state) {
+        if (state is LoginSuccess) {
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+          showCustomSnackBar(
+              'Welcome ${state.responseUserModel.name}', context);
+          print(state.responseUserModel.name);
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
           Navigator.push(
             context,
             MaterialPageRoute(

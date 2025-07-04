@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../widgets/profile_view_body.dart';

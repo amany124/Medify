@@ -1,6 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
 import '../../../../../../core/failures/failure.dart';
 import '../../../../register/data/models/response_user_model.dart';
 import '../../../data/models/login_user_model.dart';

@@ -27,17 +27,34 @@ class NavigationSection extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
                       builder: (context) => const CongratulationsView(
                         userName: 'Doctor',
                         isSignUp: false,
                         isdoctor: true,
                       ),
                     ));
+<<<<<<< HEAD
+=======
+=======
+                        builder: (context) => const CongratulationsView(
+                            userName: 'Doctor',
+                            isSignUp: false,
+                            isdoctor: true)));
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
               },
             ),
           ],
         ),
       ],
+<<<<<<< HEAD
     );
+=======
+    )
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
   }
 }

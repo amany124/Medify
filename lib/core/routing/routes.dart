@@ -27,10 +27,13 @@ class Routes {
   static const String aboutUs = '/AboutusView';
   //CongratulationsView
   static const String congradulations = '/congradulations';
+<<<<<<< HEAD
   //PatientAppointment
   static const String patientAppointments = '/patientAppointment';
   //DoctorAppointment
   static const String doctorAppointment = '/doctorAppointment';
   //availability
   static const String availability = '/availability';
+=======
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
 }

@@ -31,8 +31,13 @@ class GetProfileCubit extends Cubit<GetProfileState> {
       patientModel: patientModel,
     );
     return result.fold((failure) => emit(GetProfileFailure(failure)), (model) {
+<<<<<<< HEAD
       name = model.name;
       emit(GetPatientProfileSuccess(patientModel: model));
+=======
+      emit(GetPatientProfileSuccess(patientModel: model));
+      name = model.name;
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
       print('name: $name');
     });
   }

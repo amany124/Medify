@@ -93,10 +93,22 @@ class OnboardingView extends StatelessWidget {
           ),
           const Spacer(),
           SlideInUp(
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
             duration: const Duration(milliseconds: 3000),
             curve: Curves.easeInOut,
             child: const WelcomeMessageWidget(),
           ),
+<<<<<<< HEAD
+=======
+=======
+              duration: const Duration(milliseconds: 3000),
+              curve: Curves.easeInOut,
+            child: const WelcomeMessageWidget()),
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
           const Gap(54),
         ],
       ),

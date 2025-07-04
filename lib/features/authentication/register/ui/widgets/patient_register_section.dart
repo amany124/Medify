@@ -22,7 +22,14 @@ class _PatientRegisterSectionState extends State<PatientRegisterSection> {
 
   // Initialize PatientModel
   PatientModel patientModel = PatientModel(
+<<<<<<< HEAD
     id: '',
+=======
+<<<<<<< HEAD
+    id: '',
+=======
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
     name: '',
     email: '',
     username: '',

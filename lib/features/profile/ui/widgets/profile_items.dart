@@ -3,7 +3,14 @@ import 'package:gap/gap.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
+<<<<<<< HEAD
 import 'package:medify/core/utils/keys.dart';
+=======
+<<<<<<< HEAD
+import 'package:medify/core/utils/keys.dart';
+=======
+>>>>>>> de236dab746d84b8aa5bb357f3fd227e94364293
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
@@ -149,9 +156,12 @@ class ProfileItems extends StatelessWidget {
                               );
                               // Clear the user data and navigate to the start view
                               await CacheManager.clearData(key: Keys.token);
+<<<<<<< HEAD
 
                               await CacheManager.clearData(key: Keys.role);
 
+=======
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
                               // Navigator.pop(context);
                             },
                           ),

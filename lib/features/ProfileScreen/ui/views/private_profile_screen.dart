@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+<<<<<<< HEAD
 import 'package:medify/core/helpers/cache_manager.dart';
+=======
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
 import 'package:medify/core/utils/app_styles.dart';
 import 'package:medify/features/authentication/register/data/models/doctor_model.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
@@ -22,6 +25,7 @@ class PrivateProfileScreen extends StatefulWidget {
 }
 
 class PrivateProfileScreenState extends State<PrivateProfileScreen> {
+<<<<<<< HEAD
   @override
   void initState() {
     super.initState();
@@ -36,6 +40,8 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
     });
   }
 
+=======
+>>>>>>> 89de72e36ba5e8003d07cad4b27408b6dbb22c03
   bool isEditing = false;
 
   // Common controllers
