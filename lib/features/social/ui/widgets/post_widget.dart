@@ -7,14 +7,16 @@ class Post extends StatefulWidget {
   final String username;
   final String timestamp;
   final String content;
-  final String imageUrl;
+  final String imageUrl ;
+  final String postId;
 
   const Post({
     super.key,
     required this.username,
     required this.timestamp,
     required this.content,
-    required this.imageUrl,
+    required this.postId,
+     this.imageUrl= "https://th.bing.com/th/id/R.883a4952998ca380853326bc61805259?rik=eMV9tHDVFS63Mw&pid=ImgRaw&r=0",
   });
 
   @override
@@ -60,6 +62,11 @@ class _PostState extends State<Post> {
               ),
               const SizedBox(height: 10),
               PostActions(
+                 
+                postId: widget.postId,
+                contentText: widget.content,
+
+
                 onCommentPressed: () {
                   setState(() {
                     showComments = !showComments;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medify/core/widgets/avatar.dart';
 
-import '../../models/story_model.dart';
+import '../../data/models/story_model.dart';
 
 class StoryCard extends StatelessWidget {
   const StoryCard({

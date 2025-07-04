@@ -7,6 +7,16 @@ import 'package:medify/features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/Scheduling/views/Scheduling.dart'
     show ScheduleTimingsPage;
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:medify/core/di/di.dart';
+import 'package:medify/core/helpers/local_data.dart';
+import 'package:medify/core/routing/routes.dart';
+import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
+import 'package:medify/features/ProfileScreen/ui/views/ProfileScreen.dart';
 import 'package:medify/features/about%20us/ui/views/aboutus_view.dart';
 import 'package:medify/features/authentication/login/ui/cubits/cubit/login_cubit.dart';
 import 'package:medify/features/authentication/login/ui/views/login_view.dart';
@@ -28,6 +38,15 @@ import 'package:medify/features/doctors/ui/pages/favorite_doctors_screen.dart';
 import 'package:medify/features/doctors/ui/views/DoctorPublicProfile.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
 import 'package:medify/features/doctors/ui/views/myappointment.dart';
+import 'package:medify/features/booking/ui/views/booking.dart';
+import 'package:medify/features/bottom_nav/bottom_nav_screens.dart';
+import 'package:medify/features/chat/models/messageModel.dart';
+import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
+import 'package:medify/features/chat/ui/views/all_chats.dart';
+import 'package:medify/features/chat/ui/views/messages_page.dart';
+import 'package:medify/features/doctors/ui/views/doc_view.dart';
+import 'package:medify/features/doctors/ui/views/myappointment.dart';
+import 'package:medify/features/favorite_docs/ui/views/FavoriteDoctors.dart';
 import 'package:medify/features/feedback/feedback_view.dart';
 import 'package:medify/features/heart%20diseases/ui/views/heart_diseases.dart';
 import 'package:medify/features/notification/ui/views/notification_page.dart';
@@ -46,6 +65,16 @@ import '../../features/authentication/login/data/repos/login_repo.dart';
 import '../../features/authentication/register/ui/views/register_as_patient.dart';
 import '../../features/booking/data/repos/appointment_repo.dart';
 import '../../features/doctor_appointment.dart';
+import 'package:medify/features/social/ui/cubits/create_post_cubit/create_post_cubit.dart';
+import 'package:medify/features/social/ui/cubits/get_posts_cubit/get_posts_cubit.dart';
+import 'package:medify/features/social/ui/views/socail_page.dart';
+import 'package:medify/features/social/ui/views/social_view.dart';
+import 'package:medify/features/social/ui/widgets/create_post_Page.dart';
+
+import '../../features/authentication/login/data/repos/login_repo.dart';
+import '../../features/authentication/register/ui/views/register_as_patient.dart';
+import '../../features/chat/models/get_conversation_request_model.dart';
+import '../../features/social/data/repos/social_repo.dart';
 import '../services/api_service.dart';
 
 class AppRouter {
@@ -55,6 +84,14 @@ class AppRouter {
     switch (settings.name) {
       case Routes.onboardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingView());
+      case Routes.intialScreen:
+        return MaterialPageRoute(builder: (_) {
+          if (LocalData.getIsLogin()) {
+            return const BottomNavscreens();
+          } else {
+            return const OnboardingView();
+          }
+        });
       case Routes.startScreen:
         return MaterialPageRoute(builder: (_) => const StartView());
       case Routes.IntialSignUpView:
@@ -173,12 +210,38 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const AllChats());
       case Routes.messagesPage:
         return MaterialPageRoute(
-            builder: (_) => MessagesPage(
-                messageData: messageModel(
-                    senderName: 'Amany',
-                    messageContent: 'hi',
-                    messageDate: DateTime(2023, 5, 1),
-                    dateMessage: '14/5/2025')));
+            builder: (_) => BlocProvider<ChatCubit>(
+                  create: (context) => getIt<ChatCubit>()
+                    ..getConversation(
+                      requestModel: GetConversationRequestModel(
+                        token: LocalData.getAuthResponseModel()!.token,
+                      ),
+                    ),
+                  child: const AllChats(),
+                ));
+
+      // case Routes.messagesPage:
+      //   return MaterialPageRoute(
+      //     builder: (_) => BlocProvider(
+      //       create: (context) => getIt<ChatCubit>(),
+      //       child: MessagesPage(
+      //         messageData: MessageModel(
+      //           senderName: 'Amany',
+      //           messageContent: 'hi',
+      //           messageDate: DateTime(2023, 5, 1),
+      //           dateMessage: '14/5/2025',
+      //         ),
+      //       ),
+      //     ),
+      //   );
+      // case Routes.messagesPage:
+      //   return MaterialPageRoute(
+      //       builder: (_) => MessagesPage(
+      //           messageData: messageModel(
+      //               senderName: 'Amany',
+      //               messageContent: 'hi',
+      //               messageDate: DateTime(2023, 5, 1),
+      //               dateMessage: '14/5/2025')));
 
       case Routes.settingsScreen:
         return MaterialPageRoute(builder: (_) => const SettingsView());

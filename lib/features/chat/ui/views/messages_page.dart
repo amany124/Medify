@@ -1,15 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medify/core/di/di.dart';
 import 'package:medify/features/chat/models/messageModel.dart';
+import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
 import 'package:medify/features/chat/ui/widgets/AppBarTitle.dart';
 import 'package:medify/features/chat/ui/widgets/ChatTextField.dart';
 import 'package:medify/features/chat/ui/widgets/RenderMessages.dart';
 import 'package:medify/features/chat/ui/widgets/icon_buttons.dart';
+import 'package:medify/core/helpers/local_data.dart';
+import '../../models/getMessages_request_model.dart';
+import '../../models/get_conversation_response_model.dart';
 
 class MessagesPage extends StatelessWidget {
-  static Route route(messageModel data) => MaterialPageRoute(
-        builder: (context) => MessagesPage(
-          messageData: data,
+  static Route route(GetConversationResponseModel data) => MaterialPageRoute(
+        builder: (context) => BlocProvider<ChatCubit>(
+          // TODO: call Get all messages
+          create: (context) => getIt<ChatCubit>()
+            ..getAllMessages(
+              requestModel: GetMessagesRequestModel(
+                userId: LocalData.getAuthResponseModel()!.user.id.toString(),
+                token: LocalData.getAuthResponseModel()!.token,
+              ),
+            ),
+          child: MessagesPage(
+            messageData: data,
+          ),
         ),
       );
 
@@ -18,7 +34,7 @@ class MessagesPage extends StatelessWidget {
     required this.messageData,
   });
 
-  final messageModel messageData;
+  final GetConversationResponseModel messageData;
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +80,14 @@ class MessagesPage extends StatelessWidget {
           ),
         ],
       ),
-      body: const Column(
+      body: Column(
         children: [
           Expanded(
             child: RenderMessages(),
           ),
-          ChatTextField(),
+          ChatTextField(
+            messageData: messageData,
+          ),
         ],
       ),
     );

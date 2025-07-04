@@ -1,5 +1,5 @@
-class storyModel {
-  storyModel({
+class StoryModel {
+  StoryModel({
     required this.name,
     required this.image,
   });

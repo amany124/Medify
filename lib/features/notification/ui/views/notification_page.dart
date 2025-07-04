@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/core/widgets/bottom_navigation_content.dart';
 
 import '../../../../core/utils/app_images.dart';
 import '../widgets/notification.dart';

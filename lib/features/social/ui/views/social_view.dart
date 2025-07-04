@@ -1,80 +1,85 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/core/helpers/local_data.dart';
+import 'package:medify/core/routing/extensions.dart';
+import 'package:medify/core/routing/routes.dart';
+import 'package:medify/core/services/api_service.dart';
+import 'package:medify/core/theme/app_colors.dart';
 import 'package:medify/core/widgets/bottom_navigation_content.dart';
+import 'package:medify/features/social/data/repos/social_repo.dart';
+import 'package:medify/features/social/ui/cubit/social_cubit.dart';
 import 'package:medify/features/social/ui/widgets/post_widget.dart';
+import 'package:provider/provider.dart';
 
-class SocialScreen extends StatelessWidget {
-  const SocialScreen({super.key});
+import '../../data/models/create_post_request_model.dart';
+import '../../data/models/get_posts_request_model.dart';
+import '../cubits/create_post_cubit/create_post_cubit.dart';
+import '../widgets/post_list_view.dart';
+
+class SocialView extends StatelessWidget {
+  const SocialView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          children: [
-            Text(
-              'Medify',
-              style: TextStyle(
-                fontSize: 24,
-                color: Color(0xff223A6A),
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Poppins',
-              ),
-            ),
-            Gap(20),
-            Expanded(child: SearchBarWidget()),
-            //         CircleAvatar(
-            //   radius: 20,
-            //   backgroundImage: AssetImage('assets/images/female pic1.jpg'),
-            // ),
-          ],
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SocialCubit, SocialState>(
+          listener: (context, state) {
+            if (state is CreatePostCubitSuccess) {
+              context.read<SocialCubit>().getAllPosts(
+                    requestModel: GetPostsRequestModel(
+                      doctorId:
+                          LocalData.getAuthResponseModel()!.user.id.toString(),
+                      token: LocalData.getAuthResponseModel()!.token,
+                    ),
+                  );
+            }
+          },
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        actions: const [
-          //   // SearchBarWidget(),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: const Icon(CupertinoIcons.bell),
-          //   splashRadius: 21,
-          // ),
-          //   // IconButton(
-          //   //   onPressed: () {},
-          //   //   icon: const Icon(CupertinoIcons.paperplane),
-          //   //   splashRadius: 21,
-          //   // ),
-          //  Gap(10),
-        ],
-      ),
-      body: ListView(
-        children: const [
-          // Stories(),
-          Divider(thickness: 0.6),
-          Post(
-            username: "Amany alzanfaly",
-            timestamp: "2 hours ago",
-            content:
-                "Dream big, work hard, stay focused, and surround yourself with good energy.",
-            imageUrl:
-                "https://th.bing.com/th/id/R.883a4952998ca380853326bc61805259?rik=eMV9tHDVFS63Mw&pid=ImgRaw&r=0",
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Row(
+            children: [
+              Text(
+                'Medify',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Color(0xff223A6A),
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+              Gap(20),
+              Expanded(child: SearchBarWidget()),
+              //         CircleAvatar(
+              //   radius: 20,
+              //   backgroundImage: AssetImage('assets/images/female pic1.jpg'),
+              // ),
+            ],
           ),
-          Post(
-            username: "Amany alzanfaly",
-            timestamp: "1 day ago",
-            content: "Keep pushing forward, no matter how hard it gets.",
-            imageUrl:
-                "https://th.bing.com/th/id/OIP.372HTY_zy6Hzf3s8KtEB6wAAAA?w=474&h=316&rs=1&pid=ImgDetMain",
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0,
+        ),
+        body: const PostListView(),
+        bottomNavigationBar: const BottomnavigationContent(),
+        floatingActionButton: FloatingActionButton(
+          heroTag: 'createpost',
+          backgroundColor: Colors.white,
+          onPressed: () {
+            context.pushNamed(Routes.createPostpage, arguments: {
+              'isEditing': false,
+            });
+          },
+          child: Icon(
+            CupertinoIcons.add,
+            color: AppColors.primaryColor,
           ),
-          Post(
-            username: "Amany alzanfaly",
-            timestamp: "3 days ago",
-            content:
-                "Eating healthy food is very important not only for having a healthy life but also protecting our hearts.",
-            imageUrl:
-                "https://th.bing.com/th/id/OIP.k1trY7GGyoZw5nSWHkn2AQHaFf?w=640&h=475&rs=1&pid=ImgDetMain",
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -106,21 +111,3 @@ class SearchBarWidget extends StatelessWidget {
     );
   }
 }
-// // ...existing code...
-// appBar: AppBar(
-//         title: Row(
-//           children: [
-//             const Text(
-//                   'Medify',
-//                   style: TextStyle(
-//                     fontSize: 24,
-//                     color: Color(0xff223A6A),
-//                     fontWeight: FontWeight.w600,
-//                     fontFamily: 'Poppins',
-//                   ),
-//                 ),
-//             const SizedBox(width: 5),
-//             Expanded(child: SearchBarWidget()),
-//           ],
-//         ),
-// // ...existing code...

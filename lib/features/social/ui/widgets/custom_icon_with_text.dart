@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class CustomIconWithText extends StatelessWidget {
   final IconData icon;
-  final num count;
+  final num? count;
   final Color? splashColor;
   final VoidCallback? onPressed;
 
   const CustomIconWithText({
     super.key,
     required this.icon,
-    required this.count,
+     this.count,
     this.splashColor = Colors.grey, // Default splash color.
     this.onPressed,
   });
@@ -30,7 +30,7 @@ class CustomIconWithText extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 5),
-        Text("$count"), // Display the count.
+      Text(count != null ? "$count" : ''), // Display the count.
       ],
     );
   }

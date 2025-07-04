@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medify/features/social/models/story_model.dart';
+import 'package:medify/features/social/data/models/story_model.dart';
 import 'package:medify/features/social/ui/widgets/MyStatusStoryCard.dart';
 import 'package:medify/features/social/ui/widgets/StoryCard.dart';
 

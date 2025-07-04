@@ -30,7 +30,17 @@ class Endpoints {
   //doctor public profile
   static const String doctorsPublicProfile =
       '$baseUrl/api/doctors/public-profile';
-      ///api/reviews/
+
+  ///api/reviews/
   static const String doctorReviews = '$baseUrl/api/reviews';
-  
+  static const String createPost = '$baseUrl/api/doctors/posts';
+  static String getPosts(String doctorId) =>
+      '$baseUrl/api/doctors/public-profile/$doctorId';
+  static String deletePost(String postId) =>
+      '$baseUrl/api/doctors/posts/$postId';
+  static String updatePost(String postId) =>
+      '$baseUrl/api/doctors/posts/$postId';
+  static const String sendMessage = '$baseUrl/api/messages';
+  static const String getConversation = '$baseUrl/api/messages/conversations';
+  static String getMessages(String userId) => '$baseUrl/api/messages/$userId';
 }

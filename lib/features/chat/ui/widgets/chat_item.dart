@@ -3,22 +3,24 @@ import 'package:medify/features/chat/models/messageModel.dart';
 import 'package:medify/features/chat/ui/views/messages_page.dart';
 import 'package:medify/core/widgets/avatar.dart';
 
+import '../../models/get_conversation_response_model.dart';
+
 class ChatItem extends StatelessWidget {
   const ChatItem({
     super.key,
     required this.messageData,
   });
 
-  final messageModel messageData;
+  final GetConversationResponseModel messageData;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
         onTap: () {
-         Navigator.of(context).push(MessagesPage.route(messageData));
+          Navigator.of(context).push(MessagesPage.route(messageData));
         },
-        splashColor:const Color.fromARGB(255, 248, 245, 245),
+        splashColor: const Color.fromARGB(255, 248, 245, 245),
         child: Container(
           height: 100,
           margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -36,7 +38,9 @@ class ChatItem extends StatelessWidget {
             child: Row(
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(right:22, ),
+                  padding: EdgeInsets.only(
+                    right: 22,
+                  ),
                   child: AvatarWithOnlineCircle(),
                 ),
                 Expanded(
@@ -47,7 +51,7 @@ class ChatItem extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
-                          messageData.senderName,
+                          messageData.user?.name ?? 'Unknown User',
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             letterSpacing: 0.2,
@@ -61,7 +65,7 @@ class ChatItem extends StatelessWidget {
                       SizedBox(
                         height: 20,
                         child: Text(
-                          messageData.messageContent,
+                          messageData.lastMessage?.content ?? 'No message',
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 14,
@@ -82,7 +86,9 @@ class ChatItem extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        messageData.dateMessage,
+                        // TODO: Format the date properly
+                        messageData.lastMessage?.createdAt.toString() ??
+                            'No date',
                         style: const TextStyle(
                           fontSize: 12,
                           letterSpacing: -0.2,

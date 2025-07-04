@@ -1,5 +1,6 @@
 class Routes {
-  static const String onboardingScreen = '/';
+  static const String intialScreen = '/';
+  static const String onboardingScreen = '/onboardingScreen';
   static const String startScreen = '/startscreen';
   static const String IntialSignUpView = '/IntialSignUpView';
   static const String signUpAsDoctor = '/signupasdoctor';
@@ -10,6 +11,7 @@ class Routes {
   static const String privateProfile = '/profilescreen';
   static const String mainScreen = '/HeartAnalysisPage';
   static const String socialScreen = '/socialScreen';
+  static const String createPostpage = '/createpostpage';
   static const String mainDoctorsScreen = '/docView';
   static const String doctorPublicProfile = '/doctorPublicProfile';
   static const String myAppointments = '/AppointmentsView';
