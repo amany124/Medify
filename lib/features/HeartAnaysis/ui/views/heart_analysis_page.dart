@@ -1,24 +1,22 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/core/widgets/app_logo.dart';
 import 'package:medify/core/widgets/app_name.dart';
 import 'package:medify/core/widgets/avatar.dart';
-import 'package:medify/core/widgets/bottom_navigation_content.dart';
+import 'package:medify/features/HeartAnaysis/data/models/heart_models.dart';
+import 'package:medify/features/HeartAnaysis/ui/cubit/heart_analysis_cubit.dart';
 
-class HeartAnalysisPage extends StatefulWidget {
+class HeartAnalysisPage extends StatelessWidget {
   const HeartAnalysisPage({super.key});
-
-  @override
-  _HeartAnalysisPageState createState() => _HeartAnalysisPageState();
-}
-
-class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
-  bool showResults = false;
-  final ImagePicker _picker = ImagePicker();
-
+  static const String routeName = '/heart-analysis';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +34,9 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
           ],
         ),
         leading: IconButton(
-            onPressed: () {
-              context.pushNamed(Routes.sidebar);
-            },
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.black,
-            )),
+          onPressed: () => context.pushNamed(Routes.sidebar),
+          icon: const Icon(Icons.menu, color: Colors.black),
+        ),
         actions: [
           Avatar.small(),
           const Gap(10),
@@ -52,30 +46,50 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
         elevation: 0,
       ),
       body: Center(
-        child: showResults
-            ? _ResultsContainer()
-            : Image.asset(
-                'assets/images/gif.gif',
-                width: 150,
-                height: 150,
-              ),
+        child: BlocBuilder<HeartAnalysisCubit, HeartAnalysisState>(
+          builder: (context, state) {
+            if (state is HeartAnalysisLoading) {
+              return LoadingAnimationWidget.threeArchedCircle(
+                color: Colors.blueAccent,
+                size: 50,
+              );
+            } else if (state is HeartAnalysisSuccess) {
+              return _ResultsContainer(result: state.result);
+            } else if (state is HeartAnalysisError) {
+              return Text(state.message);
+            } else {
+              return Image.asset(
+                'assets/images/gif-unscreen.gif',
+                width: 200,
+                height: 200,
+              );
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          builder: (context) => _ImagePickerWidget(
-            onImageSelected: () {
-              setState(() {
-                showResults = true;
-              });
+        onPressed: () {
+          final cubit = context.read<HeartAnalysisCubit>();
+          showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            builder: (ctx) {
+              return BlocProvider.value(
+                value: cubit,
+                child: _ImagePickerWidget(
+                  onImageSelected: (File image) {
+                    Navigator.pop(ctx);
+                    cubit.analyzeImage(image);
+                  },
+                ),
+              );
             },
-          ),
-        ),
+          );
+        },
         backgroundColor: const Color(0xFF1E88E5),
-        child: const Icon(Icons.add, size: 30),
+        child: const Icon(Icons.add, size: 30, color: Colors.white),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -83,13 +97,13 @@ class _HeartAnalysisPageState extends State<HeartAnalysisPage> {
 }
 
 class _ImagePickerWidget extends StatelessWidget {
-  final VoidCallback onImageSelected;
+  final Function(File image) onImageSelected;
 
   const _ImagePickerWidget({required this.onImageSelected});
 
   @override
   Widget build(BuildContext context) {
-    final ImagePicker picker = ImagePicker();
+    final picker = ImagePicker();
 
     return Wrap(
       children: [
@@ -100,9 +114,8 @@ class _ImagePickerWidget extends StatelessWidget {
             final pickedFile =
                 await picker.pickImage(source: ImageSource.gallery);
             if (pickedFile != null) {
-              onImageSelected();
+              onImageSelected(File(pickedFile.path));
             }
-            Navigator.pop(context);
           },
         ),
         ListTile(
@@ -112,9 +125,8 @@ class _ImagePickerWidget extends StatelessWidget {
             final pickedFile =
                 await picker.pickImage(source: ImageSource.camera);
             if (pickedFile != null) {
-              onImageSelected();
+              onImageSelected(File(pickedFile.path));
             }
-            Navigator.pop(context);
           },
         ),
       ],
@@ -123,8 +135,14 @@ class _ImagePickerWidget extends StatelessWidget {
 }
 
 class _ResultsContainer extends StatelessWidget {
+  final HeartAnalysisResultModel result;
+
+  const _ResultsContainer({required this.result});
+
   @override
   Widget build(BuildContext context) {
+    final imageBytes = base64Decode(result.heatmapImageBase64);
+
     return Container(
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -140,32 +158,27 @@ class _ResultsContainer extends StatelessWidget {
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Analysis Results",
+          const Text(
+            "Analysis Result",
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Color(0xFF1E88E5),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
-            "• Blood Pressure: 120/80",
-            style: TextStyle(fontSize: 18),
+            "• Diagnosis: ${result.predictedClass}",
+            style: const TextStyle(fontSize: 18),
           ),
-          SizedBox(height: 5),
-          Text(
-            "• Heart Rate: 72 bpm",
-            style: TextStyle(fontSize: 18),
-          ),
-          SizedBox(height: 5),
-          Text(
-            "• Oxygen Level: 98%",
-            style: TextStyle(fontSize: 18),
+          const SizedBox(height: 15),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.memory(imageBytes),
           ),
         ],
       ),

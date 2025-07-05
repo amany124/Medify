@@ -1,13 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/helpers/tapProvider.dart';
-import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
+import 'package:medify/features/HeartAnaysis/data/repo/heart_repo.dart';
+import 'package:medify/features/HeartAnaysis/ui/views/heart_analysis_page.dart';
 import 'package:medify/features/chat/ui/views/all_chats.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
 import 'package:medify/features/notification/ui/views/notification_page.dart';
 import 'package:medify/features/social/ui/views/socail_page.dart';
-import 'package:provider/provider.dart';
 
 import '../../core/widgets/bottom_navigation_content.dart';
+import '../HeartAnaysis/ui/cubit/heart_analysis_cubit.dart';
 
 class BottomNavscreens extends StatelessWidget {
   const BottomNavscreens({super.key});
@@ -19,8 +22,13 @@ class BottomNavscreens extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: currentindex,
-        children: const [
-          HeartAnalysisPage(),
+        children: [
+          BlocProvider(
+            create: (_) => HeartAnalysisCubit(
+              HeartAnalysisRepo(Dio()),
+            ),
+            child: HeartAnalysisPage(),
+          ),
           SocailPage(),
           TopDoctorsView(),
           AllChats(),

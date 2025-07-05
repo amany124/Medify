@@ -1,7 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/helpers/local_data.dart';
-import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/features/authentication/register/data/models/user_model.dart';
 import 'package:medify/features/authentication/register/data/repo/register_repo.dart';
 
