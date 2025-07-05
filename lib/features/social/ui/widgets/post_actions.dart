@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
-import 'package:medify/features/social/ui/cubits/delete_post_cubit/delete_post_cubit.dart';
 import 'package:medify/features/social/ui/widgets/custom_icon_with_text.dart';
 
-import '../../../../core/helpers/local_data.dart';
+import '../../../../core/helpers/cache_manager.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../../core/utils/keys.dart';
 import '../../data/models/delete_post_request_model.dart';
 
 class PostActions extends StatelessWidget {
@@ -14,13 +14,16 @@ class PostActions extends StatelessWidget {
   final VoidCallback onCommentPressed;
   final String? contentText;
 
-  PostActions(
-      {super.key, required this.onCommentPressed, required this.postId,this.contentText });
+  const PostActions(
+      {super.key,
+      required this.onCommentPressed,
+      required this.postId,
+      this.contentText});
 
   @override
   Widget build(BuildContext context) {
     final DeletePostRequestModel requestModel = DeletePostRequestModel(
-      token: LocalData.getAuthResponseModel()!.token,
+      token: CacheManager.getData(key: Keys.token) ?? '',
       postId: postId,
     );
     return Row(

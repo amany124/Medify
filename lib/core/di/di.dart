@@ -25,6 +25,6 @@ setup() {
       ));
 
   getIt.registerLazySingleton<ChatCubit>(() => ChatCubit(
-        getIt(),
+        getIt<ChatRepo>(),
       ));
 }

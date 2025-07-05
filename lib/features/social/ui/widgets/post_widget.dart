@@ -3,27 +3,28 @@ import 'package:medify/features/social/ui/widgets/comment_section.dart';
 import 'package:medify/features/social/ui/widgets/post_actions.dart';
 import 'package:medify/features/social/ui/widgets/post_header.dart';
 
-class Post extends StatefulWidget {
+class UserPostWidget extends StatefulWidget {
   final String username;
   final String timestamp;
   final String content;
-  final String imageUrl ;
+  final String imageUrl;
   final String postId;
 
-  const Post({
+  const UserPostWidget({
     super.key,
     required this.username,
     required this.timestamp,
     required this.content,
     required this.postId,
-     this.imageUrl= "https://th.bing.com/th/id/R.883a4952998ca380853326bc61805259?rik=eMV9tHDVFS63Mw&pid=ImgRaw&r=0",
+    this.imageUrl =
+        "https://media.istockphoto.com/id/1437830105/photo/cropped-shot-of-a-female-nurse-hold-her-senior-patients-hand-giving-support-doctor-helping.jpg?s=612x612&w=0&k=20&c=oKR-00at4oXr4tY5IxzqsswaLaaPsPRkdw2MJbYHWgA=",
   });
 
   @override
-  _PostState createState() => _PostState();
+  _UserPostWidgetState createState() => _UserPostWidgetState();
 }
 
-class _PostState extends State<Post> {
+class _UserPostWidgetState extends State<UserPostWidget> {
   bool showComments = false;
 
   @override
@@ -58,15 +59,64 @@ class _PostState extends State<Post> {
               const SizedBox(height: 10),
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Image.network(widget.imageUrl),
+                child: Image.network(
+                  widget.imageUrl,
+                  height: 200,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      height: 200,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 200,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.broken_image,
+                            size: 50,
+                            color: Colors.grey.shade600,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Unable to load image',
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 10),
               PostActions(
-                 
                 postId: widget.postId,
                 contentText: widget.content,
-
-
                 onCommentPressed: () {
                   setState(() {
                     showComments = !showComments;

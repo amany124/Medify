@@ -39,7 +39,7 @@ import 'package:medify/features/profile/ui/views/profile_view.dart';
 import 'package:medify/features/profile/ui/views/public_profile.dart';
 import 'package:medify/features/settings/ui/views/password_manager.dart';
 import 'package:medify/features/settings/ui/views/settings.dart';
-
+import 'package:medify/features/social/data/models/create_post_request_model.dart';
 import '../../features/ProfileScreen/data/repos/profile_repo.dart';
 import '../../features/authentication/login/data/repos/login_repo.dart';
 import '../../features/authentication/register/ui/views/register_as_patient.dart';
@@ -48,13 +48,77 @@ import '../../features/chat/models/get_conversation_request_model.dart';
 import '../../features/chat/ui/chat_cubit/chat_cubit.dart';
 import '../../features/doctor_appointment.dart';
 import '../../features/social/ui/views/socail_page.dart' show SocailPage;
+import '../helpers/cache_manager.dart';
 import '../services/api_service.dart';
+import '../utils/keys.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:medify/core/di/di.dart';
+import 'package:medify/core/helpers/local_data.dart';
+import 'package:medify/core/routing/routes.dart';
+import 'package:medify/features/HeartAnaysis/ui/views/diseases_analysis.dart';
+import 'package:medify/features/about%20us/ui/views/aboutus_view.dart';
+import 'package:medify/features/authentication/login/ui/cubits/cubit/login_cubit.dart';
+import 'package:medify/features/authentication/login/ui/views/login_view.dart';
+import 'package:medify/features/authentication/register/data/repo/register_repo.dart';
+import 'package:medify/features/authentication/register/ui/cubit/register_cubit/register_cubit.dart';
+import 'package:medify/features/authentication/register/ui/views/intial_sign_up_view.dart';
+import 'package:medify/features/authentication/register/ui/views/register_as_doctor.dart';
+import 'package:medify/features/booking/ui/views/booking.dart';
+import 'package:medify/features/bottom_nav/bottom_nav_screens.dart';
+import 'package:medify/features/chat/models/messageModel.dart';
+import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
+import 'package:medify/features/chat/ui/views/all_chats.dart';
+import 'package:medify/features/chat/ui/views/messages_page.dart';
+import 'package:medify/features/doctors/ui/views/doc_view.dart';
+import 'package:medify/features/doctors/ui/views/myappointment.dart';
+import 'package:medify/features/feedback/feedback_view.dart';
+import 'package:medify/features/heart%20diseases/ui/views/heart_diseases.dart';
+import 'package:medify/features/notification/ui/views/notification_page.dart';
+import 'package:medify/features/onboarding/ui/views/onboarding_view.dart';
+import 'package:medify/features/onboarding/ui/views/start_view.dart';
+import 'package:medify/features/profile/ui/views/MyAppointments_view.dart';
+import 'package:medify/features/profile/ui/views/profile_view.dart';
+import 'package:medify/features/profile/ui/views/public_profile.dart';
+import 'package:medify/features/settings/ui/views/password_manager.dart';
+import 'package:medify/features/settings/ui/views/settings.dart';
+import 'package:medify/features/social/ui/cubits/create_post_cubit/create_post_cubit.dart';
+import 'package:medify/features/social/ui/cubits/get_posts_cubit/get_posts_cubit.dart';
+import 'package:medify/features/social/ui/views/socail_page.dart';
+import 'package:medify/features/social/ui/views/social_view.dart';
+import 'package:medify/features/social/ui/widgets/create_post_Page.dart';
 
+import '../../features/authentication/login/data/repos/login_repo.dart';
+import '../../features/authentication/register/ui/views/register_as_patient.dart';
+import '../../features/chat/models/get_conversation_request_model.dart';
+import '../../features/social/data/repos/social_repo.dart';
+import '../services/api_service.dart';
 class AppRouter {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onboardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingView());
+         case Routes.createPostpage:
+        return MaterialPageRoute(
+          builder: (_) {
+            final isEditing =
+                (settings.arguments as Map<String, dynamic>)['isEditing'] ??
+                    false;
+            final content =
+                (settings.arguments as Map<String, dynamic>)['contentText'];
+            final postId =
+                (settings.arguments as Map<String, dynamic>)['postId'];
+
+            return CreatePostPage(
+              isEditing: isEditing,
+              contentText: content,
+              postId: postId,
+            );
+          },
+        );
       case Routes.intialScreen:
         return MaterialPageRoute(builder: (_) {
           if (LocalData.getIsLogin()) {
@@ -178,7 +242,7 @@ class AppRouter {
                   create: (context) => getIt<ChatCubit>()
                     ..getConversation(
                       requestModel: GetConversationRequestModel(
-                        token: LocalData.getAuthResponseModel()!.token,
+                        token: CacheManager.getData(key: Keys.token) ?? '',
                       ),
                     ),
                   child: const AllChats(),

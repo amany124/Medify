@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:medify/core/helpers/local_data.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../../core/failures/failure.dart';
-import '../../../../register/data/models/response_user_model.dart';
+import '../../../../register/data/models/user_model.dart';
 import '../../../data/models/login_user_model.dart';
 import '../../../data/repos/login_repo.dart';
 
@@ -21,9 +22,11 @@ class LoginCubit extends Cubit<LoginState> {
     );
     return result.fold(
       (failure) => emit(LoginFailure(failure)),
-      (model) => emit(LoginSuccess(
-        model,
-      )),
+      (responseModel) {
+        LocalData.setAuthResponseModel(responseModel);
+        LocalData.setIsLogin(true);
+        emit(LoginSuccess(responseModel.user));
+      },
     );
   }
 }

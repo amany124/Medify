@@ -28,4 +28,7 @@ class CacheManager{
   }) async {
     return await sharedPreferences?.remove(key);
   }
+  static Future<bool?> clearAllData() async {
+    return await sharedPreferences?.clear();
+  }
 }

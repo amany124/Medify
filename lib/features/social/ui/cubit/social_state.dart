@@ -51,3 +51,17 @@ final class UpdatePostError extends SocialState {
   final String message;
   UpdatePostError(this.message);
 }
+
+final class SearchPostsLoading extends SocialState {}
+
+final class SearchPostsSuccess extends SocialState {
+  final List<Posts> searchResults;
+  SearchPostsSuccess(this.searchResults);
+}
+
+final class SearchPostsError extends SocialState {
+  final String message;
+  SearchPostsError(this.message);
+}
+
+final class SearchPostsInitial extends SocialState {}

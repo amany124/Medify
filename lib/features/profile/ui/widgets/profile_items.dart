@@ -151,9 +151,9 @@ class ProfileItems extends StatelessWidget {
                               );
                               // Clear the user data and navigate to the start view
                               await CacheManager.clearData(key: Keys.token);
-
                               await CacheManager.clearData(key: Keys.role);
-
+                              await CacheManager.clearData(key: Keys.userId);
+                              await CacheManager.clearAllData();
                               // Navigator.pop(context);
                             },
                           ),

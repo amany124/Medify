@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:medify/core/failures/failure.dart';
-import 'package:medify/core/helpers/local_data.dart';
+import 'package:medify/core/helpers/cache_manager.dart';
+import 'package:medify/core/utils/keys.dart';
 import 'package:medify/features/social/data/models/create_post_request_model.dart';
 import 'package:medify/features/social/data/models/create_post_response_model.dart';
 import 'package:medify/features/social/data/models/delete_post_request_model.dart';
@@ -20,16 +21,14 @@ abstract class SocialRepo {
     required CreatePostRequestModel requestModel,
   });
 
-  
-   Future<Either<Failure, UpdatePostResponseModel>> updatePost({
+  Future<Either<Failure, UpdatePostResponseModel>> updatePost({
     required UpdatePostsRequestModel requestModel,
   });
-  
 
-    Future<Either<Failure, DeletePostsResponseModel>> deletePost({
+  Future<Either<Failure, DeletePostsResponseModel>> deletePost({
     required DeletePostRequestModel requestModel,
   });
-  
+
   Future<Either<Failure, GetPostsResponseModel>> getAllPosts({
     required GetPostsRequestModel requestModel,
   });
@@ -72,11 +71,11 @@ class SocialRepoImpl implements SocialRepo {
   }) async {
     try {
       print('*' * 30);
-      print(LocalData.getAuthResponseModel()!.user.id.toString());
+      print(CacheManager.getData(key: Keys.userId) ?? '');
       // send request to the server
       final response = await apiServices.getRequest(
-        endpoint: Endpoints.getPosts(
-            LocalData.getAuthResponseModel()!.user.id.toString()),
+        endpoint:
+            Endpoints.getPosts(CacheManager.getData(key: Keys.userId) ?? ''),
         token: requestModel.token,
       );
       // map response to the model
@@ -93,17 +92,15 @@ class SocialRepoImpl implements SocialRepo {
     }
   }
 
-@override
+  @override
   Future<Either<Failure, DeletePostsResponseModel>> deletePost({
     required DeletePostRequestModel requestModel,
   }) async {
     try {
-      
-      // print(LocalData.getAuthResponseModel()!.user.id.toString());
+      // print(CacheManager.getData(key: Keys.userId) ?? '');
       // send request to the server
       final response = await apiServices.deleteRequest(
-        endpoint: Endpoints.deletePost(requestModel.postId
-            ),
+        endpoint: Endpoints.deletePost(requestModel.postId),
         token: requestModel.token,
       );
       // map response to the model
@@ -120,15 +117,14 @@ class SocialRepoImpl implements SocialRepo {
     }
   }
 
-
- @override
+  @override
   Future<Either<Failure, UpdatePostResponseModel>> updatePost({
     required UpdatePostsRequestModel requestModel,
   }) async {
     try {
       // send request to the server
       final response = await apiServices.putRequest(
-        endpoint: Endpoints.updatePost( requestModel.postId),
+        endpoint: Endpoints.updatePost(requestModel.postId),
         token: requestModel.token,
         data: requestModel.toJson(),
       );
@@ -145,8 +141,4 @@ class SocialRepoImpl implements SocialRepo {
       return Left(Failure(e.toString()));
     }
   }
-
-
-
-
 }

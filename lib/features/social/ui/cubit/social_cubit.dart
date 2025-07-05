@@ -54,6 +54,42 @@ class SocialCubit extends Cubit<SocialState> {
     );
   }
 
+  // Store all posts for search functionality
+  List<Posts> _allPosts = [];
+
+  void searchPosts(String query) {
+    if (query.isEmpty) {
+      emit(SearchPostsInitial());
+      return;
+    }
+
+    emit(SearchPostsLoading());
+
+    try {
+      final searchResults = _allPosts.where((post) {
+        final content = post.content?.toLowerCase() ?? '';
+        final doctorName = post.doctorName?.toLowerCase() ?? '';
+        final searchQuery = query.toLowerCase();
+
+        return content.contains(searchQuery) ||
+            doctorName.contains(searchQuery);
+      }).toList();
+
+      emit(SearchPostsSuccess(searchResults));
+    } catch (e) {
+      emit(SearchPostsError('Error searching posts: $e'));
+    }
+  }
+
+  void clearSearch() {
+    // When clearing search, emit the last successful posts state if available
+    if (_allPosts.isNotEmpty) {
+      emit(SearchPostsInitial());
+    } else {
+      emit(SearchPostsInitial());
+    }
+  }
+
   Future<void> getAllPosts({
     required GetPostsRequestModel requestModel,
   }) async {
@@ -61,9 +97,12 @@ class SocialCubit extends Cubit<SocialState> {
     final result = await socialRepo.getAllPosts(requestModel: requestModel);
     result.fold(
       (failure) {
+        print('Error fetching posts: ${failure.message}');
         emit(GetPostsError(failure.message));
       },
       (response) {
+        // Store all posts for search functionality
+        _allPosts = response.posts ?? [];
         emit(GetPostsSuccess(response));
       },
     );
