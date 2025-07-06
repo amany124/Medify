@@ -54,6 +54,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
 import 'package:medify/features/chat/ui/widgets/MessageBubble.dart';
+import 'package:medify/features/chat/ui/widgets/chats_list.dart';
 
 class RenderMessages extends StatelessWidget {
   const RenderMessages({super.key});
@@ -68,7 +69,7 @@ class RenderMessages extends StatelessWidget {
       child: BlocBuilder<ChatCubit, ChatState>(
         builder: (context, state) {
           if (state is GetMessagesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CustomLoading());
           } else if (state is GetMessagesError) {
             return Center(child: Text(state.message));
           } else if (state is GetMessagesSuccess) {

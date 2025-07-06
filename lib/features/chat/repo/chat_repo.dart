@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:medify/core/failures/failure.dart';
-
 import 'package:medify/features/chat/models/get_conversation_request_model.dart';
 import 'package:medify/features/chat/models/get_conversation_response_model.dart';
 import 'package:medify/features/chat/models/send_message_request_model.dart';
@@ -43,6 +42,8 @@ class ChatRepoImpl implements ChatRepo {
         token: requestModel.token,
         data: requestModel.toJson(),
       );
+      print(response.data);
+
       // map response to the model
       final responseModel = SendMessageResponseModel.fromJson(response.data);
 
@@ -69,7 +70,7 @@ class ChatRepoImpl implements ChatRepo {
         endpoint: Endpoints.getConversation,
         token: requestModel.token,
       );
-
+      print(response.data);
       final responseList = response.data as List<dynamic>;
       final responseModelList = <GetConversationResponseModel>[];
       for (var response in responseList) {

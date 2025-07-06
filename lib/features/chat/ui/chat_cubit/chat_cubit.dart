@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:medify/features/chat/models/get_conversation_response_model.dart';
 import 'package:medify/features/chat/models/get_messages_response_model.dart';
 import 'package:medify/features/chat/models/send_message_request_model.dart';

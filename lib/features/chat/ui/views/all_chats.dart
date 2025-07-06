@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/di/di.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
-import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/features/chat/models/get_conversation_request_model.dart';
 import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
 import 'package:medify/features/chat/ui/widgets/chats_list.dart';
-import 'package:medify/features/chat/ui/widgets/search_bar.dart';
 
 import '../../../../core/utils/keys.dart';
 
@@ -17,29 +14,30 @@ class AllChats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: const Icon(
-          CupertinoIcons.back,
-          color: Colors.black,
-        ),
+        surfaceTintColor: Colors.white,
         centerTitle: true,
+        automaticallyImplyLeading: false,
         title: const Text(
-          'Message',
+          'Messages',
           style: TextStyle(
-            color: Colors.black,
+            color: Color(0xFF1A1A1A),
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.2,
           ),
         ),
         actions: [
-          Builder(
-            builder: (context) {
-              return IconButton(
-                icon: const Icon(Icons.menu, color: Colors.black),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer(); // Open the drawer
-                },
-              );
+          IconButton(
+            icon: const Icon(
+              Icons.more_vert,
+              color: Color(0xFF1A1A1A),
+            ),
+            onPressed: () {
+              // Add more options here
             },
           ),
         ],
@@ -53,7 +51,8 @@ class AllChats extends StatelessWidget {
           ),
         child: const Column(
           children: [
-            SearchBarWidget(),
+            // SearchBarWidget(),
+            SizedBox(height: 8),
             Expanded(child: ChatsList()),
           ],
         ),
