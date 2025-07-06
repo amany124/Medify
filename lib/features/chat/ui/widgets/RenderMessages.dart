@@ -80,7 +80,7 @@ class RenderMessages extends StatelessWidget {
             }
 
             return ListView.builder(
-              reverse: true,                         // newest at bottom
+              // reverse: true,                         // newest at bottom
               padding: const EdgeInsets.only(top: 8),
               itemCount: messages.length,
               itemBuilder: (context, index) {
