@@ -101,6 +101,7 @@ class ChatRepoImpl implements ChatRepo {
         token: requestModel.token,
       );
       // map response to the model
+      print(response.data);
 
       final responseList = response.data as List<dynamic>;
       final responseModelList = <GetMessagesResponseModel>[];

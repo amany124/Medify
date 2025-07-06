@@ -20,7 +20,7 @@ class MessagesPage extends StatelessWidget {
           create: (context) => getIt<ChatCubit>()
             ..getAllMessages(
               requestModel: GetMessagesRequestModel(
-                userId: CacheManager.getData(key: Keys.userId) ?? '',
+                  userId: data.lastMessage?.receiverId ?? '',
                 token: CacheManager.getData(key: Keys.token) ?? '',
               ),
             ),
@@ -45,7 +45,7 @@ class MessagesPage extends StatelessWidget {
           // Refresh messages after successful send
           context.read<ChatCubit>().getAllMessages(
                 requestModel: GetMessagesRequestModel(
-                  userId: CacheManager.getData(key: Keys.userId) ?? '',
+                  userId: messageData.lastMessage?.receiverId ?? '',
                   token: CacheManager.getData(key: Keys.token) ?? '',
                 ),
               );
