@@ -34,6 +34,7 @@ class Endpoints {
   ///api/reviews/
   static const String doctorReviews = '$baseUrl/api/reviews';
   static const String createPost = '$baseUrl/api/doctors/posts';
+  static const String patientSocialPosts = '$baseUrl/api/patients/social-posts';
   static String getPosts(String doctorId) =>
       '$baseUrl/api/doctors/public-profile/$doctorId';
   static String deletePost(String postId) =>

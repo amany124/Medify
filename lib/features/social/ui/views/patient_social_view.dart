@@ -1,21 +1,14 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
-import 'package:medify/core/routing/extensions.dart';
-import 'package:medify/core/routing/routes.dart';
-import 'package:medify/core/theme/app_colors.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
 
 import '../../../../core/utils/keys.dart';
-import '../../data/models/get_posts_request_model.dart';
-import '../widgets/post_list_view.dart';
+import '../widgets/patient_post_list_view.dart';
 
-class SocialView extends StatelessWidget {
-  const SocialView({super.key});
+class PatientSocialView extends StatelessWidget {
+  const PatientSocialView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +17,21 @@ class SocialView extends StatelessWidget {
         BlocListener<SocialCubit, SocialState>(
           listener: (context, state) {
             if (state is CreatePostCubitSuccess) {
-              context.read<SocialCubit>().getAllPosts(
-                    requestModel: GetPostsRequestModel(
-                      doctorId: CacheManager.getData(key: Keys.userId) ?? '',
-                      token: CacheManager.getData(key: Keys.token) ?? '',
-                    ),
+              // Refresh patient social posts after successful create
+              context.read<SocialCubit>().getPatientSocialPosts(
+                    token: CacheManager.getData(key: Keys.token) ?? '',
                   );
             }
           },
         ),
       ],
       child: Scaffold(
+        backgroundColor: const Color(0xFFF8F9FA),
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           title: const Row(
             children: [
               Text(
-                'Medify',
+                'Social Feed',
                 style: TextStyle(
                   fontSize: 24,
                   color: Color(0xff223A6A),
@@ -49,30 +40,34 @@ class SocialView extends StatelessWidget {
                 ),
               ),
               Gap(20),
-              Expanded(child: SearchBarWidget()),
-              //         CircleAvatar(
-              //   radius: 20,
-              //   backgroundImage: AssetImage('assets/images/female pic1.jpg'),
-              // ),
+              Expanded(child: PatientSearchBarWidget()),
             ],
           ),
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-
           elevation: 0,
+          surfaceTintColor: Colors.white,
         ),
-        body: const PostListView(),
-        floatingActionButton: FloatingActionButton(
-          heroTag: 'createpost',
-          backgroundColor: Colors.white,
+        body: const PatientPostListView(),
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: 'patient_social_refresh',
+          backgroundColor: const Color(0xff223A6A),
           onPressed: () {
-            context.pushNamed(Routes.createPostpage, arguments: {
-              'isEditing': false,
-            });
+            // Refresh posts
+            context.read<SocialCubit>().getPatientSocialPosts(
+                  token: CacheManager.getData(key: Keys.token) ?? '',
+                );
           },
-          child: const Icon(
-            CupertinoIcons.add,
-            color: AppColors.primaryColor,
+          icon: const Icon(
+            Icons.refresh,
+            color: Colors.white,
+          ),
+          label: const Text(
+            'Refresh',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),
@@ -80,36 +75,20 @@ class SocialView extends StatelessWidget {
   }
 }
 
-// ...existing code...
-// import 'package:flutter/material.dart';
-
-class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget({super.key});
+class PatientSearchBarWidget extends StatefulWidget {
+  const PatientSearchBarWidget({super.key});
 
   @override
-  State<SearchBarWidget> createState() => _SearchBarWidgetState();
+  State<PatientSearchBarWidget> createState() => _PatientSearchBarWidgetState();
 }
 
-class _SearchBarWidgetState extends State<SearchBarWidget> {
+class _PatientSearchBarWidgetState extends State<PatientSearchBarWidget> {
   final TextEditingController _searchController = TextEditingController();
-  Timer? _debounce;
 
   @override
   void dispose() {
     _searchController.dispose();
-    _debounce?.cancel();
     super.dispose();
-  }
-
-  void _onSearchChanged(String value) {
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      if (value.isEmpty) {
-        context.read<SocialCubit>().clearSearch();
-      } else {
-        context.read<SocialCubit>().searchPosts(value);
-      }
-    });
   }
 
   @override
@@ -125,10 +104,14 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         textAlign: TextAlign.center,
         onChanged: (value) {
           setState(() {}); // Trigger rebuild to update suffix icon
-          _onSearchChanged(value);
+          if (value.isEmpty) {
+            context.read<SocialCubit>().clearSearch();
+          } else {
+            context.read<SocialCubit>().searchPosts(value);
+          }
         },
         decoration: InputDecoration(
-          hintText: 'Search posts...',
+          hintText: 'Search social posts...',
           hintStyle: const TextStyle(color: Colors.black54),
           border: InputBorder.none,
           suffixIcon: _searchController.text.isNotEmpty

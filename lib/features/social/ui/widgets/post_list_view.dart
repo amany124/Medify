@@ -39,6 +39,10 @@ class _PostListViewState extends State<PostListView> {
           GetPostsLoading() => _buildLoading(),
           GetPostsError() => _buildError(state),
           GetPostsSuccess() => _buildSuccess(state),
+          GetPatientSocialPostsLoading() => _buildLoading(),
+          GetPatientSocialPostsError() => _buildPatientSocialPostsError(state),
+          GetPatientSocialPostsSuccess() =>
+            _buildPatientSocialPostsSuccess(state),
           CreatePostCubitLoading() => _buildLoading(),
           SearchPostsLoading() => _buildLoading(),
           SearchPostsSuccess() => _buildSearchResults(state),
@@ -64,6 +68,7 @@ class _PostListViewState extends State<PostListView> {
                 username: post.doctorName ?? 'Unknown',
                 timestamp: post.formattedDate ?? '',
                 content: post.content ?? '',
+                imageUrl: post.image ?? "",
               ),
               const Divider(thickness: 0.6),
             ],
@@ -75,10 +80,15 @@ class _PostListViewState extends State<PostListView> {
         builder: (context, state) {
           if (state is GetPostsSuccess) {
             return _buildSuccess(state);
-          } else if (state is GetPostsLoading) {
+          } else if (state is GetPatientSocialPostsSuccess) {
+            return _buildPatientSocialPostsSuccess(state);
+          } else if (state is GetPostsLoading ||
+              state is GetPatientSocialPostsLoading) {
             return _buildLoading();
           } else if (state is GetPostsError) {
             return _buildError(state);
+          } else if (state is GetPatientSocialPostsError) {
+            return _buildPatientSocialPostsError(state);
           }
           return const Center(child: Text('No posts available.'));
         },
@@ -101,6 +111,7 @@ class _PostListViewState extends State<PostListView> {
                 username: post.doctorName ?? 'Unknown',
                 timestamp: post.formattedDate ?? '',
                 content: post.content ?? '',
+                imageUrl: post.image ?? "",
               ),
               const Divider(thickness: 0.6),
             ],
@@ -187,8 +198,7 @@ class _PostListViewState extends State<PostListView> {
                 username: post.doctorName ?? 'Unknown',
                 timestamp: post.formattedDate ?? '',
                 content: post.content ?? '',
-                // imageUrl:
-                //     'https://th.bing.com/th/id/R.883a4952998ca380853326bc61805259?rik=eMV9tHDVFS63Mw&pid=ImgRaw&r=0',
+                imageUrl: post.image ?? "",
               ),
               const Divider(thickness: 0.6),
             ],
@@ -208,6 +218,37 @@ class _PostListViewState extends State<PostListView> {
         color: Colors.blueAccent,
         size: 50,
       ));
+
+  Widget _buildPatientSocialPostsSuccess(GetPatientSocialPostsSuccess state) {
+    posts = state.getPostsResponseModel.posts;
+    allPosts = state.getPostsResponseModel.posts; // Store all posts
+
+    if (posts != null && posts!.isNotEmpty) {
+      return ListView.builder(
+        itemCount: posts!.length,
+        itemBuilder: (context, index) {
+          final post = posts![index];
+          return Column(
+            children: [
+              UserPostWidget(
+                postId: post.sId ?? '',
+                username: post.doctorName ?? 'Unknown',
+                timestamp: post.formattedDate ?? '',
+                content: post.content ?? '',
+                imageUrl: post.image ?? "",
+              ),
+              const Divider(thickness: 0.6),
+            ],
+          );
+        },
+      );
+    } else {
+      return const Center(child: Text('No social posts found.'));
+    }
+  }
+
+  Widget _buildPatientSocialPostsError(GetPatientSocialPostsError state) =>
+      Center(child: Text('Error loading social posts: ${state.message}'));
 }
 
 

@@ -32,6 +32,10 @@ abstract class SocialRepo {
   Future<Either<Failure, GetPostsResponseModel>> getAllPosts({
     required GetPostsRequestModel requestModel,
   });
+
+  Future<Either<Failure, GetPostsResponseModel>> getPatientSocialPosts({
+    required String token,
+  });
 }
 
 class SocialRepoImpl implements SocialRepo {
@@ -136,6 +140,31 @@ class SocialRepoImpl implements SocialRepo {
       print(e.response!.data);
       return Left(Failure(
         e.response!.data['message'] ?? 'An error occurred during create post',
+      ));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetPostsResponseModel>> getPatientSocialPosts({
+    required String token,
+  }) async {
+    try {
+      // send request to the server
+      final response = await apiServices.getRequest(
+        endpoint: Endpoints.patientSocialPosts,
+        token: token,
+      );
+      // map response to the model
+      final responseModel = GetPostsResponseModel.fromJson(response.data);
+
+      return Right(responseModel);
+    } on DioException catch (e) {
+      print(e.response!.data);
+      return Left(Failure(
+        e.response!.data['message'] ??
+            'An error occurred during fetching patient social posts',
       ));
     } catch (e) {
       return Left(Failure(e.toString()));

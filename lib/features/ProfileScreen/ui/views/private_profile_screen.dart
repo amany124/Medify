@@ -46,12 +46,33 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
 
   // Patient-specific controllers
   final TextEditingController bloodTypeController = TextEditingController();
+  final TextEditingController bmiController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
+  final TextEditingController physicalHealthController =
+      TextEditingController();
+  final TextEditingController mentalHealthController = TextEditingController();
+  final TextEditingController ageCategoryController = TextEditingController();
+  final TextEditingController raceController = TextEditingController();
+  final TextEditingController diabeticController = TextEditingController();
+  final TextEditingController genHealthController = TextEditingController();
+  final TextEditingController sleepTimeController = TextEditingController();
+  final TextEditingController physicalActivityController =
+      TextEditingController();
+  final TextEditingController diffWalkingController = TextEditingController();
+  final TextEditingController asthmaController = TextEditingController();
+  final TextEditingController kidneyDiseaseController = TextEditingController();
+  final TextEditingController skinCancerController = TextEditingController();
+
+  // Old fields controllers
   final TextEditingController heightController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
   final TextEditingController chronicController = TextEditingController();
   final TextEditingController diabetesController = TextEditingController();
   final TextEditingController heartRateController = TextEditingController();
+  final TextEditingController smokingController = TextEditingController();
+  final TextEditingController alcoholDrinkingController =
+      TextEditingController();
+  final TextEditingController strokeController = TextEditingController();
 
   // Doctor-specific controllers
   final TextEditingController nationalityController = TextEditingController();
@@ -129,11 +150,30 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
     emailController.text = patient.email;
     genderController.text = patient.gender;
     bloodTypeController.text = patient.bloodType;
+    bmiController.text = patient.bmi.toString();
+    physicalHealthController.text = patient.physicalHealth.toString();
+    mentalHealthController.text = patient.mentalHealth.toString();
+    ageCategoryController.text = patient.ageCategory;
+    raceController.text = patient.race;
+    diabeticController.text = patient.diabetic;
+    genHealthController.text = patient.genHealth;
+    sleepTimeController.text = patient.sleepTime.toString();
+    physicalActivityController.text = patient.physicalActivity ? 'Yes' : 'No';
+    diffWalkingController.text = patient.diffWalking ? 'Yes' : 'No';
+    asthmaController.text = patient.asthma ? 'Yes' : 'No';
+    kidneyDiseaseController.text = patient.kidneyDisease ? 'Yes' : 'No';
+    skinCancerController.text = patient.skinCancer ? 'Yes' : 'No';
+
+    // Old fields
     heightController.text = patient.height.toString();
     weightController.text = patient.weight.toString();
-    chronicController.text = patient.chronicCondition ?? '';
+    chronicController.text = patient.chronicCondition;
     diabetesController.text = patient.diabetes ? 'Yes' : 'No';
     heartRateController.text = patient.heartRate.toString();
+    smokingController.text = patient.smoking ? 'Yes' : 'No';
+    alcoholDrinkingController.text = patient.alcoholDrinking ? 'Yes' : 'No';
+    strokeController.text = patient.stroke ? 'Yes' : 'No';
+
     dobController.text =
         _dateFormatter.format(DateTime.parse(patient.dateOfBirth));
 
@@ -151,14 +191,24 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           icon: Icons.bloodtype,
           enabled: isEditing),
       ProfileTextField(
-          label: "Height",
+          label: "Height (cm)",
           controller: heightController,
           icon: Icons.height,
           enabled: isEditing),
       ProfileTextField(
-          label: "Weight",
+          label: "Weight (kg)",
           controller: weightController,
           icon: Icons.monitor_weight,
+          enabled: isEditing),
+      ProfileTextField(
+          label: "BMI",
+          controller: bmiController,
+          icon: Icons.monitor_weight,
+          enabled: isEditing),
+      ProfileTextField(
+          label: "Heart Rate (bpm)",
+          controller: heartRateController,
+          icon: Icons.favorite,
           enabled: isEditing),
       ProfileTextField(
           label: "Date of Birth",
@@ -174,12 +224,82 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           label: "Diabetes",
           controller: diabetesController,
           icon: Icons.medical_information,
+          enabled: false),
+      ProfileTextField(
+          label: "Physical Health (1-30)",
+          controller: physicalHealthController,
+          icon: Icons.fitness_center,
           enabled: isEditing),
       ProfileTextField(
-          label: "Heart Rate",
-          controller: heartRateController,
-          icon: Icons.favorite,
+          label: "Mental Health (1-30)",
+          controller: mentalHealthController,
+          icon: Icons.psychology,
           enabled: isEditing),
+      ProfileTextField(
+          label: "Age Category",
+          controller: ageCategoryController,
+          icon: Icons.cake,
+          enabled: isEditing),
+      ProfileTextField(
+          label: "Race",
+          controller: raceController,
+          icon: Icons.people,
+          enabled: isEditing),
+      ProfileTextField(
+          label: "Diabetic Status",
+          controller: diabeticController,
+          icon: Icons.medical_information,
+          enabled: isEditing),
+      ProfileTextField(
+          label: "General Health",
+          controller: genHealthController,
+          icon: Icons.health_and_safety,
+          enabled: isEditing),
+      ProfileTextField(
+          label: "Sleep Time (hours)",
+          controller: sleepTimeController,
+          icon: Icons.bedtime,
+          enabled: isEditing),
+      ProfileTextField(
+          label: "Physical Activity",
+          controller: physicalActivityController,
+          icon: Icons.directions_run,
+          enabled: false),
+      ProfileTextField(
+          label: "Difficulty Walking",
+          controller: diffWalkingController,
+          icon: Icons.accessible,
+          enabled: false),
+      ProfileTextField(
+          label: "Smoking",
+          controller: smokingController,
+          icon: Icons.smoking_rooms,
+          enabled: false),
+      ProfileTextField(
+          label: "Alcohol Drinking",
+          controller: alcoholDrinkingController,
+          icon: Icons.local_bar,
+          enabled: false),
+      ProfileTextField(
+          label: "Stroke History",
+          controller: strokeController,
+          icon: Icons.emergency,
+          enabled: false),
+      ProfileTextField(
+          label: "Asthma",
+          controller: asthmaController,
+          icon: Icons.air,
+          enabled: false),
+      ProfileTextField(
+          label: "Kidney Disease",
+          controller: kidneyDiseaseController,
+          icon: Icons.medical_services,
+          enabled: false),
+      ProfileTextField(
+          label: "Skin Cancer",
+          controller: skinCancerController,
+          icon: Icons.health_and_safety,
+          enabled: false),
     ];
   }
 
@@ -303,13 +423,35 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
                         name: fullNameController.text,
                         email: emailController.text,
                         bloodType: bloodTypeController.text,
-                        height: int.tryParse(heightController.text) ?? 0,
-                        weight: int.tryParse(weightController.text) ?? 0,
+                        bmi: double.tryParse(bmiController.text) ?? 0.0,
                         dateOfBirth: dobController.text,
                         gender: genderController.text,
+                        physicalHealth:
+                            int.tryParse(physicalHealthController.text) ?? 0,
+                        mentalHealth:
+                            int.tryParse(mentalHealthController.text) ?? 0,
+                        ageCategory: ageCategoryController.text,
+                        race: raceController.text,
+                        diabetic: diabeticController.text,
+                        genHealth: genHealthController.text,
+                        sleepTime: int.tryParse(sleepTimeController.text) ?? 0,
+                        physicalActivity:
+                            physicalActivityController.text == 'Yes',
+                        diffWalking: diffWalkingController.text == 'Yes',
+                        asthma: asthmaController.text == 'Yes',
+                        kidneyDisease: kidneyDiseaseController.text == 'Yes',
+                        skinCancer: skinCancerController.text == 'Yes',
+
+                        // Old fields
+                        height: int.tryParse(heightController.text) ?? 0,
+                        weight: int.tryParse(weightController.text) ?? 0,
                         chronicCondition: chronicController.text,
                         diabetes: diabetesController.text == 'Yes',
                         heartRate: int.tryParse(heartRateController.text) ?? 0,
+                        smoking: smokingController.text == 'Yes',
+                        alcoholDrinking:
+                            alcoholDrinkingController.text == 'Yes',
+                        stroke: strokeController.text == 'Yes',
                       );
                       context.read<GetProfileCubit>().updatePatientProfile(
                             patientModel: updatedPatient,

@@ -9,6 +9,7 @@ class UserPostWidget extends StatefulWidget {
   final String content;
   final String imageUrl;
   final String postId;
+  final bool canEditDelete; // New parameter to control edit/delete visibility
 
   const UserPostWidget({
     super.key,
@@ -18,6 +19,7 @@ class UserPostWidget extends StatefulWidget {
     required this.postId,
     this.imageUrl =
         "https://media.istockphoto.com/id/1437830105/photo/cropped-shot-of-a-female-nurse-hold-her-senior-patients-hand-giving-support-doctor-helping.jpg?s=612x612&w=0&k=20&c=oKR-00at4oXr4tY5IxzqsswaLaaPsPRkdw2MJbYHWgA=",
+    this.canEditDelete = true, // Default to true for backward compatibility
   });
 
   @override
@@ -55,7 +57,14 @@ class _UserPostWidgetState extends State<UserPostWidget> {
                 timestamp: widget.timestamp,
               ),
               const SizedBox(height: 10),
-              Text(widget.content),
+              Text(
+                widget.content,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                  height: 1.4,
+                ),
+              ),
               const SizedBox(height: 10),
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
@@ -117,6 +126,7 @@ class _UserPostWidgetState extends State<UserPostWidget> {
               PostActions(
                 postId: widget.postId,
                 contentText: widget.content,
+                canEditDelete: widget.canEditDelete, // Pass the parameter
                 onCommentPressed: () {
                   setState(() {
                     showComments = !showComments;

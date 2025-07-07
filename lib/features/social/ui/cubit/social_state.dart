@@ -65,3 +65,15 @@ final class SearchPostsError extends SocialState {
 }
 
 final class SearchPostsInitial extends SocialState {}
+
+final class GetPatientSocialPostsLoading extends SocialState {}
+
+final class GetPatientSocialPostsSuccess extends SocialState {
+  final GetPostsResponseModel getPostsResponseModel;
+  GetPatientSocialPostsSuccess(this.getPostsResponseModel);
+}
+
+final class GetPatientSocialPostsError extends SocialState {
+  final String message;
+  GetPatientSocialPostsError(this.message);
+}

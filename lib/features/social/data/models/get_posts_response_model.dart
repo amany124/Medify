@@ -5,23 +5,22 @@ class GetPostsResponseModel {
   GetPostsResponseModel({this.doctor, this.posts});
 
   GetPostsResponseModel.fromJson(Map<String, dynamic> json) {
-    doctor =
-        json['doctor'] != null ? new Doctor.fromJson(json['doctor']) : null;
+    doctor = json['doctor'] != null ? Doctor.fromJson(json['doctor']) : null;
     if (json['posts'] != null) {
       posts = <Posts>[];
       json['posts'].forEach((v) {
-        posts!.add(new Posts.fromJson(v));
+        posts!.add(Posts.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.doctor != null) {
-      data['doctor'] = this.doctor!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (doctor != null) {
+      data['doctor'] = doctor!.toJson();
     }
-    if (this.posts != null) {
-      data['posts'] = this.posts!.map((v) => v.toJson()).toList();
+    if (posts != null) {
+      data['posts'] = posts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -39,9 +38,9 @@ class Doctor {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['name'] = name;
     return data;
   }
 }
@@ -49,22 +48,26 @@ class Doctor {
 class Posts {
   String? sId;
   String? content;
+  String? image;
   int? likes;
   String? createdAt;
   String? doctorName;
   String? formattedDate;
 
-  Posts(
-      {this.sId,
-      this.content,
-      this.likes,
-      this.createdAt,
-      this.doctorName,
-      this.formattedDate});
+  Posts({
+    this.sId,
+    this.content,
+    this.image,
+    this.likes,
+    this.createdAt,
+    this.doctorName,
+    this.formattedDate,
+  });
 
   Posts.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     content = json['content'];
+    image = json['image'];
     likes = json['likes'];
     createdAt = json['createdAt'];
     doctorName = json['doctorName'];
@@ -72,13 +75,16 @@ class Posts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['content'] = this.content;
-    data['likes'] = this.likes;
-    data['createdAt'] = this.createdAt;
-    data['doctorName'] = this.doctorName;
-    data['formattedDate'] = this.formattedDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['content'] = content;
+    if (image != null) {
+      data['image'] = image;
+    }
+    data['likes'] = likes;
+    data['createdAt'] = createdAt;
+    data['doctorName'] = doctorName;
+    data['formattedDate'] = formattedDate;
     return data;
   }
 }

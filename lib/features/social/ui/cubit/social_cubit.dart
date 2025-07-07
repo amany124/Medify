@@ -128,4 +128,22 @@ class SocialCubit extends Cubit<SocialState> {
       },
     );
   }
+
+  Future<void> getPatientSocialPosts({
+    required String token,
+  }) async {
+    emit(GetPatientSocialPostsLoading());
+    final result = await socialRepo.getPatientSocialPosts(token: token);
+    result.fold(
+      (failure) {
+        print('Error fetching patient social posts: ${failure.message}');
+        emit(GetPatientSocialPostsError(failure.message));
+      },
+      (response) {
+        // Store all posts for search functionality
+        _allPosts = response.posts ?? [];
+        emit(GetPatientSocialPostsSuccess(response));
+      },
+    );
+  }
 }
