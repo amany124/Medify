@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:medify/features/authentication/register/ui/widgets/form_sections.dart';
 import 'package:medify/features/authentication/register/ui/widgets/register_navigation_section.dart';
+import 'package:medify/features/authentication/register/ui/widgets/section_components.dart';
+import 'dart:math';
 
 import '../../../../../core/helpers/show_custom_snack_bar.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../login/ui/widgets/custom_textfield.dart';
-import '../../../login/ui/widgets/custom_textfield_label.dart';
 import '../../data/models/patient_model.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
@@ -22,7 +23,7 @@ class _ModernPatientRegisterSectionState
     extends State<ModernPatientRegisterSection> {
   bool _isChecked = false;
 
-  // Initialize PatientModel with both old and new structure
+  // Initialize PatientModel
   PatientModel patientModel = PatientModel(
     name: '',
     email: '',
@@ -32,13 +33,11 @@ class _ModernPatientRegisterSectionState
     gender: 'male',
     dateOfBirth: '',
     bloodType: '',
-    // Old fields
     height: 0,
     weight: 0,
     chronicCondition: '',
     diabetes: false,
     heartRate: 0,
-    // New fields
     bmi: 0.0,
     smoking: false,
     alcoholDrinking: false,
@@ -219,170 +218,16 @@ class _ModernPatientRegisterSectionState
     }
   }
 
-  Widget _buildSectionHeader(String title, IconData icon, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [color.withOpacity(0.8), color.withOpacity(0.6)],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.3),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.white, size: 22),
-          const Gap(12),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSectionCard(Widget child, Color borderColor) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: borderColor.withOpacity(0.3)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: child,
-    );
-  }
-
+  // Build BMI Progress Indicator
   Widget _buildBMIProgressIndicator() {
     final bmi = double.tryParse(_bmiController.text) ?? 0.0;
     if (bmi <= 0) return const SizedBox.shrink();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Text(
-              'BMI Category:',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey,
-              ),
-            ),
-            const Gap(8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: _getBMIColor(bmi).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                _getBMICategory(bmi),
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: _getBMIColor(bmi),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const Gap(8),
-        Tooltip(
-          message: 'BMI: ${bmi.toStringAsFixed(1)} - ${_getBMICategory(bmi)}',
-          child: LinearProgressIndicator(
-            value: _getBMIProgress(bmi).clamp(0.0, 1.0),
-            backgroundColor: Colors.grey[300],
-            valueColor: AlwaysStoppedAnimation<Color>(_getBMIColor(bmi)),
-            minHeight: 8,
-          ),
-        ),
-        const Gap(4),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Underweight',
-              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-            ),
-            Text(
-              'Normal',
-              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-            ),
-            Text(
-              'Overweight',
-              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-            ),
-            Text(
-              'Obese',
-              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBooleanTile({
-    required String title,
-    required String subtitle,
-    required bool value,
-    required ValueChanged<bool> onChanged,
-    required IconData icon,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        color: value ? Colors.green[50] : Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: value ? Colors.green[300]! : Colors.grey[300]!,
-        ),
-      ),
-      child: SwitchListTile(
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[600],
-          ),
-        ),
-        value: value,
-        onChanged: onChanged,
-        activeColor: Colors.green,
-        secondary: Icon(
-          icon,
-          color: value ? Colors.green : Colors.grey,
-        ),
-      ),
+    
+    return SectionComponents.buildBMIProgressIndicator(
+      bmi: bmi,
+      category: _getBMICategory(bmi),
+      color: _getBMIColor(bmi),
+      progress: _getBMIProgress(bmi),
     );
   }
 
@@ -390,331 +235,50 @@ class _ModernPatientRegisterSectionState
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Basic Information Section
-          _buildSectionHeader(
-              'Basic Information', Icons.person, AppColors.secondaryColor),
-          const Gap(16),
-          _buildSectionCard(
-            Column(
-              children: [
-                // Full Name
-                const CustomTextfieldLabel(label: 'Full Name'),
-                const Gap(5),
-                CustomTextField(
-                  hintText: 'Enter your full name',
-                  prefixIcon: Icons.person_outline_rounded,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your full name';
-                    }
-                    return null;
-                  },
-                  onSaved: (val) {
-                    patientModel.name = val ?? '';
-                  },
-                ),
-                const Gap(16),
-
-                // Email & Username Row
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CustomTextfieldLabel(label: 'Email'),
-                          const Gap(5),
-                          CustomTextField(
-                            hintText: 'Enter your email',
-                            prefixIcon: Icons.email_outlined,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                  .hasMatch(value)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            },
-                            onSaved: (val) {
-                              patientModel.email = val ?? '';
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Gap(10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CustomTextfieldLabel(label: 'Username'),
-                          const Gap(5),
-                          CustomTextField(
-                            hintText: 'Enter your username',
-                            prefixIcon: Icons.person_pin_outlined,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your username';
-                              }
-                              if (value.length < 3) {
-                                return 'Username must be at least 3 characters';
-                              }
-                              return null;
-                            },
-                            onSaved: (val) {
-                              patientModel.username = val ?? '';
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const Gap(16),
-
-                // Password
-                const CustomTextfieldLabel(label: 'Password'),
-                const Gap(5),
-                CustomTextField(
-                  hintText: 'Enter your password',
-                  prefixIcon: Icons.lock_outline,
-                  isObscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    return null;
-                  },
-                  onSaved: (val) {
-                    patientModel.password = val ?? '';
-                  },
-                ),
-              ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Basic Information Section
+            FormSections.buildBasicInfoSection(
+              patientModel: patientModel,
             ),
-            AppColors.secondaryColor,
-          ),
-          const Gap(24),
+            const Gap(24),
 
-          // Personal Details Section
-          _buildSectionHeader('Personal Details', Icons.badge, Colors.blue),
-          const Gap(16),
-          _buildSectionCard(
-            Column(
-              children: [
-                // Gender & Date of Birth Row
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CustomTextfieldLabel(label: 'Gender'),
-                          const Gap(5),
-                          DropdownButtonFormField<String>(
-                            value: _gender,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                fontSize: 12,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
-                            ),
-                            items: genderOptions.map((String gender) {
-                              return DropdownMenuItem<String>(
-                                value: gender,
-                                child: Text(gender.toUpperCase()),
-                              );
-                            }).toList(),
-                            onChanged: (String? value) {
-                              setState(() {
-                                _gender = value;
-                              });
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select your gender';
-                              }
-                              return null;
-                            },
-                            onSaved: (val) {
-                              patientModel.gender = val ?? 'male';
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Gap(10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CustomTextfieldLabel(label: 'Date of Birth'),
-                          const Gap(5),
-                          TextFormField(
-                            controller: _dateOfBirthController,
-                            decoration: InputDecoration(
-                              hintText: 'Select date of birth',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.calendar_today),
-                                onPressed: () => _selectDate(context),
-                              ),
-                            ),
-                            readOnly: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select date of birth';
-                              }
-                              return null;
-                            },
-                            onSaved: (val) {
-                              patientModel.dateOfBirth = val ?? '';
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const Gap(16),
-
-                // Blood Type & Age Category Row
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CustomTextfieldLabel(label: 'Blood Type'),
-                    const Gap(5),
-                    DropdownButtonFormField<String>(
-                      value: _bloodType,
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(
-                          fontSize: 14,
-                        ),
-                        hintText: 'Select blood type',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
-                      ),
-                      items: bloodTypes.map((String bloodType) {
-                        return DropdownMenuItem<String>(
-                          value: bloodType,
-                          child: Text(bloodType),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          _bloodType = value;
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please select your blood type';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        patientModel.bloodType = val ?? '';
-                      },
-                    ),
-                  ],
-                ),
-                const Gap(10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CustomTextfieldLabel(label: 'Age Category'),
-                    const Gap(5),
-                    DropdownButtonFormField<String>(
-                      value: _ageCategory,
-                      decoration: InputDecoration(
-                        hintText: 'Select age category',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
-                      ),
-                      items: ageCategoryOptions.map((String age) {
-                        return DropdownMenuItem<String>(
-                          value: age,
-                          child: Text(age),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          _ageCategory = value;
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please select your age category';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        patientModel.ageCategory = val ?? '';
-                      },
-                    ),
-                  ],
-                ),
-                const Gap(16),
-
-                // Race
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: const CustomTextfieldLabel(label: 'Race')),
-                const Gap(5),
-                DropdownButtonFormField<String>(
-                  value: _race,
-                  decoration: InputDecoration(
-                    hintText: 'Select race',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                  ),
-                  items: raceOptions.map((String race) {
-                    return DropdownMenuItem<String>(
-                      value: race,
-                      child: Text(race),
-                    );
-                  }).toList(),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _race = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select your race';
-                    }
-                    return null;
-                  },
-                  onSaved: (val) {
-                    patientModel.race = val ?? '';
-                  },
-                ),
-              ],
+            // Personal Details Section
+            FormSections.buildPersonalDetailsSection(
+              patientModel: patientModel,
+              gender: _gender,
+              onGenderChanged: (value) {
+                setState(() {
+                  _gender = value;
+                });
+              },
+              dateOfBirthController: _dateOfBirthController,
+              onSelectDate: () => _selectDate(context),
+              bloodType: _bloodType,
+              onBloodTypeChanged: (value) {
+                setState(() {
+                  _bloodType = value;
+                });
+              },
+              bloodTypes: bloodTypes,
+              ageCategory: _ageCategory,
+              onAgeCategoryChanged: (value) {
+                setState(() {
+                  _ageCategory = value;
+                });
+              },
+              ageCategoryOptions: ageCategoryOptions,
+              race: _race,
+              onRaceChanged: (value) {
+                setState(() {
+                  _race = value;
+                });
+              },
+              raceOptions: raceOptions,
             ),
-            Colors.blue,
-          ),
-          const Gap(24),
+            const Gap(24),
 
           // Health Metrics Section
           _buildSectionHeader(
@@ -856,57 +420,45 @@ class _ModernPatientRegisterSectionState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  const CustomTextfieldLabel(
-                    label: 'Physical Health (1-30)'),
-                  const Gap(5),
-                  TextFormField(
-                    decoration: InputDecoration(
+                  SectionComponents.buildTextField(
+                    label: 'Physical Health (1-30)',
+                    controller: null,
                     hintText: 'Days of poor physical health',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    prefixIcon: const Icon(Icons.fitness_center),
-                    ),
+                    prefixIcon: Icons.fitness_center,
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      final days = int.tryParse(value);
-                      if (days == null || days < 0 || days > 30) {
-                      return 'Enter value between 0-30';
+                      if (value != null && value.isNotEmpty) {
+                        final days = int.tryParse(value);
+                        if (days == null || days < 0 || days > 30) {
+                          return 'Enter value between 0-30';
+                        }
                       }
-                    }
-                    return null;
+                      return null;
                     },
                     onSaved: (val) {
-                    patientModel.physicalHealth =
-                      int.tryParse(val ?? '0') ?? 0;
+                      patientModel.physicalHealth =
+                        int.tryParse(val ?? '0') ?? 0;
                     },
                   ),
                   const Gap(16),
-                  const CustomTextfieldLabel(
-                    label: 'Mental Health (1-30)'),
-                  const Gap(5),
-                  TextFormField(
-                    decoration: InputDecoration(
+                  SectionComponents.buildTextField(
+                    label: 'Mental Health (1-30)',
+                    controller: null,
                     hintText: 'Days of poor mental health',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    prefixIcon: const Icon(Icons.psychology),
-                    ),
+                    prefixIcon: Icons.psychology,
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      final days = int.tryParse(value);
-                      if (days == null || days < 0 || days > 30) {
-                      return 'Enter value between 0-30';
+                      if (value != null && value.isNotEmpty) {
+                        final days = int.tryParse(value);
+                        if (days == null || days < 0 || days > 30) {
+                          return 'Enter value between 0-30';
+                        }
                       }
-                    }
-                    return null;
+                      return null;
                     },
                     onSaved: (val) {
-                    patientModel.mentalHealth =
-                      int.tryParse(val ?? '0') ?? 0;
+                      patientModel.mentalHealth =
+                        int.tryParse(val ?? '0') ?? 0;
                     },
                   ),
                   ],
@@ -917,63 +469,46 @@ class _ModernPatientRegisterSectionState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  const CustomTextfieldLabel(label: 'General Health'),
-                  const Gap(5),
-                  DropdownButtonFormField<String>(
+                  SectionComponents.buildDropdownField<String>(
+                    label: 'General Health',
                     value: _genHealth,
-                    decoration: InputDecoration(
+                    items: genHealthOptions,
+                    itemLabel: (item) => item,
                     hintText: 'Select general health',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 12),
-                    ),
-                    items: genHealthOptions.map((String health) {
-                    return DropdownMenuItem<String>(
-                      value: health,
-                      child: Text(health),
-                    );
-                    }).toList(),
-                    onChanged: (String? value) {
-                    setState(() {
-                      _genHealth = value;
-                    });
+                    onChanged: (value) {
+                      setState(() {
+                        _genHealth = value;
+                      });
                     },
                     validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select general health';
-                    }
-                    return null;
+                      if (value == null || value.isEmpty) {
+                        return 'Please select general health';
+                      }
+                      return null;
                     },
                     onSaved: (val) {
-                    patientModel.genHealth = val ?? '';
+                      patientModel.genHealth = val ?? '';
                     },
                   ),
                   const Gap(16),
-                  const CustomTextfieldLabel(label: 'Sleep Time (hours)'),
-                  const Gap(5),
-                  TextFormField(
-                    decoration: InputDecoration(
+                  SectionComponents.buildTextField(
+                    label: 'Sleep Time (hours)',
+                    controller: null,
                     hintText: 'Hours of sleep per night',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    prefixIcon: const Icon(Icons.bedtime),
-                    ),
+                    prefixIcon: Icons.bedtime,
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      final hours = int.tryParse(value);
-                      if (hours == null || hours < 0 || hours > 24) {
-                      return 'Enter value between 0-24';
+                      if (value != null && value.isNotEmpty) {
+                        final hours = int.tryParse(value);
+                        if (hours == null || hours < 0 || hours > 24) {
+                          return 'Enter value between 0-24';
+                        }
                       }
-                    }
-                    return null;
+                      return null;
                     },
                     onSaved: (val) {
-                    patientModel.sleepTime =
-                      int.tryParse(val ?? '0') ?? 0;
+                      patientModel.sleepTime =
+                        int.tryParse(val ?? '0') ?? 0;
                     },
                   ),
                   ],
@@ -981,21 +516,16 @@ class _ModernPatientRegisterSectionState
                 const Gap(16),
 
                 // Chronic Condition
-                const CustomTextfieldLabel(label: 'Chronic Condition'),
-                const Gap(5),
-                TextFormField(
+                SectionComponents.buildTextField(
+                  label: 'Chronic Condition',
                   controller: _chronicConditionController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter any chronic conditions',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    prefixIcon: const Icon(Icons.medical_services),
-                  ),
+                  hintText: 'Enter any chronic conditions',
+                  prefixIcon: Icons.medical_services,
                   maxLines: 2,
                   onSaved: (val) {
                     patientModel.chronicCondition = val ?? '';
                   },
+                  validator: null,
                 ),
               ],
             ),
@@ -1011,25 +541,13 @@ class _ModernPatientRegisterSectionState
             Column(
               children: [
                 // Diabetes Status
-                const CustomTextfieldLabel(label: 'Diabetes Status'),
-                const Gap(5),
-                DropdownButtonFormField<String>(
+                SectionComponents.buildDropdownField<String>(
+                  label: 'Diabetes Status',
                   value: _diabetesStatus,
-                  decoration: InputDecoration(
-                    hintText: 'Select diabetes status',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                  ),
-                  items: diabetesOptions.map((String diabetes) {
-                    return DropdownMenuItem<String>(
-                      value: diabetes,
-                      child: Text(diabetes),
-                    );
-                  }).toList(),
-                  onChanged: (String? value) {
+                  items: diabetesOptions,
+                  itemLabel: (item) => item,
+                  hintText: 'Select diabetes status',
+                  onChanged: (value) {
                     setState(() {
                       _diabetesStatus = value;
                       _diabetes = value == 'Yes';
@@ -1049,14 +567,7 @@ class _ModernPatientRegisterSectionState
                 const Gap(20),
 
                 // Medical Conditions - Boolean Fields
-                const Text(
-                  'Medical Conditions',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.orange,
-                  ),
-                ),
+                SectionComponents.buildSectionSubtitle('Medical Conditions', Colors.orange),
                 const Gap(12),
 
                 _buildBooleanTile(
