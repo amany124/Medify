@@ -1,26 +1,26 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:medify/features/authentication/register/ui/widgets/form_sections.dart';
 import 'package:medify/features/authentication/register/ui/widgets/register_navigation_section.dart';
 import 'package:medify/features/authentication/register/ui/widgets/section_components.dart';
-import 'dart:math';
 
 import '../../../../../core/helpers/show_custom_snack_bar.dart';
-import '../../../../../core/theme/app_colors.dart';
 import '../../data/models/patient_model.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
-class ModernPatientRegisterSection extends StatefulWidget {
-  const ModernPatientRegisterSection({super.key});
+class PatientRegistrationSection extends StatefulWidget {
+  const PatientRegistrationSection({super.key});
 
   @override
-  State<ModernPatientRegisterSection> createState() =>
-      _ModernPatientRegisterSectionState();
+  State<PatientRegistrationSection> createState() =>
+      _PatientRegistrationSectionState();
 }
 
-class _ModernPatientRegisterSectionState
-    extends State<ModernPatientRegisterSection> {
+class _PatientRegistrationSectionState
+    extends State<PatientRegistrationSection> {
   bool _isChecked = false;
 
   // Initialize PatientModel
@@ -61,9 +61,11 @@ class _ModernPatientRegisterSectionState
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _bmiController = TextEditingController();
   final TextEditingController _heartRateController = TextEditingController();
-  final TextEditingController _chronicConditionController = TextEditingController();
+  final TextEditingController _chronicConditionController =
+      TextEditingController();
   final TextEditingController _dateOfBirthController = TextEditingController();
-  final TextEditingController _physicalHealthController = TextEditingController();
+  final TextEditingController _physicalHealthController =
+      TextEditingController();
   final TextEditingController _mentalHealthController = TextEditingController();
   final TextEditingController _sleepTimeController = TextEditingController();
 
@@ -74,7 +76,7 @@ class _ModernPatientRegisterSectionState
   String? _ageCategory;
   String? _race;
   String? _genHealth;
-  
+
   // Boolean values
   bool _physicalActivity = false;
   bool _diffWalking = false;
@@ -88,19 +90,46 @@ class _ModernPatientRegisterSectionState
 
   // Lists for dropdown options
   final List<String> bloodTypes = [
-    'A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'O+',
+    'O-',
+    'AB+',
+    'AB-'
   ];
   final List<String> diabetesOptions = ['Yes', 'No', 'Pre-diabetic'];
   final List<String> genderOptions = ['male', 'female'];
   final List<String> ageCategoryOptions = [
-    '18-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', 
-    '55-59', '60-64', '65-69', '70-74', '75-79', '80+'
+    '18-24',
+    '25-29',
+    '30-34',
+    '35-39',
+    '40-44',
+    '45-49',
+    '50-54',
+    '55-59',
+    '60-64',
+    '65-69',
+    '70-74',
+    '75-79',
+    '80+'
   ];
   final List<String> raceOptions = [
-    'White', 'Black', 'Asian', 'Hispanic', 'Native American', 'Other'
+    'White',
+    'Black',
+    'Asian',
+    'Hispanic',
+    'Native American',
+    'Other'
   ];
   final List<String> genHealthOptions = [
-    'Excellent', 'Very Good', 'Good', 'Fair', 'Poor'
+    'Excellent',
+    'Very Good',
+    'Good',
+    'Fair',
+    'Poor'
   ];
 
   // Form key for validation
@@ -109,7 +138,7 @@ class _ModernPatientRegisterSectionState
   @override
   void initState() {
     super.initState();
-    
+
     // Set defaults
     _gender = 'male';
     _physicalActivity = false;
@@ -139,7 +168,7 @@ class _ModernPatientRegisterSectionState
     _physicalHealthController.dispose();
     _mentalHealthController.dispose();
     _sleepTimeController.dispose();
-    
+
     super.dispose();
   }
 
@@ -207,7 +236,7 @@ class _ModernPatientRegisterSectionState
   Widget _buildBMIIndicator() {
     final bmi = double.tryParse(_bmiController.text) ?? 0.0;
     if (bmi <= 0) return const SizedBox.shrink();
-    
+
     return SectionComponents.buildBMIProgressIndicator(
       bmi: bmi,
       category: _getBMICategory(bmi),
@@ -254,8 +283,8 @@ class _ModernPatientRegisterSectionState
 
               // Register Navigation Button
               RegisterNavigationSection(
-                onNext: _validateAndRegister,
-                isChecked: _isChecked,
+                onpressed: _validateAndRegister,
+                isdoctor: false,
               ),
               const Gap(40),
             ],
@@ -285,7 +314,8 @@ class _ModernPatientRegisterSectionState
                 label: 'Gender',
                 value: _gender,
                 items: genderOptions,
-                itemLabel: (item) => item.substring(0, 1).toUpperCase() + item.substring(1),
+                itemLabel: (item) =>
+                    item.substring(0, 1).toUpperCase() + item.substring(1),
                 onChanged: (val) {
                   setState(() {
                     _gender = val;
@@ -416,7 +446,8 @@ class _ModernPatientRegisterSectionState
                         return null;
                       },
                       onSaved: (val) {
-                        patientModel.height = double.tryParse(val ?? '0') ?? 0;
+                        patientModel.height =
+                            (double.tryParse(val ?? '0') ?? 0).toInt();
                       },
                     ),
                   ),
@@ -439,7 +470,8 @@ class _ModernPatientRegisterSectionState
                         return null;
                       },
                       onSaved: (val) {
-                        patientModel.weight = double.tryParse(val ?? '0') ?? 0;
+                        patientModel.weight =
+                            (double.tryParse(val ?? '0') ?? 0).toInt();
                       },
                     ),
                   ),
@@ -454,12 +486,13 @@ class _ModernPatientRegisterSectionState
                 hintText: 'Calculated automatically',
                 prefixIcon: Icons.calculate,
                 readOnly: true,
+                validator: (value) => null, // BMI is auto-calculated
                 onSaved: (val) {
                   patientModel.bmi = double.tryParse(val ?? '0') ?? 0;
                 },
               ),
               const Gap(16),
-              
+
               // BMI Progress Indicator
               _buildBMIIndicator(),
               const Gap(16),
@@ -567,6 +600,7 @@ class _ModernPatientRegisterSectionState
                 hintText: 'Enter any chronic conditions',
                 prefixIcon: Icons.medical_information,
                 maxLines: 3,
+                validator: (value) => null, // Optional field
                 onSaved: (val) {
                   patientModel.chronicCondition = val ?? '';
                 },
@@ -576,7 +610,8 @@ class _ModernPatientRegisterSectionState
               // Difficulty Walking
               SectionComponents.buildBooleanTile(
                 title: 'Difficulty Walking',
-                subtitle: 'Do you have serious difficulty walking or climbing stairs?',
+                subtitle:
+                    'Do you have serious difficulty walking or climbing stairs?',
                 value: _diffWalking,
                 onChanged: (val) {
                   setState(() {
@@ -668,7 +703,8 @@ class _ModernPatientRegisterSectionState
                         return null;
                       },
                       onSaved: (val) {
-                        patientModel.physicalHealth = int.tryParse(val ?? '0') ?? 0;
+                        patientModel.physicalHealth =
+                            int.tryParse(val ?? '0') ?? 0;
                       },
                     ),
                   ),
@@ -690,7 +726,8 @@ class _ModernPatientRegisterSectionState
                         return null;
                       },
                       onSaved: (val) {
-                        patientModel.mentalHealth = int.tryParse(val ?? '0') ?? 0;
+                        patientModel.mentalHealth =
+                            int.tryParse(val ?? '0') ?? 0;
                       },
                     ),
                   ),
@@ -859,8 +896,8 @@ class _ModernPatientRegisterSectionState
   void _validateAndRegister() {
     if (!_formKey.currentState!.validate()) {
       showCustomSnackBar(
-        context: context,
-        message: 'Please fill in all required fields correctly.',
+        'Please fill in all required fields correctly.',
+        context,
         isError: true,
       );
       return;
@@ -868,8 +905,8 @@ class _ModernPatientRegisterSectionState
 
     if (!_isChecked) {
       showCustomSnackBar(
-        context: context,
-        message: 'Please agree to the terms and conditions.',
+        'Please agree to the terms and conditions.',
+        context,
         isError: true,
       );
       return;
@@ -877,8 +914,8 @@ class _ModernPatientRegisterSectionState
 
     _formKey.currentState!.save();
 
-    context.read<RegisterCubit>().registerAsPatient(
-          patientModel,
+    context.read<RegisterCubit>().registerPatient(
+          patientModel: patientModel,
         );
   }
 }
