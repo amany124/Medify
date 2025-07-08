@@ -217,7 +217,7 @@ class _ResetPasswordOtpViewState extends State<ResetPasswordOtpView> {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
+                                color: Colors.grey.withValues(alpha: 0.1),
                                 blurRadius: 10,
                                 offset: const Offset(0, 5),
                               ),
@@ -283,7 +283,7 @@ class _ResetPasswordOtpViewState extends State<ResetPasswordOtpView> {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
+                                color: Colors.grey.withValues(alpha: 0.1),
                                 blurRadius: 10,
                                 offset: const Offset(0, 5),
                               ),
@@ -377,7 +377,8 @@ class _ResetPasswordOtpViewState extends State<ResetPasswordOtpView> {
                                       Icon(
                                         Icons.lock_reset,
                                         size: 20,
-                                        color: Colors.white.withOpacity(0.8),
+                                        color:
+                                            Colors.white.withValues(alpha: 0.8),
                                       ),
                                     ],
                                   ),

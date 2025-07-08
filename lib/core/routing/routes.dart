@@ -23,7 +23,10 @@ class Routes {
   static const String messagesPage = '/MessagesPage';
   static const String settingsScreen = '/SettingsView';
   static const String passwordManager = '/PasswordManager';
-  static const String heartDiseases = '/HeartDiseases';
+  //bad result
+  static const String badResult = '/badResult';
+  //good result
+  static const String goodResult = '/goodResult';
   static const String feedbackScreen = '/FeedbackView';
   static const String favoritedoctors = '/favoritedoctors';
   static const String aboutUs = '/AboutusView';

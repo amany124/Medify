@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/features/authentication/register/ui/widgets/patient_register_section.dart';
-
+import 'package:medify/features/authentication/register/ui/widgets/patient_registration_section.dart';
 import '../../../../../core/helpers/show_custom_snack_bar.dart';
 import '../../../congradulations/views/congradulations.dart';
 import '../cubit/register_cubit/register_cubit.dart';
@@ -37,7 +36,7 @@ class PatientRigesterBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gap(15),
-            PatientRegisterSection(),
+            PatientRegistrationSection(),
             Gap(20),
           ],
         ),

@@ -65,7 +65,8 @@ class ProfileItems extends StatelessWidget {
             text: 'heart diseases',
             iconPath: Assets.assetsImagesAnatomicalHeart,
             onTap: () {
-              context.pushNamed(Routes.heartDiseases);
+              // chk if good result or bad
+              // context.pushNamed(Routes.heartDiseases);
             }),
 
         // about us

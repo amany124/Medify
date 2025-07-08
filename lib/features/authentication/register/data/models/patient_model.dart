@@ -1,3 +1,5 @@
+import '../../../../heart diseases/data/models/heart_diseases_request_model.dart';
+
 class PatientModel {
   String name;
   String email;
@@ -12,7 +14,6 @@ class PatientModel {
   int height;
   int weight;
   String chronicCondition;
-  bool diabetes;
   int heartRate;
 
   // New health-related fields
@@ -47,7 +48,6 @@ class PatientModel {
     required this.height,
     required this.weight,
     required this.chronicCondition,
-    required this.diabetes,
     required this.heartRate,
 
     // New fields
@@ -85,7 +85,6 @@ class PatientModel {
       height: json['height'] ?? 0,
       weight: json['weight'] ?? 0,
       chronicCondition: json['chronicCondition'] ?? '',
-      diabetes: json['diabetes'] ?? false,
       heartRate: json['heartRate'] ?? 0,
 
       // New fields
@@ -124,7 +123,6 @@ class PatientModel {
       'height': height,
       'weight': weight,
       'chronicCondition': chronicCondition,
-      'diabetes': diabetes,
       'heartRate': heartRate,
 
       // New fields
@@ -197,7 +195,6 @@ class PatientModel {
       height: height ?? this.height,
       weight: weight ?? this.weight,
       chronicCondition: chronicCondition ?? this.chronicCondition,
-      diabetes: diabetes ?? this.diabetes,
       heartRate: heartRate ?? this.heartRate,
 
       // New fields
@@ -218,5 +215,36 @@ class PatientModel {
       kidneyDisease: kidneyDisease ?? this.kidneyDisease,
       skinCancer: skinCancer ?? this.skinCancer,
     );
+  }
+
+  HeartDiseasesRequest toHeartDiseasesRequest() {
+    return HeartDiseasesRequest(
+      bmi: bmi,
+      smoking: toStringBool(smoking),
+      alcoholDrinking: toStringBool(alcoholDrinking),
+      stroke: toStringBool(stroke),
+      physicalHealth: physicalHealth,
+      mentalHealth: mentalHealth,
+      diffWalking: toStringBool(diffWalking),
+      sex: gender,
+      ageCategory: ageCategory,
+      race: race,
+      diabetic: diabetic,
+      physicalActivity: toStringBool(physicalActivity),
+      genHealth: genHealth,
+      sleepTime: sleepTime,
+      asthma: toStringBool(asthma),
+      kidneyDisease: toStringBool(kidneyDisease),
+      skinCancer: toStringBool(skinCancer),
+    );
+  }
+
+////toStringBool
+  toStringBool(bool boolVar) {
+    if (boolVar == false) {
+      return 'No';
+    } else {
+      return 'Yes';
+    }
   }
 }

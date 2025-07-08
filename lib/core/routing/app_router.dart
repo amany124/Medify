@@ -29,7 +29,8 @@ import 'package:medify/features/doctors/ui/views/DoctorPublicProfile.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
 import 'package:medify/features/doctors/ui/views/myappointment.dart';
 import 'package:medify/features/feedback/feedback_view.dart';
-import 'package:medify/features/heart%20diseases/ui/views/heart_diseases.dart';
+import 'package:medify/features/heart%20diseases/ui/views/bad_result.dart';
+import 'package:medify/features/heart%20diseases/ui/views/good_result.dart';
 import 'package:medify/features/notification/ui/views/notification_page.dart';
 import 'package:medify/features/onboarding/ui/views/onboarding_view.dart';
 import 'package:medify/features/onboarding/ui/views/start_view.dart';
@@ -210,8 +211,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SettingsView());
       case Routes.passwordManager:
         return MaterialPageRoute(builder: (_) => const PasswordManager());
-      case Routes.heartDiseases:
-        return MaterialPageRoute(builder: (_) => const HeartDiseases());
+      case Routes.goodResult: 
+        return MaterialPageRoute(builder: (_) => const GoodResultPage());
+      case Routes.badResult:
+        return MaterialPageRoute(builder: (_) => const BadResultPage());
       case Routes.feedbackScreen:
         return MaterialPageRoute(builder: (_) => const FeedbackView());
       case Routes.favoriteDoctors:
