@@ -17,9 +17,10 @@ class GetProfileCubit extends Cubit<GetProfileState> {
   void getPatientProfile() async {
     emit(GetProfileLoading());
     final result = await profileRepo.getPatientProfile();
+
     return result.fold((failure) => emit(GetProfileFailure(failure)), (model) {
-      name = model.name;
       emit(GetPatientProfileSuccess(patientModel: model));
+      name = model.name;
 
       print('name: $name');
     });

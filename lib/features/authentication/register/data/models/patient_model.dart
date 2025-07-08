@@ -11,9 +11,9 @@ class PatientModel {
   String bloodType;
 
   // Old fields - keeping for compatibility
-  int height;
-  int weight;
-  String chronicCondition;
+  int? height;
+  int? weight;
+  String? chronicCondition;
   int heartRate;
 
   // New health-related fields
@@ -45,9 +45,9 @@ class PatientModel {
     required this.bloodType,
 
     // Old fields
-    required this.height,
-    required this.weight,
-    required this.chronicCondition,
+    this.height,
+    this.weight,
+    this.chronicCondition,
     required this.heartRate,
 
     // New fields
@@ -76,17 +76,14 @@ class PatientModel {
       email: json['email'],
       username: json['username'],
       password: json['password'],
-      role: json['role'],
+      role:
+          json['role'] ?? '', // role is missing in your sample, provide default
       gender: json['gender'],
       dateOfBirth: json['dateOfBirth'],
       bloodType: json['bloodType'],
-
       // Old fields
-      height: json['height'] ?? 0,
-      weight: json['weight'] ?? 0,
-      chronicCondition: json['chronicCondition'] ?? '',
-      heartRate: json['heartRate'] ?? 0,
 
+      heartRate: json['heartRate'] ?? 0,
       // New fields
       bmi: (json['bmi'] ?? 0.0).toDouble(),
       smoking: json['smoking'] ?? false,

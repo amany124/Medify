@@ -54,7 +54,7 @@ class _LoginCongratulationsState extends State<LoginCongratulationsView>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          const Color.fromARGB(255, 34, 139, 34), // Green theme for login
+          const Color.fromARGB(255, 46, 143, 255), // Blue theme for sign up
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +98,8 @@ class _LoginCongratulationsState extends State<LoginCongratulationsView>
                     width: 150,
                     height: 150,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 34, 139, 34),
+                      color: const Color.fromARGB(
+                          255, 46, 143, 255), // Blue theme for sign up,
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.white, width: 8),
                     ),
@@ -159,8 +160,9 @@ class _LoginCongratulationsState extends State<LoginCongratulationsView>
                               Routes.bottomNavThatHasAllScreens);
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor:
-                              const Color.fromARGB(255, 34, 139, 34),
+                          foregroundColor: const Color.fromARGB(
+                              255, 46, 143, 255), // Blue theme for sign up
+
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),

@@ -31,6 +31,7 @@ class ProfileRepoImpl implements ProfileRepo {
           key: Keys.token,
         ),
       );
+      print(response.data);
       return Right(PatientModel.fromJson(response.data));
     } on DioException catch (e) {
       print(e.response!.data);
