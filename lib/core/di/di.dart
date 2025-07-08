@@ -32,7 +32,7 @@ setup() {
   getIt.registerLazySingleton<PredictDiseaseRepo>(
     () => PredictDiseaseRepoImpl(apiServices: getIt()),
   );
-  getIt.registerFactory<PredictDiseaseCubit>(
+  getIt.registerLazySingleton<PredictDiseaseCubit>(
     () => PredictDiseaseCubit(getIt()),
   );
 }

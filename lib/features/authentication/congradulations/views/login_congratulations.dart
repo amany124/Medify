@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medify/core/routing/extensions.dart';
-import 'package:medify/core/routing/routes.dart';
 
+import '../../../../core/routing/routes.dart';
 import '../widgets/welcome_message_widget.dart';
 
-class CongratulationsView extends StatefulWidget {
-  const CongratulationsView({
+class LoginCongratulationsView extends StatefulWidget {
+  const LoginCongratulationsView({
     super.key,
-    this.isSignUp = true,
     this.isdoctor = true,
     this.userName,
   });
   final bool isdoctor;
-  final bool isSignUp;
   final String? userName;
+
   @override
-  _SuccessScreenState createState() => _SuccessScreenState();
+  _LoginCongratulationsState createState() => _LoginCongratulationsState();
 }
 
-class _SuccessScreenState extends State<CongratulationsView>
+class _LoginCongratulationsState extends State<LoginCongratulationsView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _circleAnimation;
   late Animation<double> _textFadeAnimation;
 
-  _SuccessScreenState();
   @override
   void initState() {
     super.initState();
@@ -55,7 +53,8 @@ class _SuccessScreenState extends State<CongratulationsView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 46, 143, 255),
+      backgroundColor:
+          const Color.fromARGB(255, 34, 139, 34), // Green theme for login
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +74,9 @@ class _SuccessScreenState extends State<CongratulationsView>
                       context.pop();
                     },
                   ),
-                  Text(
-                    widget.isSignUp ? 'Sign Up' : 'Login',
-                    style: const TextStyle(
+                  const Text(
+                    'Login',
+                    style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -99,13 +98,13 @@ class _SuccessScreenState extends State<CongratulationsView>
                     width: 150,
                     height: 150,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 46, 143, 255),
+                      color: const Color.fromARGB(255, 34, 139, 34),
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.white, width: 8),
                     ),
                     child: const Center(
                       child: Icon(
-                        Icons.check,
+                        Icons.login,
                         size: 80,
                         color: Colors.white,
                       ),
@@ -123,7 +122,7 @@ class _SuccessScreenState extends State<CongratulationsView>
                   child: Column(
                     children: [
                       const Text(
-                        'Congratulation',
+                        'Welcome Back!',
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
@@ -132,11 +131,9 @@ class _SuccessScreenState extends State<CongratulationsView>
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Text(
-                        widget.isSignUp
-                            ? 'Sign up Done Successfully!'
-                            : 'Login Done Successfully!',
-                        style: const TextStyle(
+                      const Text(
+                        'Login Done Successfully!',
+                        style: TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -146,44 +143,41 @@ class _SuccessScreenState extends State<CongratulationsView>
                       const Gap(50),
                       widget.isdoctor
                           ? GradulationsText(
-                              text1: 'Welcome back ${widget.userName},',
-                              text2: 'It\'s pleasure you arae here.',
-                              text3: 'Your Patients Waits for U.',
+                              text1: 'Welcome back Dr. ${widget.userName},',
+                              text2: 'Ready to help your patients today.',
+                              text3: 'Your expertise makes a difference.',
                             )
                           : GradulationsText(
                               text1: 'Welcome back ${widget.userName},',
-                              text2:
-                                  'Your Documentations have been\n Reviewed Successfully ',
-                              text3: 'We hope you get Better',
+                              text2: 'We\'re glad to see you again.',
+                              text3: 'Your health journey continues.',
                             ),
                       const Gap(100),
                       ElevatedButton(
                         onPressed: () {
-                          context.pushReplacementNamed(Routes.bottomNavThatHasAllScreens);
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) {
-                          //   return HeartAnalysisPage();
-                          // }));
+                          context.pushReplacementNamed(
+                              Routes.bottomNavThatHasAllScreens);
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: const Color(0xFF4A90E2),
+                          foregroundColor:
+                              const Color.fromARGB(255, 34, 139, 34),
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 24.0, vertical: 12.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
-                                'Process To Your Account',
+                              const Text(
+                                'proccess to Your account',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(width: 20),
-                              Icon(Icons.arrow_forward),
+                              const SizedBox(width: 20),
+                              const Icon(Icons.arrow_forward),
                             ],
                           ),
                         ),

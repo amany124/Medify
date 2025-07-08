@@ -23,10 +23,13 @@ class PredictDiseaseRepoImpl implements PredictDiseaseRepo {
         endpoint: Endpoints.predictDisease,
         data: request.toJson(),
       );
+      print(response.toString());
+
       final HeartDiseasesResponse heartDiseasesResponse =
           HeartDiseasesResponse.fromJson(response.data);
       return Right(heartDiseasesResponse);
     } on DioException catch (e) {
+      print(e);
       return Left(Failure(
           e.response?.data['message'] ?? 'Failed to add doctor to favorites'));
     } catch (e) {

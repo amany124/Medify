@@ -6,8 +6,10 @@ import 'package:gap/gap.dart';
 import 'package:medify/features/authentication/register/ui/widgets/form_sections.dart';
 import 'package:medify/features/authentication/register/ui/widgets/register_navigation_section.dart';
 import 'package:medify/features/authentication/register/ui/widgets/section_components.dart';
+import 'package:medify/features/heart%20diseases/data/models/heart_diseases_request_model.dart';
 
 import '../../../../../core/helpers/show_custom_snack_bar.dart';
+import '../../../../heart diseases/presentation/cubit/predict_disease_cubit.dart';
 import '../../data/models/patient_model.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
@@ -98,7 +100,12 @@ class _PatientRegistrationSectionState
     'AB+',
     'AB-'
   ];
-  final List<String> diabetesOptions = ['Yes', 'No', 'Pre-diabetic'];
+  final List<String> diabetesOptions = [
+    'No',
+    'Yes',
+    'Borderline diabetes',
+
+  ];
   final List<String> genderOptions = ['male', 'female'];
   final List<String> ageCategoryOptions = [
     '18-24',
@@ -120,12 +127,12 @@ class _PatientRegistrationSectionState
     'Black',
     'Asian',
     'Hispanic',
-    'Native American',
+    'American Indian/Alaskan Native',
     'Other'
   ];
   final List<String> genHealthOptions = [
     'Excellent',
-    'Very Good',
+    'Very good',
     'Good',
     'Fair',
     'Poor'
@@ -244,50 +251,70 @@ class _PatientRegistrationSectionState
     );
   }
 
+  // Create a heart disease prediction request from patient model
+  HeartDiseasesRequest _createHeartDiseaseRequest() {
+    return HeartDiseasesRequest(
+      bmi: patientModel.bmi,
+      smoking: patientModel.smoking ? 'Yes' : 'No',
+      alcoholDrinking: patientModel.alcoholDrinking ? 'Yes' : 'No',
+      stroke: patientModel.stroke ? 'Yes' : 'No',
+      physicalHealth: patientModel.physicalHealth,
+      mentalHealth: patientModel.mentalHealth,
+      diffWalking: patientModel.diffWalking ? 'Yes' : 'No',
+      sex: patientModel.gender,
+      ageCategory: patientModel.ageCategory,
+      race: patientModel.race,
+      diabetic: patientModel.diabetic,
+      physicalActivity: patientModel.physicalActivity ? 'Yes' : 'No',
+      genHealth: patientModel.genHealth,
+      sleepTime: patientModel.sleepTime,
+      asthma: patientModel.asthma ? 'Yes' : 'No',
+      kidneyDisease: patientModel.kidneyDisease ? 'Yes' : 'No',
+      skinCancer: patientModel.skinCancer ? 'Yes' : 'No',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Basic Information Section
-              FormSections.buildBasicInfoSection(
-                patientModel: patientModel,
-              ),
-              const Gap(24),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Basic Information Section
+            FormSections.buildBasicInfoSection(
+              patientModel: patientModel,
+            ),
+            const Gap(24),
 
-              // Personal Details Section
-              _buildPersonalDetailsSection(),
-              const Gap(24),
+            // Personal Details Section
+            _buildPersonalDetailsSection(),
+            const Gap(24),
 
-              // Health Metrics Section
-              _buildHealthMetricsSection(),
-              const Gap(24),
+            // Health Metrics Section
+            _buildHealthMetricsSection(),
+            const Gap(24),
 
-              // Health Conditions Section
-              _buildHealthConditionsSection(),
-              const Gap(24),
+            // Health Conditions Section
+            _buildHealthConditionsSection(),
+            const Gap(24),
 
-              // Lifestyle Section
-              _buildLifestyleSection(),
-              const Gap(24),
+            // Lifestyle Section
+            _buildLifestyleSection(),
+            const Gap(24),
 
-              // Terms and Conditions
-              _buildTermsAndConditionsSection(),
-              const Gap(24),
+            // Terms and Conditions
+            _buildTermsAndConditionsSection(),
+            const Gap(24),
 
-              // Register Navigation Button
-              RegisterNavigationSection(
-                onpressed: _validateAndRegister,
-                isdoctor: false,
-              ),
-              const Gap(40),
-            ],
-          ),
+            // Register Navigation Button
+            RegisterNavigationSection(
+              onpressed: _validateAndRegister,
+              isdoctor: false,
+            ),
+            const Gap(40),
+          ],
         ),
       ),
     );
@@ -773,7 +800,7 @@ class _PatientRegistrationSectionState
                 onSaved: (val) {
                   patientModel.genHealth = val ?? '';
                 },
-                hintText: 'How would you rate your general health?',
+                hintText: 'rate your general health',
               ),
               const Gap(16),
 
@@ -910,7 +937,9 @@ class _PatientRegistrationSectionState
     }
 
     _formKey.currentState!.save();
-
+    final HeartDiseasesRequest request = _createHeartDiseaseRequest();
+    print(request.bmi);
+    context.read<PredictDiseaseCubit>().setRequest(request);
     context.read<RegisterCubit>().registerPatient(
           patientModel: patientModel,
         );

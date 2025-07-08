@@ -3,9 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:medify/core/constant/endpoints.dart';
 import 'package:medify/core/failures/failure.dart';
 import 'package:medify/core/services/api_service.dart';
+import 'package:medify/core/utils/keys.dart';
 import 'package:medify/features/authentication/register/data/models/auth_response_model.dart';
 import 'package:medify/features/authentication/register/data/models/doctor_model.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
+
+import '../../../../../core/helpers/cache_manager.dart';
 
 abstract class RegisterRepo {
   Future<Either<Failure, AuthResponseModel>> registerDoctor(
@@ -27,6 +30,8 @@ class RegisterRepoImpl implements RegisterRepo {
         endpoint: Endpoints.register,
         data: doctorModel.toJson(),
       );
+      final String token = response.data['token'];
+      await CacheManager.setData(key: Keys.token, value: token);
       AuthResponseModel authResponseModel =
           AuthResponseModel.fromJson(response.data);
       return Right(authResponseModel);

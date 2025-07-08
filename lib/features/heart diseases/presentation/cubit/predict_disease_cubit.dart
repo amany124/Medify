@@ -5,16 +5,21 @@ import 'package:medify/features/heart%20diseases/presentation/cubit/predict_dise
 
 class PredictDiseaseCubit extends Cubit<PredictDiseaseState> {
   final PredictDiseaseRepo _predictDiseaseRepo;
+  late HeartDiseasesRequest request;
 
   PredictDiseaseCubit(this._predictDiseaseRepo)
       : super(PredictDiseaseInitial());
 
-  Future<void> predictHeartDisease({
-    required HeartDiseasesRequest request,
-  }) async {
+  // Set the HeartDiseasesRequest from UI or external call
+  void setRequest(HeartDiseasesRequest newRequest) {
+    request = newRequest;
+  }
+
+  Future<void> predictHeartDisease() async {
     emit(PredictDiseaseLoading());
 
     final result = await _predictDiseaseRepo.predictDisease(request: request);
+    print(result.toString());
 
     result.fold(
       (failure) => emit(PredictDiseaseFailure(failure)),

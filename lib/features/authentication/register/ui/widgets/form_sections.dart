@@ -43,52 +43,44 @@ class FormSections {
               const Gap(16),
 
               // Email & Username Row
-              Row(
-                children: [
-                  Expanded(
-                    child: SectionComponents.buildTextField(
-                      label: 'Email',
-                      controller: null,
-                      hintText: 'Enter your email',
-                      prefixIcon: Icons.email_outlined,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                            .hasMatch(value)) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        patientModel.email = val ?? '';
-                      },
-                    ),
-                  ),
-                  const Gap(10),
-                  Expanded(
-                    child: SectionComponents.buildTextField(
-                      label: 'Username',
-                      controller: null,
-                      hintText: 'Enter your username',
-                      prefixIcon: Icons.person_pin_outlined,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your username';
-                        }
-                        if (value.length < 3) {
-                          return 'Username must be at least 3 characters';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        patientModel.username = val ?? '';
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                SectionComponents.buildTextField(
+                label: 'Email',
+                controller: null,
+                hintText: 'Enter your email',
+                prefixIcon: Icons.email_outlined,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                  }
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                    .hasMatch(value)) {
+                  return 'Please enter a valid email';
+                  }
+                  return null;
+                },
+                onSaved: (val) {
+                  patientModel.email = val ?? '';
+                },
+                ),
+                const Gap(10),
+                SectionComponents.buildTextField(
+                label: 'Username',
+                controller: null,
+                hintText: 'Enter your username',
+                prefixIcon: Icons.person_pin_outlined,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                  return 'Please enter your username';
+                  }
+                  if (value.length < 3) {
+                  return 'Username must be at least 3 characters';
+                  }
+                  return null;
+                },
+                onSaved: (val) {
+                  patientModel.username = val ?? '';
+                },
+                ),
               const Gap(16),
 
               // Password

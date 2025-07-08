@@ -168,7 +168,6 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
     heightController.text = patient.height.toString();
     weightController.text = patient.weight.toString();
     chronicController.text = patient.chronicCondition;
-    diabetesController.text = patient.diabetes ? 'Yes' : 'No';
     heartRateController.text = patient.heartRate.toString();
     smokingController.text = patient.smoking ? 'Yes' : 'No';
     alcoholDrinkingController.text = patient.alcoholDrinking ? 'Yes' : 'No';

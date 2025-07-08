@@ -2,7 +2,7 @@ class HeartDiseasesResponse {
   //diagnosis
   //probability
   final String diagnosis;
-  final double probability;
+  final String probability;
   const HeartDiseasesResponse({
     required this.diagnosis,
     required this.probability,
@@ -11,7 +11,7 @@ class HeartDiseasesResponse {
   factory HeartDiseasesResponse.fromJson(Map<String, dynamic> json) {
     return HeartDiseasesResponse(
       diagnosis: json['diagnosis'] ?? '',
-      probability: (json['probability'] as num?)?.toDouble() ?? 0.0,
+      probability: json['probability'],
     );
   }
 }

@@ -50,6 +50,8 @@ import '../../features/booking/data/repos/appointment_repo.dart';
 import '../../features/chat/models/get_conversation_request_model.dart';
 import '../../features/chat/ui/chat_cubit/chat_cubit.dart';
 import '../../features/doctor_appointment.dart';
+import '../../features/heart diseases/data/repos/predict_disease_repo.dart';
+import '../../features/heart diseases/presentation/cubit/predict_disease_cubit.dart';
 import '../../features/social/ui/views/socail_page.dart' show SocailPage;
 import '../helpers/cache_manager.dart';
 import '../services/api_service.dart';
@@ -117,16 +119,23 @@ class AppRouter {
                 ));
       case Routes.signUpAsPatient:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
+            builder: (_) => MultiBlocProvider(
+                providers: [
+                BlocProvider(
                   create: (context) => RegisterCubit(
-                    RegisterRepoImpl(
-                      apiServices: ApiServices(
-                        Dio(),
-                      ),
+                  RegisterRepoImpl(
+                    apiServices: ApiServices(
+                    Dio(),
                     ),
                   ),
-                  child: const RegisterAsPatient(),
-                ));
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<PredictDiseaseCubit>(),
+                ),
+                ],
+                child: const RegisterAsPatient(),
+              ));
       case Routes.loginScreen:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
@@ -211,10 +220,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SettingsView());
       case Routes.passwordManager:
         return MaterialPageRoute(builder: (_) => const PasswordManager());
-      case Routes.goodResult: 
-        return MaterialPageRoute(builder: (_) => const GoodResultPage());
-      case Routes.badResult:
-        return MaterialPageRoute(builder: (_) => const BadResultPage());
+      // case Routes.goodResult: 
+      //   return MaterialPageRoute(builder: (_) => const GoodResultPage());
+      // case Routes.badResult:
+      //   return MaterialPageRoute(builder: (_) => const BadResultPage());
       case Routes.feedbackScreen:
         return MaterialPageRoute(builder: (_) => const FeedbackView());
       case Routes.favoriteDoctors:

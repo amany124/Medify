@@ -10,7 +10,7 @@ import 'package:medify/features/authentication/login/ui/widgets/switch__method_s
 import 'package:medify/features/authentication/login/ui/widgets/user_login_section.dart';
 
 import '../../../../../core/helpers/show_custom_snack_bar.dart';
-import '../../../congradulations/views/congradulations.dart';
+import '../../../congradulations/views/login_congratulations.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({super.key});
@@ -39,9 +39,8 @@ class LoginBody extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => CongratulationsView(
+              builder: (context) => LoginCongratulationsView(
                 userName: state.userModel.name,
-                isSignUp: false,
                 isdoctor: state.userModel.role == 'doctor',
               ),
             ),
