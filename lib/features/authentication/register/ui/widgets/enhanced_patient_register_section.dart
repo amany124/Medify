@@ -36,7 +36,6 @@ class _EnhancedPatientRegisterSectionState
     height: 0,
     weight: 0,
     chronicCondition: '',
-    diabetes: false,
     heartRate: 0,
     // New fields
     bmi: 0.0,
@@ -814,7 +813,6 @@ class _EnhancedPatientRegisterSectionState
                             },
                             onSaved: (val) {
                               patientModel.diabetic = val ?? 'No';
-                              patientModel.diabetes = val == 'Yes';
                             },
                           ),
                         ],

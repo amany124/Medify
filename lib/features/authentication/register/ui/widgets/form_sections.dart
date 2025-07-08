@@ -534,7 +534,6 @@ class FormSections {
                 },
                 onSaved: (val) {
                   patientModel.diabetic = val ?? 'No';
-                  patientModel.diabetes = val == 'Yes';
                 },
               ),
               const Gap(20),

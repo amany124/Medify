@@ -36,7 +36,6 @@ class _PatientRegistrationSectionState
     height: 0,
     weight: 0,
     chronicCondition: '',
-    diabetes: false,
     heartRate: 0,
     bmi: 0.0,
     smoking: false,
@@ -576,7 +575,6 @@ class _PatientRegistrationSectionState
                     _diabetesStatus = val;
                     _diabetes = val == 'Yes';
                     patientModel.diabetic = val ?? 'No';
-                    patientModel.diabetes = _diabetes;
                   });
                 },
                 validator: (value) {
@@ -587,7 +585,6 @@ class _PatientRegistrationSectionState
                 },
                 onSaved: (val) {
                   patientModel.diabetic = val ?? 'No';
-                  patientModel.diabetes = val == 'Yes';
                 },
                 hintText: 'Select your diabetic status',
               ),

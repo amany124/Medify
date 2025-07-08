@@ -4,6 +4,8 @@ import 'package:medify/features/chat/repo/chat_repo.dart';
 import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
 
+import '../../features/heart diseases/data/repos/predict_disease_repo.dart';
+import '../../features/heart diseases/presentation/cubit/predict_disease_cubit.dart';
 import '../../features/social/data/repos/social_repo.dart';
 import '../services/api_service.dart';
 
@@ -27,4 +29,10 @@ setup() {
   getIt.registerLazySingleton<ChatCubit>(() => ChatCubit(
         getIt<ChatRepo>(),
       ));
+  getIt.registerLazySingleton<PredictDiseaseRepo>(
+    () => PredictDiseaseRepoImpl(apiServices: getIt()),
+  );
+  getIt.registerFactory<PredictDiseaseCubit>(
+    () => PredictDiseaseCubit(getIt()),
+  );
 }
