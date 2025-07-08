@@ -6,6 +6,7 @@ class DoctorModel {
   String? role;
   String gender;
   String nationality;
+  String phone;
   String clinicName;
   String clinicAddress;
   String specialization;
@@ -16,9 +17,10 @@ class DoctorModel {
     required this.email,
     required this.username,
     required this.password,
-     this.role,
+    this.role,
     required this.gender,
     required this.nationality,
+    required this.phone,
     required this.clinicName,
     required this.clinicAddress,
     required this.specialization,
@@ -34,6 +36,7 @@ class DoctorModel {
       role: map['role'] ?? '',
       gender: map['gender'],
       nationality: map['nationality'],
+      phone: map['phone'],
       clinicName: map['clinicName'],
       clinicAddress: map['clinicAddress'],
       specialization: map['specialization'],
@@ -50,6 +53,7 @@ class DoctorModel {
       'role': role,
       'gender': gender,
       'nationality': nationality,
+      'phone': phone,
       'clinicName': clinicName,
       'clinicAddress': clinicAddress,
       'specialization': specialization,
@@ -65,6 +69,7 @@ class DoctorModel {
     String? role,
     String? gender,
     String? nationality,
+    String? phone,
     String? clinicName,
     String? clinicAddress,
     String? specialization,
@@ -78,6 +83,7 @@ class DoctorModel {
       role: role ?? this.role,
       gender: gender ?? this.gender,
       nationality: nationality ?? this.nationality,
+      phone: phone ?? this.phone,
       clinicName: clinicName ?? this.clinicName,
       clinicAddress: clinicAddress ?? this.clinicAddress,
       specialization: specialization ?? this.specialization,

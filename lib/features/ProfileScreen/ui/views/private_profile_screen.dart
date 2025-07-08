@@ -75,6 +75,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
   final TextEditingController strokeController = TextEditingController();
 
   // Doctor-specific controllers
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController nationalityController = TextEditingController();
   final TextEditingController clinicNameController = TextEditingController();
   final TextEditingController clinicAddressController = TextEditingController();
@@ -167,7 +168,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
     // Old fields
     heightController.text = patient.height.toString();
     weightController.text = patient.weight.toString();
-    chronicController.text = patient.chronicCondition;
+    chronicController.text = patient.chronicCondition ?? '';
     heartRateController.text = patient.heartRate.toString();
     smokingController.text = patient.smoking ? 'Yes' : 'No';
     alcoholDrinkingController.text = patient.alcoholDrinking ? 'Yes' : 'No';
@@ -309,6 +310,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
     fullNameController.text = doctor.name;
     emailController.text = doctor.email;
     genderController.text = doctor.gender;
+    phoneController.text = doctor.phone;
     nationalityController.text = doctor.nationality;
     clinicNameController.text = doctor.clinicName;
     clinicAddressController.text = doctor.clinicAddress;
@@ -323,6 +325,11 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
 
   List<Widget> _buildDoctorFields() {
     return [
+      ProfileTextField(
+          label: "Phone",
+          controller: phoneController,
+          icon: Icons.phone,
+          enabled: isEditing),
       ProfileTextField(
           label: "Nationality",
           controller: nationalityController,
@@ -460,6 +467,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
                         username: username.text,
                         name: fullNameController.text,
                         email: emailController.text,
+                        phone: phoneController.text,
                         clinicAddress: clinicAddressController.text,
                         clinicName: clinicNameController.text,
                         experienceYears:

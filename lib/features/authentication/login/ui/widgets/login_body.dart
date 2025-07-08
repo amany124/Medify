@@ -27,6 +27,8 @@ class LoginBody extends StatelessWidget {
 
           showCustomSnackBar('Welcome ${state.userModel.name}', context);
           print(state.userModel.name);
+          print(state.userModel.role);
+
           //cache the user data
           await CacheManager.setData(
             key: Keys.role,
@@ -41,7 +43,7 @@ class LoginBody extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => LoginCongratulationsView(
                 userName: state.userModel.name,
-                isdoctor: state.userModel.role == 'doctor',
+                isdoctor: state.userModel.role == 'Doctor',
               ),
             ),
           );

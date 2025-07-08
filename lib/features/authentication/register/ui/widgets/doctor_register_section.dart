@@ -31,6 +31,7 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
     clinicAddress: '',
     specialization: '',
     experienceYears: 0,
+    phone: '',
   ); // Initialize doctorModel
   var formKey = GlobalKey<FormState>();
 
@@ -102,6 +103,24 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
           ),
           const Gap(10),
 
+          // Phone
+          const CustomTextfieldLabel(label: 'Phone'),
+          const Gap(5),
+          CustomTextField(
+            hintText: 'Enter your phone number',
+            prefixIcon: Icons.phone_outlined,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your phone number';
+              }
+              return null;
+            },
+            onSaved: (val) {
+              doctorModel.phone = val ?? '';
+            },
+          ),
+          const Gap(10),
+
           // Password
           const CustomTextfieldLabel(label: 'Password'),
           const Gap(5),
@@ -165,13 +184,17 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomTextfieldLabel(label: 'Nationality :'),
+                    const CustomTextfieldLabel(label: 'Nationality'),
                     const Gap(5),
                     CustomTextField(
-                      height: 30,
+                      hintText: 'Enter your nationality',
+                      prefixIcon: Icons.flag_outlined,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your nationality';
+                        }
+                        if (value.length < 2) {
+                          return 'Please enter a valid nationality';
                         }
                         return null;
                       },
@@ -182,18 +205,22 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
                   ],
                 ),
               ),
-              const Gap(30),
+              const Gap(15),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomTextfieldLabel(label: 'Clinic Name :'),
+                    const CustomTextfieldLabel(label: 'Clinic Name'),
                     const Gap(5),
                     CustomTextField(
-                      height: 30,
+                      hintText: 'Enter clinic name',
+                      prefixIcon: Icons.local_hospital_outlined,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your clinic name';
+                        }
+                        if (value.length < 3) {
+                          return 'Clinic name must be at least 3 characters';
                         }
                         return null;
                       },
@@ -209,13 +236,17 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
           const Gap(20),
 
           // Clinic Address
-          const CustomTextfieldLabel(label: 'Clinic Address :'),
+          const CustomTextfieldLabel(label: 'Clinic Address'),
           const Gap(5),
           CustomTextField(
-            height: 30,
+            hintText: 'Enter your clinic address',
+            prefixIcon: Icons.location_on_outlined,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your clinic address';
+              }
+              if (value.length < 10) {
+                return 'Please enter a complete address';
               }
               return null;
             },
@@ -225,23 +256,28 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
           ),
           const Gap(20),
 
-          // Year of Experience and Specialist Field (in a row)
+          // Years of Experience and Specialization (in a row)
           Row(
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomTextfieldLabel(label: 'Year Of Experience :'),
+                    const CustomTextfieldLabel(label: 'Years of Experience'),
                     const Gap(5),
                     CustomTextField(
-                      height: 30,
+                      hintText: 'Enter years',
+                      prefixIcon: Icons.work_history_outlined,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter years of experience';
                         }
-                        if (int.tryParse(value) == null) {
+                        final years = int.tryParse(value);
+                        if (years == null) {
                           return 'Please enter a valid number';
+                        }
+                        if (years < 0 || years > 50) {
+                          return 'Please enter a valid range (0-50)';
                         }
                         return null;
                       },
@@ -252,18 +288,22 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
                   ],
                 ),
               ),
-              const Gap(30),
+              const Gap(15),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomTextfieldLabel(label: 'Specialist Field :'),
+                    const CustomTextfieldLabel(label: 'Specialization'),
                     const Gap(5),
                     CustomTextField(
-                      height: 30,
+                      hintText: 'Enter specialization',
+                      prefixIcon: Icons.medical_services_outlined,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your specialization';
+                        }
+                        if (value.length < 3) {
+                          return 'Specialization must be at least 3 characters';
                         }
                         return null;
                       },

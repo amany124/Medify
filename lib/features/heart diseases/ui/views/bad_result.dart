@@ -45,21 +45,6 @@ class _BadResultPageState extends State<BadResultPage>
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    const Icon(Icons.arrow_back, color: Colors.white, size: 26),
-                    const SizedBox(width: 120),
-                    const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 80),
                 ScaleTransition(
                   scale: _scale,

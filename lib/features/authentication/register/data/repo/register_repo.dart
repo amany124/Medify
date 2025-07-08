@@ -31,6 +31,7 @@ class RegisterRepoImpl implements RegisterRepo {
         data: doctorModel.toJson(),
       );
       final String token = response.data['token'];
+      print('Token: $token');
       await CacheManager.setData(key: Keys.token, value: token);
       AuthResponseModel authResponseModel =
           AuthResponseModel.fromJson(response.data);
@@ -52,6 +53,9 @@ class RegisterRepoImpl implements RegisterRepo {
         endpoint: Endpoints.register,
         data: patientModel.toJson(),
       );
+        final String token = response.data['token'];
+      print('Token: $token');
+      await CacheManager.setData(key: Keys.token, value: token);
       final authResponseModel = AuthResponseModel.fromJson(response.data);
       return Right(authResponseModel);
     } on DioException catch (e) {

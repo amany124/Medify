@@ -28,7 +28,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final role = CacheManager.getData(key: Keys.role);
       print('role is $role');
-      if (role == 'doctor') {
+      if (role == 'Doctor') {
         context.read<GetProfileCubit>().getDoctorProfile();
       } else {
         context.read<GetProfileCubit>().getPatientProfile();
