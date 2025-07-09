@@ -107,6 +107,20 @@ class AppStyles {
     fontSize: 18,
     color: Color(0xFFFFFFFF),
   );
+  //10
+  static TextStyle semiBold10 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    fontSize: 10,
+    color: AppColors.primaryColor,
+  );
+  //12
+  static TextStyle semiBold12 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+    color: AppColors.primaryColor,
+  );
   //13
   static TextStyle semiBold13 = const TextStyle(
     fontFamily: 'Poppins',

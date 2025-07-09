@@ -502,115 +502,217 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
   Widget _buildMedicalRecordsSection() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white,
+            AppColors.secondaryColor.withOpacity(0.02),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.secondaryColor.withOpacity(0.2)),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 3,
-            offset: const Offset(0, 1),
+            color: AppColors.secondaryColor.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.medical_services,
-                color: AppColors.secondaryColor,
-                size: 24,
+          // Header Section
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  AppColors.secondaryColor,
+                  AppColors.secondaryColor.withOpacity(0.8),
+                ],
               ),
-              const SizedBox(width: 8),
-              Text(
-                'Medical Records',
-                style: AppStyles.semiBold16.copyWith(
-                  color: AppColors.secondaryColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.medical_services,
+                    color: Colors.white,
+                    size: 24,
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Medical Records',
+                        style: AppStyles.semiBold18.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Patient treatment history',
+                        style: AppStyles.regular12.copyWith(
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: BlocProvider(
+                    create: (context) =>
+                        getIt<MedicalRecordsCubit>()..getMedicalRecords(),
+                    child:
+                        BlocBuilder<MedicalRecordsCubit, MedicalRecordsState>(
+                      builder: (context, state) {
+                        if (state is MedicalRecordsLoaded) {
+                          return Text(
+                            '${state.records.data.length} Records',
+                            style: AppStyles.semiBold12.copyWith(
+                              color: Colors.white,
+                            ),
+                          );
+                        }
+                        return Text(
+                          '0 Records',
+                          style: AppStyles.semiBold12.copyWith(
+                            color: Colors.white,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
+
+          // Records List
           BlocProvider(
             create: (context) =>
                 getIt<MedicalRecordsCubit>()..getMedicalRecords(),
             child: BlocBuilder<MedicalRecordsCubit, MedicalRecordsState>(
               builder: (context, state) {
                 if (state is MedicalRecordsLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 12),
+                          Text(
+                            'Loading medical records...',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 } else if (state is MedicalRecordsLoaded) {
                   final records = state.records.data;
                   if (records.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        'No medical records found',
-                        style: TextStyle(color: Colors.grey),
+                    return Container(
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.grey.shade200),
                       ),
-                    );
-                  }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: records.length,
-                    itemBuilder: (context, index) {
-                      final record = records[index];
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.secondaryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: AppColors.secondaryColor.withOpacity(0.3),
-                          ),
-                        ),
+                      child: Center(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Icon(
+                              Icons.folder_open,
+                              size: 48,
+                              color: Colors.grey.shade400,
+                            ),
+                            const SizedBox(height: 8),
                             Text(
-                              'Patient: ${record.patientId}',
+                              'No medical records found',
                               style: AppStyles.semiBold14.copyWith(
-                                color: AppColors.secondaryColor,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Diagnosis: ${record.diagnosis}',
-                              style: AppStyles.regular12,
-                            ),
-                            if (record.symptoms.isNotEmpty) ...[
-                              const SizedBox(height: 4),
-                              Text(
-                                'Symptoms: ${record.symptoms.join(', ')}',
-                                style: AppStyles.regular12.copyWith(
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                            ],
-                            const SizedBox(height: 4),
-                            Text(
-                              'Type: ${record.type}',
-                              style: AppStyles.regular12.copyWith(
                                 color: Colors.grey.shade600,
+                              ),
+                            ),
+                            Text(
+                              'Create your first medical record',
+                              style: AppStyles.regular12.copyWith(
+                                color: Colors.grey.shade500,
                               ),
                             ),
                           ],
                         ),
-                      );
-                    },
+                      ),
+                    );
+                  }
+                  return Column(
+                    children: records
+                        .map((record) => _buildMedicalRecordCard(record))
+                        .toList(),
                   );
                 } else if (state is MedicalRecordsError) {
-                  return Center(
-                    child: Text(
-                      'Error: ${state.message}',
-                      style: const TextStyle(color: Colors.red),
+                  return Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.red.shade200),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            size: 48,
+                            color: Colors.red.shade400,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Error loading records',
+                            style: AppStyles.semiBold14.copyWith(
+                              color: Colors.red.shade700,
+                            ),
+                          ),
+                          Text(
+                            state.message,
+                            style: AppStyles.regular12.copyWith(
+                              color: Colors.red.shade600,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }
@@ -621,5 +723,305 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
         ],
       ),
     );
+  }
+
+  Widget _buildMedicalRecordCard(dynamic record) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.secondaryColor.withOpacity(0.1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            spreadRadius: 1,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // Card Header
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.secondaryColor.withOpacity(0.05),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.secondaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    Icons.person,
+                    color: AppColors.secondaryColor,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        record.patient?.name ?? 'Unknown Patient',
+                        style: AppStyles.semiBold14.copyWith(
+                          color: AppColors.secondaryColor,
+                        ),
+                      ),
+                      Text(
+                        'ID: ${record.patientId}',
+                        style: AppStyles.regular10.copyWith(
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Created: ${_formatMedicalRecordDate(record.date)}',
+                        style: AppStyles.regular12.copyWith(
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: _getTypeColor(record.type),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    record.type.toUpperCase(),
+                    style: AppStyles.semiBold10.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Card Content
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Diagnosis Section
+                _buildDataRow(
+                  icon: Icons.medical_information,
+                  label: 'Diagnosis',
+                  value: record.diagnosis,
+                  color: Colors.red.shade600,
+                ),
+
+                const SizedBox(height: 12),
+
+                // Treatment Section
+                _buildDataRow(
+                  icon: Icons.healing,
+                  label: 'Treatment',
+                  value: record.treatment,
+                  color: Colors.green.shade600,
+                ),
+
+                // Symptoms Section
+                if (record.symptoms.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: Colors.orange.shade100,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Icon(
+                          Icons.sick,
+                          size: 16,
+                          color: Colors.orange.shade600,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Symptoms',
+                              style: AppStyles.semiBold12.copyWith(
+                                color: Colors.orange.shade600,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Wrap(
+                              spacing: 6,
+                              runSpacing: 4,
+                              children: record.symptoms.map<Widget>((symptom) {
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange.shade50,
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: Colors.orange.shade200,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    symptom,
+                                    style: AppStyles.regular10.copyWith(
+                                      color: Colors.orange.shade700,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+
+                // Notes Section
+                if (record.notes != null &&
+                    record.notes.isNotEmpty &&
+                    record.notes != 'No Notes !') ...[
+                  const SizedBox(height: 12),
+                  _buildDataRow(
+                    icon: Icons.note_alt,
+                    label: 'Notes',
+                    value: record.notes,
+                    color: Colors.blue.shade600,
+                  ),
+                ],
+
+                // Attachments Section
+                if (record.attachments != null &&
+                    record.attachments.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: Colors.purple.shade100,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Icon(
+                          Icons.attach_file,
+                          size: 16,
+                          color: Colors.purple.shade600,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        'Attachments (${record.attachments.length})',
+                        style: AppStyles.semiBold12.copyWith(
+                          color: Colors.purple.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDataRow({
+    required IconData icon,
+    required String label,
+    required String value,
+    required Color color,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Icon(
+            icon,
+            size: 16,
+            color: color,
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: AppStyles.semiBold12.copyWith(
+                  color: color,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                value,
+                style: AppStyles.regular12.copyWith(
+                  color: Colors.grey.shade700,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Color _getTypeColor(String type) {
+    switch (type.toLowerCase()) {
+      case 'emergency':
+        return Colors.red.shade600;
+      case 'consultation':
+        return Colors.blue.shade600;
+      case 'checkup':
+        return Colors.green.shade600;
+      default:
+        return AppColors.secondaryColor;
+    }
+  }
+
+  // 🔹 Helper method to format medical record date
+  String _formatMedicalRecordDate(DateTime? date) {
+    if (date == null) return 'Unknown date';
+
+    final now = DateTime.now();
+    final difference = now.difference(date);
+
+    if (difference.inDays == 0) {
+      return 'Today ${DateFormat('HH:mm').format(date)}';
+    } else if (difference.inDays == 1) {
+      return 'Yesterday ${DateFormat('HH:mm').format(date)}';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays} days ago';
+    } else {
+      return DateFormat('MMM d, yyyy').format(date);
+    }
   }
 }
