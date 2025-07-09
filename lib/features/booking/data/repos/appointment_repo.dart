@@ -59,8 +59,11 @@ class AppointmentRepoImpl implements AppointmentRepo {
           token: CacheManager.getData(
             key: Keys.token,
           ));
+      print(response.data);
       return Right(AppointmentDetails.fromJson(response.data['appointment']));
     } on DioException catch (e) {
+            print(e.toString());
+
       return Left(Failure(
           e.response?.data['message'] ?? 'An error occurred during login'));
     } catch (e) {

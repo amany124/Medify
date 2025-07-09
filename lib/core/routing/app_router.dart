@@ -29,8 +29,8 @@ import 'package:medify/features/doctors/ui/views/DoctorPublicProfile.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
 import 'package:medify/features/doctors/ui/views/myappointment.dart';
 import 'package:medify/features/feedback/feedback_view.dart';
-import 'package:medify/features/heart%20diseases/ui/views/bad_result.dart';
-import 'package:medify/features/heart%20diseases/ui/views/good_result.dart';
+import 'package:medify/features/medical_records/presentation/cubit/medical_records_cubit.dart';
+import 'package:medify/features/medical_records/ui/views/create_medical_record_page.dart';
 import 'package:medify/features/notification/ui/views/notification_page.dart';
 import 'package:medify/features/onboarding/ui/views/onboarding_view.dart';
 import 'package:medify/features/onboarding/ui/views/start_view.dart';
@@ -50,7 +50,6 @@ import '../../features/booking/data/repos/appointment_repo.dart';
 import '../../features/chat/models/get_conversation_request_model.dart';
 import '../../features/chat/ui/chat_cubit/chat_cubit.dart';
 import '../../features/doctor_appointment.dart';
-import '../../features/heart diseases/data/repos/predict_disease_repo.dart';
 import '../../features/heart diseases/presentation/cubit/predict_disease_cubit.dart';
 import '../../features/social/ui/views/socail_page.dart' show SocailPage;
 import '../helpers/cache_manager.dart';
@@ -120,22 +119,22 @@ class AppRouter {
       case Routes.signUpAsPatient:
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(
-                providers: [
-                BlocProvider(
-                  create: (context) => RegisterCubit(
-                  RegisterRepoImpl(
-                    apiServices: ApiServices(
-                    Dio(),
+                  providers: [
+                    BlocProvider(
+                      create: (context) => RegisterCubit(
+                        RegisterRepoImpl(
+                          apiServices: ApiServices(
+                            Dio(),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  ),
-                ),
-                BlocProvider(
-                  create: (context) => getIt<PredictDiseaseCubit>(),
-                ),
-                ],
-                child: const RegisterAsPatient(),
-              ));
+                    BlocProvider(
+                      create: (context) => getIt<PredictDiseaseCubit>(),
+                    ),
+                  ],
+                  child: const RegisterAsPatient(),
+                ));
       case Routes.loginScreen:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
@@ -220,7 +219,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SettingsView());
       case Routes.passwordManager:
         return MaterialPageRoute(builder: (_) => const PasswordManager());
-      // case Routes.goodResult: 
+      // case Routes.goodResult:
       //   return MaterialPageRoute(builder: (_) => const GoodResultPage());
       // case Routes.badResult:
       //   return MaterialPageRoute(builder: (_) => const BadResultPage());
@@ -243,6 +242,15 @@ class AppRouter {
               ),
             ),
             child: const RequestResetPasswordView(),
+          ),
+        );
+      case Routes.createMedicalRecord:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<MedicalRecordsCubit>(),
+            child: CreateMedicalRecordPage(
+              appointment: settings.arguments as dynamic,
+            ),
           ),
         );
       default:

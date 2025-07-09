@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:medify/core/di/di.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
 import 'package:medify/core/utils/app_styles.dart';
 import 'package:medify/features/authentication/register/data/models/doctor_model.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
+import 'package:medify/features/medical_records/presentation/cubit/medical_records_cubit.dart';
+import 'package:medify/features/medical_records/presentation/cubit/medical_records_state.dart';
 
 import '../../../../core/helpers/show_custom_snack_bar.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -360,6 +363,9 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           controller: ratingController,
           icon: Icons.star,
           enabled: false),
+
+      // Medical Records Section
+      _buildMedicalRecordsSection(),
     ];
   }
 
@@ -488,6 +494,131 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  // 🔹 Build Medical Records Section
+  Widget _buildMedicalRecordsSection() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: const Offset(0, 1),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.medical_services,
+                color: AppColors.secondaryColor,
+                size: 24,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Medical Records',
+                style: AppStyles.semiBold16.copyWith(
+                  color: AppColors.secondaryColor,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          BlocProvider(
+            create: (context) =>
+                getIt<MedicalRecordsCubit>()..getMedicalRecords(),
+            child: BlocBuilder<MedicalRecordsCubit, MedicalRecordsState>(
+              builder: (context, state) {
+                if (state is MedicalRecordsLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is MedicalRecordsLoaded) {
+                  final records = state.records.data;
+                  if (records.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No medical records found',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: records.length,
+                    itemBuilder: (context, index) {
+                      final record = records[index];
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.secondaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: AppColors.secondaryColor.withOpacity(0.3),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Patient: ${record.patientId}',
+                              style: AppStyles.semiBold14.copyWith(
+                                color: AppColors.secondaryColor,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Diagnosis: ${record.diagnosis}',
+                              style: AppStyles.regular12,
+                            ),
+                            if (record.symptoms.isNotEmpty) ...[
+                              const SizedBox(height: 4),
+                              Text(
+                                'Symptoms: ${record.symptoms.join(', ')}',
+                                style: AppStyles.regular12.copyWith(
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                            ],
+                            const SizedBox(height: 4),
+                            Text(
+                              'Type: ${record.type}',
+                              style: AppStyles.regular12.copyWith(
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                } else if (state is MedicalRecordsError) {
+                  return Center(
+                    child: Text(
+                      'Error: ${state.message}',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

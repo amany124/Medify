@@ -352,13 +352,23 @@ class AppointmentsList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton.icon(
-          onPressed: () {
-            context.read<DoctorAppointmentCubit>().updateDocAppointment(
-                  appointmentId: appointment.id,
-                  status: "Completed",
-                );
+          onPressed: () async {
+            // Navigate to medical record creation page using named route
+            final result = await Navigator.pushNamed(
+              context,
+              Routes.createMedicalRecord,
+              arguments: appointment,
+            );
+
+            // If medical record was created successfully, update appointment status
+            if (result == true && context.mounted) {
+              context.read<DoctorAppointmentCubit>().updateDocAppointment(
+                    appointmentId: appointment.id,
+                    status: "Completed",
+                  );
+            }
           },
-          icon: const Icon(Icons.check, size: 18),
+          icon: const Icon(Icons.medical_information, size: 18),
           label: const Text("Complete"),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xff1877F2),

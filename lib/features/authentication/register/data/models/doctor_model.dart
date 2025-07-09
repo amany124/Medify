@@ -36,7 +36,7 @@ class DoctorModel {
       role: map['role'] ?? '',
       gender: map['gender'],
       nationality: map['nationality'],
-      phone: map['phone'],
+      phone: map['phone'] ?? '01012221258',
       clinicName: map['clinicName'],
       clinicAddress: map['clinicAddress'],
       specialization: map['specialization'],

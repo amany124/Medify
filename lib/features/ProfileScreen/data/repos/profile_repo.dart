@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
 import 'package:medify/features/authentication/register/data/models/doctor_model.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
+
 import '../../../../core/constant/endpoints.dart';
 import '../../../../core/failures/failure.dart';
 import '../../../../core/services/api_service.dart';
@@ -75,9 +76,9 @@ class ProfileRepoImpl implements ProfileRepo {
       );
       return Right(DoctorModel.fromJson(response.data));
     } on DioException catch (e) {
-      print(e.response!.data);
+      print(e.response?.data);
       return Left(Failure(
-          e.response!.data['message'] ?? 'An error occurred during login'));
+          e.response?.data['message'] ?? 'An error occurred during login'));
     }
   }
 

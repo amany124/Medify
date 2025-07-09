@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medify/core/di/di.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
 import 'package:medify/core/helpers/tapProvider.dart';
 import 'package:medify/core/utils/keys.dart';
@@ -8,6 +9,7 @@ import 'package:medify/features/HeartAnaysis/data/repo/heart_repo.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/heart_analysis_page.dart';
 import 'package:medify/features/chat/ui/views/all_chats.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
+import 'package:medify/features/notification/presentation/cubit/notification_cubit.dart';
 import 'package:medify/features/notification/ui/views/notification_page.dart';
 import 'package:medify/features/social/ui/views/patient_social_page.dart';
 import 'package:medify/features/social/ui/views/socail_page.dart';
@@ -41,7 +43,10 @@ class BottomNavscreens extends StatelessWidget {
               : PatientSocialPage(),
           TopDoctorsView(),
           AllChats(),
-          NotificationView(),
+          BlocProvider(
+            create: (_) => getIt<NotificationCubit>(),
+            child: NotificationView(),
+          ),
         ],
       ),
       bottomNavigationBar: const BottomnavigationContent(),

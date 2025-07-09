@@ -38,6 +38,8 @@ class Routes {
   static const String doctorAppointment = '/doctorAppointment';
   //availability
   static const String availability = '/availability';
+  //medical records
+  static const String createMedicalRecord = '/createMedicalRecord';
   // Reset password routes
   static const String resetPasswordRequest = '/resetPasswordRequest';
   static const String resetPasswordOtp = '/resetPasswordOtp';
