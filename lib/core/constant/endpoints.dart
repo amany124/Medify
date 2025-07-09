@@ -46,4 +46,7 @@ class Endpoints {
   static String getMessages(String userId) => '$baseUrl/api/messages/$userId';
   static const String predictDisease =
       'https://rashad110-medify-diagnosis-model.hf.space/predict';
+  static const String verifyDoctorProfile = '$baseUrl/api/doctors/verification-image';
+  static const String doctorProfilePicture =
+      '$baseUrl/api/doctors/profile-picture';
 }

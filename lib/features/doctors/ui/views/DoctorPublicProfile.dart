@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:glass/glass.dart';
+import 'package:medify/features/doctors/ui/widgets/doctor_profile_verfied.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/helpers/cache_manager.dart';
@@ -113,19 +114,7 @@ class DoctorProfile extends StatelessWidget {
                                           ),
                                         ),
                                         const Gap(8),
-                                        Container(
-                                          padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xff1877F2)
-                                                .withValues(alpha:0.1),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: const Icon(
-                                            Icons.verified,
-                                            color: Color(0xff1877F2),
-                                            size: 16,
-                                          ),
-                                        ),
+                                        DoctorProfileVerfied(),
                                       ],
                                     ),
                                     Container(

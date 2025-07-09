@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
+import 'package:medify/features/ProfileScreen/data/models/profile_picture_response.dart';
+import 'package:medify/features/ProfileScreen/data/models/verification_image_response.dart';
 import 'package:medify/features/authentication/register/data/models/doctor_model.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
 
@@ -17,6 +21,13 @@ abstract class ProfileRepo {
   Future<Either<Failure, DoctorModel>> getDoctorProfile();
   Future<Either<Failure, DoctorModel>> updateDoctorProfile({
     required DoctorModel doctorModel,
+  });
+  //verfiy doctor
+  Future<Either<Failure, VerificationImageResponse>> verifyDoctorProfile(
+      {required File imageFile});
+  //upload profilePic
+  Future<Either<Failure, ProfilePictureResponse>> uploadDoctorProfilePicture({
+    required File imageFile,
   });
 }
 
@@ -98,6 +109,60 @@ class ProfileRepoImpl implements ProfileRepo {
       print(e.response!.data);
       return Left(Failure(
           e.response!.data['message'] ?? 'An error occurred during login'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, VerificationImageResponse>> verifyDoctorProfile({
+    required File imageFile,
+  }) async {
+    try {
+      final formData = FormData.fromMap({
+        'image': await MultipartFile.fromFile(imageFile.path),
+      });
+
+      final Response response = await apiServices.dio.post(
+        Endpoints.verifyDoctorProfile,
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${CacheManager.getData(key: Keys.token)}',
+          },
+        ),
+      );
+
+      return Right(VerificationImageResponse.fromJson(response.data));
+    } on DioException catch (e) {
+      print(e.response?.data);
+      return Left(Failure(e.response?.data['message'] ??
+          'An error occurred during verification'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProfilePictureResponse>> uploadDoctorProfilePicture({
+    required File imageFile,
+  }) async {
+    try {
+      final formData = FormData.fromMap({
+        'image': await MultipartFile.fromFile(imageFile.path),
+      });
+
+      final Response response = await apiServices.dio.post(
+        Endpoints.doctorProfilePicture,
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${CacheManager.getData(key: Keys.token)}',
+          },
+        ),
+      );
+
+      return Right(ProfilePictureResponse.fromJson(response.data));
+    } on DioException catch (e) {
+      print(e.response?.data);
+      return Left(Failure(e.response?.data['message'] ??
+          'An error occurred during profile picture upload'));
     }
   }
 }

@@ -11,6 +11,7 @@ import 'package:medify/core/routing/routes.dart';
 import 'package:medify/core/widgets/app_logo.dart';
 import 'package:medify/core/widgets/app_name.dart';
 import 'package:medify/core/widgets/avatar.dart';
+import 'package:medify/core/widgets/custom_image_picker_widget.dart';
 import 'package:medify/features/HeartAnaysis/data/models/heart_models.dart';
 import 'package:medify/features/HeartAnaysis/ui/cubit/heart_analysis_cubit.dart';
 
@@ -78,7 +79,7 @@ class HeartAnalysisPage extends StatelessWidget {
             builder: (ctx) {
               return BlocProvider.value(
                 value: cubit,
-                child: _ImagePickerWidget(
+                child: CustomImagePickerWidget(
                   onImageSelected: (File image) {
                     Navigator.pop(ctx);
                     cubit.analyzeImage(image);
@@ -92,44 +93,6 @@ class HeartAnalysisPage extends StatelessWidget {
         child: const Icon(Icons.add, size: 30, color: Colors.white),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-}
-
-class _ImagePickerWidget extends StatelessWidget {
-  final Function(File image) onImageSelected;
-
-  const _ImagePickerWidget({required this.onImageSelected});
-
-  @override
-  Widget build(BuildContext context) {
-    final picker = ImagePicker();
-
-    return Wrap(
-      children: [
-        ListTile(
-          leading: const Icon(Icons.photo_library),
-          title: const Text('Open gallery'),
-          onTap: () async {
-            final pickedFile =
-                await picker.pickImage(source: ImageSource.gallery);
-            if (pickedFile != null) {
-              onImageSelected(File(pickedFile.path));
-            }
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.camera_alt),
-          title: const Text('Open camera'),
-          onTap: () async {
-            final pickedFile =
-                await picker.pickImage(source: ImageSource.camera);
-            if (pickedFile != null) {
-              onImageSelected(File(pickedFile.path));
-            }
-          },
-        ),
-      ],
     );
   }
 }

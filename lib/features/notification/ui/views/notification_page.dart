@@ -284,12 +284,13 @@ class _NotificationViewState extends State<NotificationView> {
 
   String _getTimeAgo(ScheduledAppointment appointment) {
     final now = DateTime.now();
-    
+
     try {
       // Combine appointment date and time to get the full appointment datetime
-      final appointmentDateTime = _parseAppointmentDateTime(appointment.date, appointment.time);
+      final appointmentDateTime =
+          _parseAppointmentDateTime(appointment.date, appointment.time);
       final difference = appointmentDateTime.difference(now);
-      
+
       // If appointment is in the future
       if (difference.inMinutes > 0) {
         if (difference.inMinutes < 60) {
@@ -299,7 +300,7 @@ class _NotificationViewState extends State<NotificationView> {
         } else {
           return 'in ${difference.inDays}d';
         }
-      } 
+      }
       // If appointment is in the past
       else {
         final pastDifference = now.difference(appointmentDateTime);
@@ -329,14 +330,15 @@ class _NotificationViewState extends State<NotificationView> {
   DateTime _parseAppointmentDateTime(DateTime date, String time) {
     try {
       // Parse time string (e.g., "2:30 PM", "14:30", etc.)
-      final timeRegex = RegExp(r'(\d{1,2}):(\d{2})\s*(AM|PM)?', caseSensitive: false);
+      final timeRegex =
+          RegExp(r'(\d{1,2}):(\d{2})\s*(AM|PM)?', caseSensitive: false);
       final match = timeRegex.firstMatch(time.trim());
-      
+
       if (match != null) {
         int hour = int.parse(match.group(1)!);
         int minute = int.parse(match.group(2)!);
         String? amPm = match.group(3)?.toUpperCase();
-        
+
         // Convert to 24-hour format if AM/PM is specified
         if (amPm != null) {
           if (amPm == 'PM' && hour != 12) {
@@ -345,7 +347,7 @@ class _NotificationViewState extends State<NotificationView> {
             hour = 0;
           }
         }
-        
+
         return DateTime(date.year, date.month, date.day, hour, minute);
       } else {
         // If parsing fails, return the date with current time as fallback

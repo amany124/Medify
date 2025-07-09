@@ -11,6 +11,8 @@ class DoctorModel {
   String clinicAddress;
   String specialization;
   int experienceYears;
+  String? verificationImage;
+  String? profilePicture;
 
   DoctorModel({
     required this.name,
@@ -25,6 +27,8 @@ class DoctorModel {
     required this.clinicAddress,
     required this.specialization,
     required this.experienceYears,
+    this.verificationImage,
+    this.profilePicture,
   });
 
   factory DoctorModel.fromJson(Map<String, dynamic> map) {
@@ -41,6 +45,8 @@ class DoctorModel {
       clinicAddress: map['clinicAddress'],
       specialization: map['specialization'],
       experienceYears: map['experienceYears'],
+      verificationImage: map['verificationImage'] as String?,
+      profilePicture: map['profilePicture'] as String?,
     );
   }
 
@@ -58,6 +64,8 @@ class DoctorModel {
       'clinicAddress': clinicAddress,
       'specialization': specialization,
       'experienceYears': experienceYears,
+      'verificationImage': verificationImage,
+      'profilePicture': profilePicture,
     };
   }
 
@@ -74,6 +82,8 @@ class DoctorModel {
     String? clinicAddress,
     String? specialization,
     int? experienceYears,
+    String? verificationImage,
+    String? profilePicture,
   }) {
     return DoctorModel(
       name: name ?? this.name,
@@ -88,6 +98,8 @@ class DoctorModel {
       clinicAddress: clinicAddress ?? this.clinicAddress,
       specialization: specialization ?? this.specialization,
       experienceYears: experienceYears ?? this.experienceYears,
+      verificationImage: verificationImage ?? this.verificationImage,
+      profilePicture: profilePicture ?? this.profilePicture,
     );
   }
 }

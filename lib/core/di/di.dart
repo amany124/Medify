@@ -7,6 +7,8 @@ import 'package:medify/features/medical_records/data/repos/medical_records_repo.
 import 'package:medify/features/medical_records/data/repos/medical_records_repo_impl.dart';
 import 'package:medify/features/medical_records/presentation/cubit/medical_records_cubit.dart';
 import 'package:medify/features/notification/presentation/cubit/notification_cubit.dart';
+import 'package:medify/features/ProfileScreen/data/repos/profile_repo.dart';
+import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_cubit.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
 
 import '../../features/heart diseases/data/repos/predict_disease_repo.dart';
@@ -55,5 +57,13 @@ setup() {
   );
   getIt.registerFactory<MedicalRecordsCubit>(
     () => MedicalRecordsCubit(medicalRecordsRepo: getIt()),
+  );
+
+  // Profile repository and verify doctor cubit
+  getIt.registerLazySingleton<ProfileRepo>(
+    () => ProfileRepoImpl(apiServices: getIt()),
+  );
+  getIt.registerFactory<VerifyDoctorCubit>(
+    () => VerifyDoctorCubit(profileRepo: getIt()),
   );
 }

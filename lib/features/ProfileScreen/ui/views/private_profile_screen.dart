@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:medify/core/di/di.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
 import 'package:medify/core/utils/app_styles.dart';
+import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_cubit.dart';
+import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_state.dart';
 import 'package:medify/features/authentication/register/data/models/doctor_model.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
 import 'package:medify/features/medical_records/presentation/cubit/medical_records_cubit.dart';
@@ -366,6 +371,9 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           controller: ratingController,
           icon: Icons.star,
           enabled: false),
+
+      // Doctor Verification Section
+      _buildDoctorVerificationSection(),
 
       // Medical Records Section
       _buildMedicalRecordsSection(),
@@ -1011,6 +1019,517 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
         ],
       ),
     );
+  }
+
+  // 🔹 Build Doctor Verification Section
+  Widget _buildDoctorVerificationSection() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white,
+            Colors.teal.shade50.withValues(alpha: 0.3),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.teal.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.teal.shade100.withValues(alpha: 0.3),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header Section
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Colors.teal.shade600,
+                  Colors.teal.shade500,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.verified_user,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Doctor Verification',
+                        style: AppStyles.semiBold18.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Upload credentials for verification',
+                        style: AppStyles.regular12.copyWith(
+                          color: Colors.white.withValues(alpha: 0.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.orange, width: 1.5),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.pending, size: 16, color: Colors.orange),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Pending',
+                        style:
+                            AppStyles.semiBold10.copyWith(color: Colors.orange),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          // Upload Instructions
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.teal.shade50,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.teal.shade200),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.info_outline, color: Colors.teal.shade600, size: 24),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Verification Requirements',
+                        style: AppStyles.semiBold14
+                            .copyWith(color: Colors.teal.shade700),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Upload a clear image of your medical license or certification',
+                        style: AppStyles.regular12
+                            .copyWith(color: Colors.teal.shade600),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Upload Button or Image Preview
+          BlocProvider(
+            create: (context) => getIt<VerifyDoctorCubit>(),
+            child: BlocConsumer<VerifyDoctorCubit, VerifyDoctorState>(
+              listener: (context, state) {
+                if (state is VerifyDoctorSuccess) {
+                  showCustomSnackBar(
+                    'Verification document uploaded successfully!',
+                    context,
+                  );
+                  // Refresh the doctor profile to show updated verification image
+                  context.read<GetProfileCubit>().getDoctorProfile();
+                } else if (state is VerifyDoctorError) {
+                  showCustomSnackBar(
+                    'Upload failed: ${state.message}',
+                    context,
+                  );
+                }
+              },
+              builder: (context, state) {
+                // Check if doctor has verification image
+                if (doctor?.verificationImage != null &&
+                    doctor!.verificationImage!.isNotEmpty) {
+                  // Show image preview
+                  return _buildVerificationImagePreview(
+                      context, doctor!.verificationImage!);
+                } else {
+                  // Show upload button
+                  return _buildUploadButton(context, state);
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 🔹 Build Upload Button
+  Widget _buildUploadButton(BuildContext context, VerifyDoctorState state) {
+    return CustomButton(
+      text: state is VerifyDoctorLoading
+          ? 'Uploading...'
+          : 'Upload Verification Document',
+      backgroundColor: state is VerifyDoctorLoading
+          ? Colors.grey.shade400
+          : Colors.teal.shade600,
+      textColor: Colors.white,
+      buttonWidth: double.infinity,
+      onPressed: state is VerifyDoctorLoading
+          ? () {} // Disabled when loading
+          : () => _showImagePicker(context),
+    );
+  }
+
+  // 🔹 Build Verification Image Preview
+  Widget _buildVerificationImagePreview(BuildContext context, String imageUrl) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Preview Label
+        Row(
+          children: [
+            Icon(Icons.verified, color: Colors.green.shade600, size: 20),
+            const SizedBox(width: 8),
+            Text(
+              'Verification Document',
+              style: AppStyles.semiBold14.copyWith(
+                color: Colors.green.shade700,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Image Preview Container
+        Container(
+          width: double.infinity,
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.green.shade200, width: 2),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.green.shade100.withValues(alpha: 0.3),
+                spreadRadius: 2,
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: imageUrl.startsWith('http')
+                ? Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey.shade200,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.error_outline,
+                                size: 48, color: Colors.grey.shade400),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Failed to load image',
+                              style: AppStyles.regular12.copyWith(
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  )
+                : Container(
+                    color: Colors.grey.shade200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.image,
+                            size: 48, color: Colors.grey.shade400),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Invalid image URL',
+                          style: AppStyles.regular12.copyWith(
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        // Action Buttons
+        Row(
+          children: [
+            Expanded(
+              child: CustomButton(
+                text: 'View Full Size',
+                backgroundColor: Colors.green.shade50,
+                textColor: Colors.green.shade700,
+                buttonWidth: double.infinity,
+                buttonHeight: 40,
+                onPressed: () => _showFullSizeImage(context, imageUrl),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: CustomButton(
+                text: 'Replace Image',
+                backgroundColor: Colors.orange.shade50,
+                textColor: Colors.orange.shade700,
+                buttonWidth: double.infinity,
+                buttonHeight: 40,
+                onPressed: () => _showImagePicker(context),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // 🔹 Show Image Picker for Verification
+  void _showImagePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 50,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Select Verification Document',
+                style: AppStyles.semiBold18.copyWith(
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildImagePickerOption(
+                    context,
+                    icon: Icons.camera_alt,
+                    label: 'Camera',
+                    onTap: () => _pickImageFromCamera(context),
+                  ),
+                  _buildImagePickerOption(
+                    context,
+                    icon: Icons.photo_library,
+                    label: 'Gallery',
+                    onTap: () => _pickImageFromGallery(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // 🔹 Build Image Picker Option
+  Widget _buildImagePickerOption(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.teal.shade50,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.teal.shade200),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              size: 40,
+              color: Colors.teal.shade600,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: AppStyles.semiBold14.copyWith(
+                color: Colors.teal.shade700,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 🔹 Show Full Size Image
+  void _showFullSizeImage(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.black,
+          child: Stack(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: InteractiveViewer(
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey.shade800,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.error_outline,
+                                size: 64, color: Colors.white),
+                            const SizedBox(height: 16),
+                            Text(
+                              'Failed to load image',
+                              style: AppStyles.regular16.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 20,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.5),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // 🔹 Pick Image from Camera (Placeholder for now)
+  void _pickImageFromCamera(BuildContext context) async {
+    Navigator.pop(context);
+    // You'll need to add image_picker package
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+    if (image != null) {
+      _submitVerification(context, File(image.path));
+    }
+
+    showCustomSnackBar(
+        'Camera functionality will be implemented with image_picker package',
+        context);
+  }
+
+  // 🔹 Pick Image from Gallery (Placeholder for now)
+  void _pickImageFromGallery(BuildContext context) async {
+    Navigator.pop(context);
+    // You'll need to add image_picker package
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      _submitVerification(context, File(image.path));
+    }
+
+    showCustomSnackBar(
+        'Gallery functionality will be implemented with image_picker package',
+        context);
+  }
+
+  // 🔹 Submit Verification (for when image picker is implemented)
+  void _submitVerification(BuildContext context, File imageFile) {
+    context.read<VerifyDoctorCubit>().verifyDoctorProfile(imageFile: imageFile);
   }
 
   Widget _buildMedicalRecordCard(dynamic record) {
