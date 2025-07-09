@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/widgets/custom_button.dart';
-
 
 class StartView extends StatelessWidget {
   const StartView({super.key});
@@ -72,7 +72,7 @@ class StartView extends StatelessWidget {
                 textColor: AppColors.secondaryColor,
                 buttonWidth: 200,
                 onPressed: () {
-                  context.pushNamed(Routes.IntialSignUpView);
+                  context.pushNamed(Routes.intialSignUpView);
                 },
                 borderColor: AppColors.secondaryColor,
               ),

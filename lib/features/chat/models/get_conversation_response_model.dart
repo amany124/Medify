@@ -1,5 +1,3 @@
-import 'messageModel.dart';
-
 class GetConversationResponseModel {
   String? id;
   LastMessage? lastMessage;
@@ -28,8 +26,6 @@ class GetConversationResponseModel {
     data["user"] = user!.toJson();
     return data;
   }
-
- 
 }
 
 class LastMessage {

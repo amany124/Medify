@@ -45,7 +45,7 @@ class SwitchMethodSection extends StatelessWidget {
           child: ForgotLogintext(
             text1: 'Dont’t have an account?  ',
             text2: 'Now Sign Up',
-            onTap: () => context.pushNamed(Routes.IntialSignUpView),
+            onTap: () => context.pushNamed(Routes.intialSignUpView),
           ),
         ),
       ],

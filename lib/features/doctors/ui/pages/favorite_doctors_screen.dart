@@ -2,14 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/services/api_service.dart';
 import 'package:medify/core/utils/app_styles.dart';
 import 'package:medify/features/doctors/data/models/favorite_doctor_model.dart';
 import 'package:medify/features/doctors/data/repos/favorite_doctors_repo.dart';
 import 'package:medify/features/doctors/presentation/cubit/favorite_doctors_cubit.dart';
 
-import '../../../../core/routing/routes.dart';
 import '../../../../core/utils/app_colors.dart';
 
 class FavoriteDoctorsScreen extends StatelessWidget {

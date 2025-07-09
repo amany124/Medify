@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/di/di.dart';
 import 'package:medify/core/helpers/cache_manager.dart';
-import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/features/social/data/models/get_posts_request_model.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
 import 'package:medify/features/social/ui/views/social_view.dart';

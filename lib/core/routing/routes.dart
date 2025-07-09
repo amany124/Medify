@@ -2,7 +2,7 @@ class Routes {
   static const String intialScreen = '/';
   static const String onboardingScreen = '/onboardingScreen';
   static const String startScreen = '/startscreen';
-  static const String IntialSignUpView = '/IntialSignUpView';
+  static const String intialSignUpView = '/IntialSignUpView';
   static const String signUpAsDoctor = '/signupasdoctor';
   static const String signUpAsPatient = '/signupaspatient';
   static const String loginScreen = '/loginscreen';

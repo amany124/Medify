@@ -7,15 +7,15 @@ class DeletePostsResponseModel {
   DeletePostsResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     deletedPost = json['deletedPost'] != null
-        ? new DeletedPost.fromJson(json['deletedPost'])
+        ? DeletedPost.fromJson(json['deletedPost'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    if (this.deletedPost != null) {
-      data['deletedPost'] = this.deletedPost!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
+    if (deletedPost != null) {
+      data['deletedPost'] = deletedPost!.toJson();
     }
     return data;
   }
@@ -33,9 +33,9 @@ class DeletedPost {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['content'] = this.content;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['content'] = content;
     return data;
   }
 }

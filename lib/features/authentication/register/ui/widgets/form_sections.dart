@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:medify/features/authentication/register/ui/widgets/section_components.dart';
 
 import '../../../../../core/theme/app_colors.dart';
-import '../../../login/ui/widgets/custom_textfield.dart';
 import '../../data/models/patient_model.dart';
 
 /// Class that contains methods to build different form sections for patient registration
@@ -43,44 +42,44 @@ class FormSections {
               const Gap(16),
 
               // Email & Username Row
-                SectionComponents.buildTextField(
+              SectionComponents.buildTextField(
                 label: 'Email',
                 controller: null,
                 hintText: 'Enter your email',
                 prefixIcon: Icons.email_outlined,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
+                    return 'Please enter your email';
                   }
                   if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                    .hasMatch(value)) {
-                  return 'Please enter a valid email';
+                      .hasMatch(value)) {
+                    return 'Please enter a valid email';
                   }
                   return null;
                 },
                 onSaved: (val) {
                   patientModel.email = val ?? '';
                 },
-                ),
-                const Gap(10),
-                SectionComponents.buildTextField(
+              ),
+              const Gap(10),
+              SectionComponents.buildTextField(
                 label: 'Username',
                 controller: null,
                 hintText: 'Enter your username',
                 prefixIcon: Icons.person_pin_outlined,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                  return 'Please enter your username';
+                    return 'Please enter your username';
                   }
                   if (value.length < 3) {
-                  return 'Username must be at least 3 characters';
+                    return 'Username must be at least 3 characters';
                   }
                   return null;
                 },
                 onSaved: (val) {
                   patientModel.username = val ?? '';
                 },
-                ),
+              ),
               const Gap(16),
 
               // Password
@@ -251,7 +250,7 @@ class FormSections {
       ],
     );
   }
-  
+
   /// Builds the health metrics section
   static Widget buildHealthMetricsSection({
     required PatientModel patientModel,
@@ -392,7 +391,7 @@ class FormSections {
                 },
               ),
               const Gap(16),
-              
+
               SectionComponents.buildTextField(
                 label: 'Mental Health (1-30)',
                 controller: null,
@@ -433,7 +432,7 @@ class FormSections {
                 },
               ),
               const Gap(16),
-              
+
               SectionComponents.buildTextField(
                 label: 'Sleep Time (hours)',
                 controller: null,
@@ -531,7 +530,8 @@ class FormSections {
               const Gap(20),
 
               // Medical Conditions - Boolean Fields
-              SectionComponents.buildSectionSubtitle('Medical Conditions', Colors.orange),
+              SectionComponents.buildSectionSubtitle(
+                  'Medical Conditions', Colors.orange),
               const Gap(12),
 
               SectionComponents.buildBooleanTile(
@@ -604,7 +604,7 @@ class FormSections {
       ],
     );
   }
-  
+
   /// Builds terms and conditions checkbox
   static Widget buildTermsAndConditions({
     required bool isChecked,

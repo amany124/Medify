@@ -89,7 +89,7 @@ class AppRouter {
         });
       case Routes.startScreen:
         return MaterialPageRoute(builder: (_) => const StartView());
-      case Routes.IntialSignUpView:
+      case Routes.intialSignUpView:
         return MaterialPageRoute(builder: (_) => const IntialSignUpView());
       case Routes.availability:
         return MaterialPageRoute(

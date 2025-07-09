@@ -1,14 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medify/core/di/di.dart';
-import 'dart:io';
-
 import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/features/social/data/models/update_post_request_model.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
+
 import '../../data/models/create_post_request_model.dart';
-import '../cubits/create_post_cubit/create_post_cubit.dart';
 
 class CreatePostPage extends StatelessWidget {
   final bool isEditing;
@@ -60,10 +60,10 @@ class _CreatePostViewState extends State<CreatePostView> {
       token: LocalData.getAuthResponseModel()!.token,
       content: _contentController.text,
     );
-    
+
     await BlocProvider.of<SocialCubit>(context)
         .updatePost(requestModel: requestModel);
-        Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   Future<void> _submitPost() async {

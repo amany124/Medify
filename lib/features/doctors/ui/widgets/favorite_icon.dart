@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medify/core/services/api_service.dart';
 import 'package:medify/features/doctors/data/repos/favorite_doctors_repo.dart';
 import 'package:medify/features/doctors/data/repos/review_repo.dart';
@@ -12,7 +11,6 @@ import 'package:medify/features/doctors/ui/widgets/review_dialog.dart';
 
 import '../../../../core/helpers/show_custom_snack_bar.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/utils/app_images.dart';
 
 class FavoriteIcon extends StatefulWidget {
   final String doctorId;
@@ -138,7 +136,7 @@ class _FavoriteIconState extends State<FavoriteIcon> {
                         color: AppColors.primaryColor,
                       ),
                     )
-                    : Icon(
+                  : Icon(
                       isFavorite ? Icons.favorite : Icons.favorite_border,
                       color: AppColors.primaryColor,
                       size: 20,

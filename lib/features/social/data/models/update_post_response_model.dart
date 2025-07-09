@@ -6,14 +6,14 @@ class UpdatePostResponseModel {
 
   UpdatePostResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    post = json['post'] != null ? new Post.fromJson(json['post']) : null;
+    post = json['post'] != null ? Post.fromJson(json['post']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    if (this.post != null) {
-      data['post'] = this.post!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
+    if (post != null) {
+      data['post'] = post!.toJson();
     }
     return data;
   }
@@ -54,16 +54,16 @@ class Post {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['doctorId'] = this.doctorId;
-    data['content'] = this.content;
-    data['likes'] = this.likes;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    data['doctorName'] = this.doctorName;
-    data['formattedDate'] = this.formattedDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['doctorId'] = doctorId;
+    data['content'] = content;
+    data['likes'] = likes;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    data['doctorName'] = doctorName;
+    data['formattedDate'] = formattedDate;
     return data;
   }
 }

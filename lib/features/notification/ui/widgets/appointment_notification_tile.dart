@@ -24,7 +24,7 @@ class AppointmentNotificationTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF2260FF).withOpacity(0.08),
+            color: const Color(0xFF2260FF).withValues(alpha:0.08),
             spreadRadius: 0,
             blurRadius: 12,
             offset: const Offset(0, 3),
@@ -42,7 +42,7 @@ class AppointmentNotificationTile extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: _getStatusColor().withOpacity(0.1),
+              color: _getStatusColor().withValues(alpha:0.1),
               borderRadius: BorderRadius.circular(25),
             ),
             child: Icon(
@@ -104,7 +104,7 @@ class AppointmentNotificationTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: const Color(0xFF2260FF).withOpacity(0.1),
+              color: const Color(0xFF2260FF).withValues(alpha:0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(

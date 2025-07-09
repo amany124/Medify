@@ -104,7 +104,6 @@ class _PatientRegistrationSectionState
     'No',
     'Yes',
     'Borderline diabetes',
-
   ];
   final List<String> genderOptions = ['male', 'female'];
   final List<String> ageCategoryOptions = [
@@ -420,14 +419,14 @@ class _PatientRegistrationSectionState
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select your race/ethnicity';
+                    return 'Please select your race';
                   }
                   return null;
                 },
                 onSaved: (val) {
                   patientModel.race = val ?? '';
                 },
-                hintText: 'Select your race/ethnicity',
+                hintText: 'Select your race',
               ),
             ],
           ),

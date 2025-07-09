@@ -303,6 +303,9 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           controller: skinCancerController,
           icon: Icons.health_and_safety,
           enabled: false),
+
+      // Diagnosis Data Section
+      _buildDiagnosisDataSection(),
     ];
   }
 
@@ -369,7 +372,6 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
     ];
   }
 
-// 🔹 تعديل في _buildProfileScreen لإضافة زر الحفظ
   Widget _buildProfileScreen(
       {required String name, required List<Widget> fields}) {
     return NestedScrollView(
@@ -420,7 +422,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ...fields,
-            if (isEditing) // 🔹 إظهار الزر فقط عند التعديل
+            if (isEditing)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: CustomButton(
@@ -498,7 +500,292 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
     );
   }
 
-  // 🔹 Build Medical Records Section
+  // 🔹 Build Diagnosis Data Section for Patients
+  Widget _buildDiagnosisDataSection() {
+    if (patient == null) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white,
+            Colors.blue.shade50.withValues(alpha: 0.3),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.blue.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.shade100.withValues(alpha: 0.3),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header Section
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Colors.blue.shade600,
+                  Colors.blue.shade500,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.analytics,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Diagnosis Data',
+                        style: AppStyles.semiBold18.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Health metrics and risk factors',
+                        style: AppStyles.regular12.copyWith(
+                          color: Colors.white.withValues(alpha: 0.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Data Grid
+          _buildDiagnosisDataGrid(),
+        ],
+      ),
+    );
+  }
+
+  // 🔹 Build Diagnosis Data Grid
+  Widget _buildDiagnosisDataGrid() {
+    final diagnosisData = [
+      {
+        'label': 'BMI',
+        'value': patient!.bmi.toString(),
+        'icon': Icons.monitor_weight,
+        'color': Colors.cyan
+      },
+      {
+        'label': 'Smoking',
+        'value': patient!.smoking ? 'Yes' : 'No',
+        'icon': Icons.smoking_rooms,
+        'color': Colors.red
+      },
+      {
+        'label': 'Alcohol Drinking',
+        'value': patient!.alcoholDrinking ? 'Yes' : 'No',
+        'icon': Icons.local_bar,
+        'color': Colors.red
+      },
+      {
+        'label': 'Stroke',
+        'value': patient!.stroke ? 'Yes' : 'No',
+        'icon': Icons.emergency,
+        'color': Colors.red
+      },
+      {
+        'label': 'Physical Health',
+        'value': '${patient!.physicalHealth}/30',
+        'icon': Icons.fitness_center,
+        'color': Colors.blue
+      },
+      {
+        'label': 'Mental Health',
+        'value': '${patient!.mentalHealth}/30',
+        'icon': Icons.psychology,
+        'color': Colors.blue
+      },
+      {
+        'label': 'Difficulty Walking',
+        'value': patient!.diffWalking ? 'Yes' : 'No',
+        'icon': Icons.accessible,
+        'color': Colors.red
+      },
+      {
+        'label': 'Sex',
+        'value': patient!.gender,
+        'icon': Icons.person,
+        'color': Colors.cyan
+      },
+      {
+        'label': 'Age Category',
+        'value': patient!.ageCategory,
+        'icon': Icons.cake,
+        'color': Colors.brown
+      },
+      {
+        'label': 'Race',
+        'value': patient!.race,
+        'icon': Icons.people,
+        'color': Colors.blue
+      },
+      {
+        'label': 'Diabetic',
+        'value': patient!.diabetic,
+        'icon': Icons.medical_information,
+        'color': Colors.red
+      },
+      {
+        'label': 'Physical Activity',
+        'value': patient!.physicalActivity ? 'Yes' : 'No',
+        'icon': Icons.directions_run,
+        'color': Colors.cyan
+      },
+      {
+        'label': 'General Health',
+        'value': patient!.genHealth,
+        'icon': Icons.health_and_safety,
+        'color': Colors.blue
+      },
+      {
+        'label': 'Sleep Time',
+        'value': '${patient!.sleepTime} hours',
+        'icon': Icons.bedtime,
+        'color': Colors.cyan
+      },
+      {
+        'label': 'Asthma',
+        'value': patient!.asthma ? 'Yes' : 'No',
+        'icon': Icons.air,
+        'color': Colors.cyan
+      },
+      {
+        'label': 'Kidney Disease',
+        'value': patient!.kidneyDisease ? 'Yes' : 'No',
+        'icon': Icons.medical_services,
+        'color': Colors.red
+      },
+      {
+        'label': 'Skin Cancer',
+        'value': patient!.skinCancer ? 'Yes' : 'No',
+        'icon': Icons.health_and_safety,
+        'color': Colors.orange
+      },
+    ];
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        childAspectRatio: 2.5, //w:h
+      ),
+      itemCount: diagnosisData.length,
+      itemBuilder: (context, index) {
+        final data = diagnosisData[index];
+        return _buildDiagnosisDataCard(
+          label: data['label'] as String,
+          value: data['value'] as String,
+          icon: data['icon'] as IconData,
+          color: data['color'] as Color,
+        );
+      },
+    );
+  }
+
+  // 🔹 Build Individual Diagnosis Data Card
+  Widget _buildDiagnosisDataCard({
+    required String label,
+    required String value,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.1),
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: const Offset(0, 1),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              size: 20,
+              color: color,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  label,
+                  style: AppStyles.regular10.copyWith(
+                    color: Colors.grey.shade600,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  style: AppStyles.semiBold12.copyWith(
+                    color: color,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildMedicalRecordsSection() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
@@ -509,14 +796,15 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           end: Alignment.bottomRight,
           colors: [
             Colors.white,
-            AppColors.secondaryColor.withOpacity(0.02),
+            AppColors.secondaryColor.withValues(alpha: 0.02),
           ],
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.secondaryColor.withOpacity(0.2)),
+        border:
+            Border.all(color: AppColors.secondaryColor.withValues(alpha: 0.2)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.secondaryColor.withOpacity(0.1),
+            color: AppColors.secondaryColor.withValues(alpha: 0.1),
             spreadRadius: 2,
             blurRadius: 8,
             offset: const Offset(0, 2),
@@ -535,7 +823,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
                 end: Alignment.centerRight,
                 colors: [
                   AppColors.secondaryColor,
-                  AppColors.secondaryColor.withOpacity(0.8),
+                  AppColors.secondaryColor.withValues(alpha: 0.8),
                 ],
               ),
               borderRadius: BorderRadius.circular(12),
@@ -545,7 +833,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(
@@ -569,7 +857,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
                       Text(
                         'Patient treatment history',
                         style: AppStyles.regular12.copyWith(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                         ),
                       ),
                     ],
@@ -579,7 +867,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: BlocProvider(
@@ -727,14 +1015,15 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
 
   Widget _buildMedicalRecordCard(dynamic record) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.secondaryColor.withOpacity(0.1)),
+        border:
+            Border.all(color: AppColors.secondaryColor.withValues(alpha: 0.1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             spreadRadius: 1,
             blurRadius: 8,
             offset: const Offset(0, 2),
@@ -747,7 +1036,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.secondaryColor.withOpacity(0.05),
+              color: AppColors.secondaryColor.withValues(alpha: 0.05),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -758,7 +1047,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.secondaryColor.withOpacity(0.1),
+                    color: AppColors.secondaryColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
@@ -960,7 +1249,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
         Container(
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(6),
           ),
           child: Icon(

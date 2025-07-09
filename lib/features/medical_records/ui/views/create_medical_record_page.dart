@@ -174,7 +174,7 @@ class _CreateMedicalRecordPageState extends State<CreateMedicalRecordPage> {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: const Color(0xff2260FF).withOpacity(0.1),
+            backgroundColor: const Color(0xff2260FF).withValues(alpha:0.1),
             child: Text(
               widget.appointment.patient.name[0].toUpperCase(),
               style: const TextStyle(
@@ -324,10 +324,10 @@ class _CreateMedicalRecordPageState extends State<CreateMedicalRecordPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: const Color(0xff2260FF).withOpacity(0.1),
+                  color: const Color(0xff2260FF).withValues(alpha:0.1),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                      color: const Color(0xff2260FF).withOpacity(0.3)),
+                      color: const Color(0xff2260FF).withValues(alpha:0.3)),
                 ),
                 child: Text(
                   symptom,
@@ -362,10 +362,10 @@ class _CreateMedicalRecordPageState extends State<CreateMedicalRecordPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: const Color(0xff27AE60).withOpacity(0.1),
+                  color: const Color(0xff27AE60).withValues(alpha:0.1),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                      color: const Color(0xff27AE60).withOpacity(0.3)),
+                      color: const Color(0xff27AE60).withValues(alpha:0.3)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
