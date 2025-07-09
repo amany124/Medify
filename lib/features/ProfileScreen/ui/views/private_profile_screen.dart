@@ -645,7 +645,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
         'label': 'Age Category',
         'value': patient!.ageCategory,
         'icon': Icons.cake,
-        'color': Colors.brown
+        'color': Colors.blue
       },
       {
         'label': 'Race',
@@ -693,7 +693,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen> {
         'label': 'Skin Cancer',
         'value': patient!.skinCancer ? 'Yes' : 'No',
         'icon': Icons.health_and_safety,
-        'color': Colors.orange
+        'color': Colors.cyan
       },
     ];
 

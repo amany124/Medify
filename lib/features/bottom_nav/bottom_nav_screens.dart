@@ -22,7 +22,7 @@ class BottomNavscreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int currentindex = context.watch<tapProvider>().currentindex;
+    int currentindex = context.watch<TapProvider>().currentindex;
     // Get user role from cache to determine which social page to show
     String userRole = CacheManager.getData(key: Keys.role) ?? 'patient';
 

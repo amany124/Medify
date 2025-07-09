@@ -30,7 +30,7 @@ class FavoriteDoctorsRepoImpl implements FavoriteDoctorsRepo {
     required String doctorId,
   }) async {
     try {
-      final Response response = await apiServices.postRequest(
+      apiServices.postRequest(
         endpoint: '${Endpoints.patientFavorites}/$doctorId',
         data: {},
         token: CacheManager.getData(key: Keys.token),
@@ -54,10 +54,9 @@ class FavoriteDoctorsRepoImpl implements FavoriteDoctorsRepo {
         token: CacheManager.getData(key: Keys.token),
       );
 
-      final List<FavoriteDoctorModel> doctors =
-          (response.data as List)
-              .map((doctor) => FavoriteDoctorModel.fromJson(doctor))
-              .toList();
+      final List<FavoriteDoctorModel> doctors = (response.data as List)
+          .map((doctor) => FavoriteDoctorModel.fromJson(doctor))
+          .toList();
 
       return Right(doctors);
     } on DioException catch (e) {
@@ -73,7 +72,7 @@ class FavoriteDoctorsRepoImpl implements FavoriteDoctorsRepo {
     required String doctorId,
   }) async {
     try {
-      final Response response = await apiServices.deleteRequest(
+      await apiServices.deleteRequest(
         endpoint: '${Endpoints.patientFavorites}/$doctorId',
         token: CacheManager.getData(key: Keys.token),
       );

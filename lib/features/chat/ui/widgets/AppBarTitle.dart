@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medify/core/widgets/avatar.dart';
-import 'package:medify/features/chat/models/messageModel.dart';
 
 import '../../models/get_conversation_response_model.dart';
 
@@ -10,7 +9,7 @@ class AppBarTitle extends StatelessWidget {
     required this.messageData,
   });
 
-  final GetConversationResponseModel  messageData;
+  final GetConversationResponseModel messageData;
 
   @override
   Widget build(BuildContext context) {

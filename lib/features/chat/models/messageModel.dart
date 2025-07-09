@@ -1,8 +1,6 @@
-import 'package:meta/meta.dart';
 
-@immutable
-class messageModel {
-  messageModel({
+class MessageModel {
+  MessageModel({
     required this.senderName,
     required this.messageContent,
     required this.messageDate,

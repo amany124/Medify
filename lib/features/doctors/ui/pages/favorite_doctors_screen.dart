@@ -441,36 +441,4 @@ class FavoriteDoctorCard extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(
-    BuildContext context, {
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 4,
-        ),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              color: AppColors.primaryColor,
-              size: 20,
-            ),
-            const Gap(4),
-            Text(
-              label,
-              style: AppStyles.medium12.copyWith(
-                color: AppColors.primaryColor,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

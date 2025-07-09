@@ -1,6 +1,5 @@
 part of 'get_posts_cubit.dart';
 
-@immutable
 sealed class GetPostsState {}
 
 final class GetPostsInitial extends GetPostsState {}

@@ -1,10 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:medify/features/chat/models/get_conversation_response_model.dart';
 import 'package:medify/features/chat/models/get_messages_response_model.dart';
 import 'package:medify/features/chat/models/send_message_request_model.dart';
 import 'package:medify/features/chat/repo/chat_repo.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/getMessages_request_model.dart';
 import '../../models/get_conversation_request_model.dart';

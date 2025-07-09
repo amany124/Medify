@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:medify/core/utils/app_images.dart';
 
 class Avatar extends StatelessWidget {
-  double radius = 22;
-  String? networkurl;
-  String? image;
-  Avatar({
+  final double? radius;
+  final String? image;
+  const Avatar({
     super.key,
-    // required this.networkurl,
     required this.radius,
+    // required this.networkurl,
     this.image,
   });
 
-  Avatar.small({
+  const Avatar.small({
     super.key,
     //Key? key,
     // required this.networkurl,
@@ -20,7 +19,7 @@ class Avatar extends StatelessWidget {
     this.image,
   });
 
-  Avatar.medium({
+  const Avatar.medium({
     super.key,
     //Key? key,
     //  required this.networkurl,
@@ -28,7 +27,7 @@ class Avatar extends StatelessWidget {
     this.image,
   });
 
-  Avatar.large({
+  const Avatar.large({
     super.key,
     //Key? key,
     // required this.networkurl,

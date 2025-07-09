@@ -22,14 +22,14 @@ void main() async {
     // this multi privider for bottom nav bar to work
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => tapProvider()),
+        ChangeNotifierProvider(create: (context) => TapProvider()),
       ],
       child: Builder(builder: (context) {
         return DevicePreview(
           enabled: true,
           builder: (context) => ChangeNotifierProvider(
-            create: (context) => tapProvider(),
-            child: const gradeApp(),
+            create: (context) => TapProvider(),
+            child: const GradeApp(),
           ),
         );
       }),
@@ -37,8 +37,8 @@ void main() async {
   );
 }
 
-class gradeApp extends StatelessWidget {
-  const gradeApp({super.key});
+class GradeApp extends StatelessWidget {
+  const GradeApp({super.key});
 
   @override
   Widget build(BuildContext context) {

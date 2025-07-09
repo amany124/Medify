@@ -12,11 +12,11 @@ class BottomnavigationContent extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: primarycolor.withValues(alpha:0.12),
+        color: primarycolor.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: primarycolor.withValues(alpha:0.05),
+            color: primarycolor.withValues(alpha: 0.05),
             blurRadius: 4,
             spreadRadius: 0,
             offset: const Offset(0, 2),
@@ -33,7 +33,7 @@ class BottomnavigationContent extends StatelessWidget {
 
   // Helper method to build regular icon with subtle animation
   Widget _buildIcon(IconData icon, int index, BuildContext context) {
-    final bool isSelected = context.watch<tapProvider>().currentindex == index;
+    final bool isSelected = context.watch<TapProvider>().currentindex == index;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
@@ -48,7 +48,7 @@ class BottomnavigationContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentIndex = context.watch<tapProvider>().currentindex;
+    final currentIndex = context.watch<TapProvider>().currentindex;
     final width = MediaQuery.of(context).size.width;
     final tabWidth = width / 5; // 5 items in the navigation bar
 
@@ -61,7 +61,7 @@ class BottomnavigationContent extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withValues(alpha:0.2),
+                color: Colors.grey.withValues(alpha: 0.2),
                 blurRadius: 15,
                 spreadRadius: 0,
                 offset: const Offset(0, -4),
@@ -81,7 +81,7 @@ class BottomnavigationContent extends StatelessWidget {
               backgroundColor: Colors.white,
               currentIndex: currentIndex,
               onTap: (index) {
-                context.read<tapProvider>().updatecurrentindex(index);
+                context.read<TapProvider>().updatecurrentindex(index);
               },
               selectedItemColor: primarycolor,
               unselectedItemColor: Colors.grey.shade500,
@@ -147,7 +147,7 @@ class BottomnavigationContent extends StatelessWidget {
               borderRadius: BorderRadius.circular(1.5),
               boxShadow: [
                 BoxShadow(
-                  color: primarycolor.withValues(alpha:0.3),
+                  color: primarycolor.withValues(alpha: 0.3),
                   blurRadius: 3,
                   spreadRadius: 0,
                   offset: const Offset(0, 1),

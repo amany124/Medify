@@ -25,10 +25,10 @@ class SignUpCongratulationsView extends StatefulWidget {
   final String? userName;
 
   @override
-  _SignUpCongratulationsState createState() => _SignUpCongratulationsState();
+  SignUpCongratulationsState createState() => SignUpCongratulationsState();
 }
 
-class _SignUpCongratulationsState extends State<SignUpCongratulationsView>
+class SignUpCongratulationsState extends State<SignUpCongratulationsView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _circleAnimation;

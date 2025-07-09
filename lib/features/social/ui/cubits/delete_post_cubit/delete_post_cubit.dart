@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/features/social/data/models/delete_post_request_model.dart';
 import 'package:medify/features/social/data/models/delete_post_response_model.dart';
 import 'package:medify/features/social/data/repos/social_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'delete_post_state.dart';
 
@@ -12,7 +11,7 @@ class DeletePostCubit extends Cubit<DeletePostState> {
   }) : super(DeletePostInitial());
   final SocialRepo socialRepo;
 
- Future<void> deletepost({
+  Future<void> deletepost({
     required DeletePostRequestModel requestModel,
   }) async {
     emit(DeletePostLoading());
@@ -26,5 +25,4 @@ class DeletePostCubit extends Cubit<DeletePostState> {
       },
     );
   }
-  
 }

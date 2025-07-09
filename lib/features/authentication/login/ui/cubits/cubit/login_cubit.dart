@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/helpers/local_data.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../../core/failures/failure.dart';
 import '../../../../register/data/models/user_model.dart';

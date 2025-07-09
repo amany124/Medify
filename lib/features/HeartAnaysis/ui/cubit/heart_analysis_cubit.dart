@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:medify/features/HeartAnaysis/data/models/heart_models.dart';
