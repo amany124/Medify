@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
+import '../../../booking/data/models/scheduled_appointment.dart';
 import '../../presentation/cubit/notification_cubit.dart';
 import '../widgets/appointment_notification_tile.dart';
 import '../widgets/section_title.dart';
@@ -133,7 +134,7 @@ class _NotificationViewState extends State<NotificationView> {
             ...groupedAppointments['Today']!.map(
               (appointment) => AppointmentNotificationTile(
                 appointment: appointment,
-                timeAgo: _getTimeAgo(appointment.createdAt),
+                timeAgo: _getTimeAgo(appointment),
               ),
             ),
             const Gap(20),
@@ -146,7 +147,7 @@ class _NotificationViewState extends State<NotificationView> {
             ...groupedAppointments['Tomorrow']!.map(
               (appointment) => AppointmentNotificationTile(
                 appointment: appointment,
-                timeAgo: _getTimeAgo(appointment.createdAt),
+                timeAgo: _getTimeAgo(appointment),
               ),
             ),
             const Gap(20),
@@ -159,7 +160,7 @@ class _NotificationViewState extends State<NotificationView> {
             ...groupedAppointments['Yesterday']!.map(
               (appointment) => AppointmentNotificationTile(
                 appointment: appointment,
-                timeAgo: _getTimeAgo(appointment.createdAt),
+                timeAgo: _getTimeAgo(appointment),
               ),
             ),
             const Gap(20),
@@ -172,7 +173,7 @@ class _NotificationViewState extends State<NotificationView> {
             ...groupedAppointments['Other']!.map(
               (appointment) => AppointmentNotificationTile(
                 appointment: appointment,
-                timeAgo: _getTimeAgo(appointment.createdAt),
+                timeAgo: _getTimeAgo(appointment),
               ),
             ),
             const Gap(20),
@@ -281,18 +282,78 @@ class _NotificationViewState extends State<NotificationView> {
     );
   }
 
-  String _getTimeAgo(DateTime dateTime) {
+  String _getTimeAgo(ScheduledAppointment appointment) {
     final now = DateTime.now();
-    final difference = now.difference(dateTime);
+    
+    try {
+      // Combine appointment date and time to get the full appointment datetime
+      final appointmentDateTime = _parseAppointmentDateTime(appointment.date, appointment.time);
+      final difference = appointmentDateTime.difference(now);
+      
+      // If appointment is in the future
+      if (difference.inMinutes > 0) {
+        if (difference.inMinutes < 60) {
+          return 'in ${difference.inMinutes}m';
+        } else if (difference.inHours < 24) {
+          return 'in ${difference.inHours}h';
+        } else {
+          return 'in ${difference.inDays}d';
+        }
+      } 
+      // If appointment is in the past
+      else {
+        final pastDifference = now.difference(appointmentDateTime);
+        if (pastDifference.inMinutes < 1) {
+          return 'now';
+        } else if (pastDifference.inMinutes < 60) {
+          return '${pastDifference.inMinutes}m ago';
+        } else if (pastDifference.inHours < 24) {
+          return '${pastDifference.inHours}h ago';
+        } else {
+          return '${pastDifference.inDays}d ago';
+        }
+      }
+    } catch (e) {
+      // Fallback to using just the date if time parsing fails
+      final difference = appointment.date.difference(now);
+      if (difference.inDays.abs() == 0) {
+        return 'today';
+      } else if (difference.inDays > 0) {
+        return 'in ${difference.inDays}d';
+      } else {
+        return '${difference.inDays.abs()}d ago';
+      }
+    }
+  }
 
-    if (difference.inMinutes < 1) {
-      return 'now';
-    } else if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours}h';
-    } else {
-      return '${difference.inDays}d';
+  DateTime _parseAppointmentDateTime(DateTime date, String time) {
+    try {
+      // Parse time string (e.g., "2:30 PM", "14:30", etc.)
+      final timeRegex = RegExp(r'(\d{1,2}):(\d{2})\s*(AM|PM)?', caseSensitive: false);
+      final match = timeRegex.firstMatch(time.trim());
+      
+      if (match != null) {
+        int hour = int.parse(match.group(1)!);
+        int minute = int.parse(match.group(2)!);
+        String? amPm = match.group(3)?.toUpperCase();
+        
+        // Convert to 24-hour format if AM/PM is specified
+        if (amPm != null) {
+          if (amPm == 'PM' && hour != 12) {
+            hour += 12;
+          } else if (amPm == 'AM' && hour == 12) {
+            hour = 0;
+          }
+        }
+        
+        return DateTime(date.year, date.month, date.day, hour, minute);
+      } else {
+        // If parsing fails, return the date with current time as fallback
+        return date;
+      }
+    } catch (e) {
+      // If any error occurs, return the date as fallback
+      return date;
     }
   }
 
