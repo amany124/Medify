@@ -38,10 +38,23 @@ class _ChatTextFieldState extends State<ChatTextField> {
     final messageText = conentController.text.trim();
     conentController.clear();
 
+    // Get current user ID
+    final currentUserId = LocalData.getAuthResponseModel()?.user.id.toString();
+
+    // Determine the receiver ID (the other user in the conversation)
+    String receiverId = '';
+    if (widget.messageData.lastMessage?.senderId == currentUserId) {
+      // If current user sent the last message, send to the receiver
+      receiverId = widget.messageData.lastMessage?.receiverId ?? '';
+    } else {
+      // If someone else sent the last message, send to the sender
+      receiverId = widget.messageData.lastMessage?.senderId ?? '';
+    }
+
     try {
-      await context.read<ChatCubit>().sendMessage(
+      await context.read<ChatCubit>().sendMessageAndRefresh(
             requestModel: SendMessageRequestModel(
-              receiverId: widget.messageData.lastMessage?.receiverId ?? '',
+              receiverId: receiverId,
               content: messageText,
               token: LocalData.getAuthResponseModel()!.token,
             ),
@@ -128,6 +141,12 @@ class _ChatTextFieldState extends State<ChatTextField> {
           ),
           const SizedBox(width: 12),
           BlocBuilder<ChatCubit, ChatState>(
+            buildWhen: (previous, current) {
+              // Only rebuild for sending-related states
+              return current is SendingMessageState ||
+                  current is MessageSentSuccessState ||
+                  current is MessageSendErrorState;
+            },
             builder: (context, state) {
               return GestureDetector(
                 onTap: isLoading ? null : _sendMessage,

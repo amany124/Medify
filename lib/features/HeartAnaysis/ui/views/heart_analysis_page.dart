@@ -4,13 +4,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/core/widgets/app_logo.dart';
 import 'package:medify/core/widgets/app_name.dart';
-import 'package:medify/core/widgets/avatar.dart';
 import 'package:medify/core/widgets/custom_image_picker_widget.dart';
 import 'package:medify/features/HeartAnaysis/data/models/heart_models.dart';
 import 'package:medify/features/HeartAnaysis/ui/cubit/heart_analysis_cubit.dart';
@@ -24,6 +22,7 @@ class HeartAnalysisPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF3F8FE),
       appBar: AppBar(
         title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppLogo(height: 45),
             Gap(7),
@@ -38,10 +37,10 @@ class HeartAnalysisPage extends StatelessWidget {
           onPressed: () => context.pushNamed(Routes.sidebar),
           icon: const Icon(Icons.menu, color: Colors.black),
         ),
-        actions: [
-          Avatar.small(),
-          const Gap(10),
-        ],
+        // actions: [
+        //   Avatar.small(),
+        //   const Gap(10),
+        // ],
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,

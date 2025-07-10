@@ -37,7 +37,9 @@ class DocContactWays extends StatelessWidget {
         const Gap(10),
         InkWell(
           onTap: () {
-            context.pushNamed(Routes.appointment,);
+            context.pushNamed(
+              Routes.appointment,
+            );
           },
           child: CustomBlueContainer(
             child: Row(
@@ -61,7 +63,9 @@ class DocContactWays extends StatelessWidget {
         const Gap(10),
         InkWell(
           onTap: () {
-            context.pushNamed(Routes.allChats);
+            context.pushNamed(
+              Routes.allChats,
+            );
           },
           child: CustomBlueContainer(
             child: SvgPicture.asset(

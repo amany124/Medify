@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/di/di.dart';
+import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
 import 'package:medify/features/chat/ui/widgets/AppBarTitle.dart';
 import 'package:medify/features/chat/ui/widgets/ChatTextField.dart';
@@ -10,25 +11,36 @@ import 'package:medify/features/chat/ui/widgets/icon_buttons.dart';
 
 import '../../../../core/helpers/cache_manager.dart';
 import '../../../../core/utils/keys.dart';
-import '../../models/getMessages_request_model.dart';
 import '../../models/get_conversation_response_model.dart';
 
 class MessagesPage extends StatelessWidget {
-  static Route route(GetConversationResponseModel data) => MaterialPageRoute(
-        builder: (context) => BlocProvider<ChatCubit>(
-          // TODO: call Get all messages
-          create: (context) => getIt<ChatCubit>()
-            ..getAllMessages(
-              requestModel: GetMessagesRequestModel(
-                  userId: data.lastMessage?.receiverId ?? '',
-                token: CacheManager.getData(key: Keys.token) ?? '',
-              ),
-            ),
-          child: MessagesPage(
-            messageData: data,
+  static Route route(GetConversationResponseModel data) {
+    // Get current user ID
+    final currentUserId = LocalData.getAuthResponseModel()?.user.id.toString();
+
+    // Determine the other user ID (the one we're chatting with)
+    String otherUserId = '';
+    if (data.lastMessage?.senderId == currentUserId) {
+      // If current user sent the last message, chat with the receiver
+      otherUserId = data.lastMessage?.receiverId ?? '';
+    } else {
+      // If someone else sent the last message, chat with the sender
+      otherUserId = data.lastMessage?.senderId ?? '';
+    }
+
+    return MaterialPageRoute(
+      builder: (context) => BlocProvider.value(
+        value: getIt<ChatCubit>()
+          ..initializeChatConversation(
+            userId: otherUserId,
+            token: CacheManager.getData(key: Keys.token) ?? '',
           ),
+        child: MessagesPage(
+          messageData: data,
         ),
-      );
+      ),
+    );
+  }
 
   const MessagesPage({
     super.key,
@@ -41,14 +53,17 @@ class MessagesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ChatCubit, ChatState>(
       listener: (context, state) {
-        if (state is SendMessageSuccess) {
-          // Refresh messages after successful send
-          context.read<ChatCubit>().getAllMessages(
-                requestModel: GetMessagesRequestModel(
-                  userId: messageData.lastMessage?.receiverId ?? '',
-                  token: CacheManager.getData(key: Keys.token) ?? '',
-                ),
-              );
+        if (state is MessageSentSuccessState) {
+          // Messages will automatically refresh after sending
+          // No additional action needed here
+        } else if (state is MessageSendErrorState) {
+          // Show error message if needed
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to send message: ${state.errorMessage}'),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       },
       child: Scaffold(

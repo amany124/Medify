@@ -8,9 +8,11 @@ class ChatItem extends StatelessWidget {
   const ChatItem({
     super.key,
     required this.messageData,
+    this.onReturnFromMessages,
   });
 
   final GetConversationResponseModel messageData;
+  final VoidCallback? onReturnFromMessages;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,10 @@ class ChatItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () {
-            Navigator.of(context).push(MessagesPage.route(messageData));
+          onTap: () async {
+            await Navigator.of(context).push(MessagesPage.route(messageData));
+            // Call the callback when returning from messages page
+            onReturnFromMessages?.call();
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
