@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medify/core/utils/app_styles.dart';
+import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
 
 import '../widgets/ProfileTextField.dart';
@@ -22,6 +23,24 @@ class PatientProfileFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Patient Profile Header with name and edit functionality
+        Builder(builder: (context) {
+          return PatientProfileHeaderWidget(
+            name: patient.name,
+            onEditPressed: () {
+              // Find the nearest StatefulWidget ancestor and toggle editing state
+              final PrivateProfileScreenState? parent =
+                  context.findAncestorStateOfType<PrivateProfileScreenState>();
+              if (parent != null) {
+                parent.toggleEditing();
+              }
+            },
+            isEditing: isEditing,
+          );
+        }),
+
+        const SizedBox(height: 20),
+
         // Basic Health Information
         _buildSectionHeader(
             'Basic Health Information', Icons.health_and_safety),
@@ -534,6 +553,115 @@ class DiagnosisDataSection extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Header widget for patient profile section - name and edit functionality without image
+class PatientProfileHeaderWidget extends StatelessWidget {
+  final String name;
+  final VoidCallback? onEditPressed;
+  final bool isEditing;
+
+  const PatientProfileHeaderWidget({
+    super.key,
+    required this.name,
+    this.onEditPressed,
+    this.isEditing = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white,
+            Colors.blue.shade50.withValues(alpha: 0.3),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.blue.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.shade100.withValues(alpha: 0.3),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Colors.blue.shade600,
+              Colors.blue.shade500,
+            ],
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 24,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: AppStyles.semiBold18.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Patient Profile',
+                    style: AppStyles.regular12.copyWith(
+                      color: Colors.white.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (onEditPressed != null)
+              GestureDetector(
+                onTap: onEditPressed,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    isEditing ? Icons.check : Icons.edit,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
