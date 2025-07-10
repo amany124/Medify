@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/features/chat/models/send_message_request_model.dart';
@@ -54,7 +56,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
     try {
       await context.read<ChatCubit>().sendMessageAndRefresh(
             requestModel: SendMessageRequestModel(
-              receiverId: receiverId,
+              receiverId: receiverId ,
               content: messageText,
               token: LocalData.getAuthResponseModel()!.token,
             ),
