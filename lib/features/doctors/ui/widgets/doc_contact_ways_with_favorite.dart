@@ -121,16 +121,19 @@ class DocContactWaysWithFavorite extends StatelessWidget {
                             token: CacheManager.getData(key: Keys.token) ?? '',
                           ),
                         child: MessagesPage(
-                          
                           // Create a simple conversation object with doctor info
                           messageData: GetConversationResponseModel(
                             id: doctor.id,
                             lastMessage: LastMessage(
                               receiverId: doctor.id,
-                              senderId: CacheManager.getData(key: Keys.userId) ?? '',
-                              content: '', // Add empty content to avoid null issues
-                              createdAt: DateTime.now(), // Add current date to avoid null issues
-                              updatedAt: DateTime.now(), // Add current date to avoid null issues
+                              senderId:
+                                  CacheManager.getData(key: Keys.userId) ?? '',
+                              content:
+                                  '', // Add empty content to avoid null issues
+                              createdAt: DateTime
+                                  .now(), // Add current date to avoid null issues
+                              updatedAt: DateTime
+                                  .now(), // Add current date to avoid null issues
                               read: false,
                               attachments: [],
                               senderModel: 'User',
