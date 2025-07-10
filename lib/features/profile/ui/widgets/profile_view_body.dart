@@ -38,46 +38,65 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          const Stack(
+    return BlocBuilder<GetProfileCubit, GetProfileState>(
+      builder: (context, state) {
+        if (state is GetProfileLoading) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ProfileImage(),
-              EditIcon(),
-            ],
-          ),
-          const Gap(8),
-          BlocBuilder<GetProfileCubit, GetProfileState>(
-            builder: (context, state) {
-              if (state is GetProfileLoading) {
-                return Center(
-                    child: LoadingAnimationWidget.progressiveDots(
+              Center(
+                child: LoadingAnimationWidget.threeArchedCircle(
                   color: AppColors.primaryColor,
-                  size: 30,
-                ));
-              } else if (state is GetProfileFailure) {
-                return Text(
-                  state.failure.message,
-                  style: AppStyles.semiBold16.copyWith(
-                    color: Colors.red,
-                  ),
-                );
-              }
-              return Text(
-                BlocProvider.of<GetProfileCubit>(context).name,
-                style: AppStyles.semiBold16.copyWith(
-                  // color: AppColors.blueColor,
-                  color: Colors.black,
+                  size: 40,
                 ),
-              );
-            },
-          ),
-          const Gap(10),
-          const ProfileItems()
-        ],
-      ),
+              ),
+            ],
+          );
+        } else if (state is GetProfileFailure) {
+          return Center(
+            child: Text(
+              state.failure.message,
+              style: AppStyles.semiBold16.copyWith(
+                color: Colors.red,
+              ),
+            ),
+          );
+        } else {
+          // Success
+          final cubit = context.read<GetProfileCubit>();
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    cubit.urlImage.isEmpty
+                        ? CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.blue.shade200,
+                            child: Icon(Icons.person,
+                                size: 50, color: Colors.blue),
+                          )
+                        : ProfileImage(
+                            url: cubit.urlImage,
+                          ),
+                    const EditIcon(),
+                  ],
+                ),
+                const Gap(8),
+                Text(
+                  cubit.name,
+                  style: AppStyles.semiBold16.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
+                const Gap(10),
+                const ProfileItems(),
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 }

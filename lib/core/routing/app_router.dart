@@ -5,6 +5,7 @@ import 'package:medify/core/di/di.dart';
 import 'package:medify/core/helpers/local_data.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/heart_analysis_page.dart';
+import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/Scheduling/views/Scheduling.dart'
@@ -149,14 +150,21 @@ class AppRouter {
                 ));
       case Routes.privateProfile:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => GetProfileCubit(
-                    ProfileRepoImpl(
-                      apiServices: ApiServices(
-                        Dio(),
+            builder: (_) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => GetProfileCubit(
+                        ProfileRepoImpl(
+                          apiServices: ApiServices(
+                            Dio(),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    BlocProvider(
+                      create: (context) => getIt<VerifyDoctorCubit>(),
+                    ),
+                  ],
                   child: const PrivateProfileScreen(),
                 ));
 

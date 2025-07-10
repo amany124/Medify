@@ -11,7 +11,10 @@ import 'package:medify/features/authentication/register/data/models/patient_mode
 
 import '../cubit/get_profile_cubit.dart';
 import '../mixins/profile_controllers_mixin.dart';
+import '../widgets/ProfileAppbarContent.dart';
 import '../widgets/doctor_profile_fields.dart';
+import '../widgets/doctor_verification_section.dart';
+import '../widgets/medical_records_section.dart';
 import '../widgets/patient_profile_fields.dart';
 
 class PrivateProfileScreen extends StatefulWidget {
@@ -108,9 +111,6 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
 
     return _buildProfileScreen(
       name: patient.name,
-      profilePicture:
-          null, // Patients don't have profile pictures in this model
-      isDoctor: false,
       fields: [
         PatientProfileFields(
           patient: patient,
@@ -168,24 +168,26 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
 
     return _buildProfileScreen(
       name: doctor.name,
-      profilePicture: doctor.profilePicture,
-      isDoctor: true,
       fields: [
         DoctorProfileFields(
           doctor: doctor,
           isEditing: isEditing,
           controllers: _getControllersMap(),
         ),
+
+        // Doctor Verification Section
+        DoctorVerificationSection(
+          doctor: doctor,
+        ),
+
+        // Medical Records Section
+        const MedicalRecordsSection(),
       ],
     );
   }
 
-  Widget _buildProfileScreen({
-    required String name,
-    String? profilePicture,
-    bool isDoctor = false,
-    required List<Widget> fields,
-  }) {
+  Widget _buildProfileScreen(
+      {required String name, required List<Widget> fields}) {
     return NestedScrollView(
       physics: const BouncingScrollPhysics(),
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -194,7 +196,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
             pinned: true,
             floating: false,
             elevation: 0,
-            expandedHeight: 80, // Minimal height for a simple app bar
+            expandedHeight: 300,
             backgroundColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               background: ClipRRect(
@@ -210,6 +212,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
                       fit: BoxFit.cover,
                     ),
                   ),
+                  child: ProfileAppbarContent(name: name),
                 ),
               ),
             ),
@@ -217,6 +220,13 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
               icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => Navigator.pop(context),
             ),
+            actions: [
+              IconButton(
+                icon: Icon(isEditing ? Icons.check : Icons.edit,
+                    color: Colors.white),
+                onPressed: () => setState(() => isEditing = !isEditing),
+              ),
+            ],
           ),
         ];
       },
@@ -258,14 +268,5 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
         ),
       ),
     );
-  }
-
-  // Profile picture updating is now handled directly in DoctorProfilePictureSection
-
-  // Toggle editing state - exposed for child widgets to use
-  void toggleEditing() {
-    setState(() {
-      isEditing = !isEditing;
-    });
   }
 }

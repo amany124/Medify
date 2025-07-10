@@ -4,7 +4,6 @@ import 'package:medify/core/routing/extensions.dart';
 
 import '../../../../core/utils/app_styles.dart';
 import 'doctor_cards.dart';
-import 'profile_image.dart';
 
 class AppointmentsViewBody extends StatelessWidget {
   const AppointmentsViewBody({super.key});
@@ -33,10 +32,6 @@ class AppointmentsViewBody extends StatelessWidget {
                       color: Colors.black,
                     ),
                     textAlign: TextAlign.center,
-                  ),
-                  const Spacer(),
-                  const ProfileImage(
-                    radius: 30,
                   ),
                 ],
               ),

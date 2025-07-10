@@ -10,6 +10,7 @@ part 'get_profile_state.dart';
 class GetProfileCubit extends Cubit<GetProfileState> {
   //name
   String name = '';
+  String urlImage = '';
   GetProfileCubit(
     this.profileRepo,
   ) : super(GetProfileInitial());
@@ -44,6 +45,9 @@ class GetProfileCubit extends Cubit<GetProfileState> {
     final result = await profileRepo.getDoctorProfile();
     return result.fold((failure) => emit(GetProfileFailure(failure)), (model) {
       name = model.name;
+      urlImage = model.profilePicture ??
+          'https://facesurgeon.in/wp-content/uploads/2016/05/Dummy-Doctor-Profile-Image.jpg';
+
       emit(GetDoctorProfileSuccess(doctorModel: model));
       print('name: $name');
     });

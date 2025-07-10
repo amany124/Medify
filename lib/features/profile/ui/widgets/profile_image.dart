@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-//import 'package:graduation_project/core/utils/app_images.dart';
-
-import '../../../../core/utils/app_images.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
     super.key,
     this.radius = 53,
+    required this.url,
   });
   final double radius;
+  final String url;
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundImage: const AssetImage(
-        Assets.femalepic1,
+      backgroundImage: NetworkImage(
+        url,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/features/ProfileScreen/data/repos/profile_repo.dart';
 import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_state.dart';
@@ -14,7 +15,8 @@ class VerifyDoctorCubit extends Cubit<VerifyDoctorState> {
     emit(VerifyDoctorLoading());
 
     try {
-      final result = await profileRepo.verifyDoctorProfile(imageFile: imageFile);
+      final result =
+          await profileRepo.verifyDoctorProfile(imageFile: imageFile);
 
       if (isClosed) return;
 
@@ -28,6 +30,30 @@ class VerifyDoctorCubit extends Cubit<VerifyDoctorState> {
       );
     } catch (e) {
       if (!isClosed) emit(VerifyDoctorError(e.toString()));
+    }
+  }
+
+  Future<void> uploadDoctorProfilePicture({required File imageFile}) async {
+    if (isClosed) return;
+
+    emit(ProfilePictureUploadLoading());
+
+    try {
+      final result =
+          await profileRepo.uploadDoctorProfilePicture(imageFile: imageFile);
+
+      if (isClosed) return;
+
+      result.fold(
+        (failure) {
+          if (!isClosed) emit(ProfilePictureUploadError(failure.message));
+        },
+        (profilePicture) {
+          if (!isClosed) emit(ProfilePictureUploadSuccess(profilePicture));
+        },
+      );
+    } catch (e) {
+      if (!isClosed) emit(ProfilePictureUploadError(e.toString()));
     }
   }
 
