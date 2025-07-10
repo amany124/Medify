@@ -128,6 +128,13 @@ class DocContactWaysWithFavorite extends StatelessWidget {
                             lastMessage: LastMessage(
                               receiverId: doctor.id,
                               senderId: CacheManager.getData(key: Keys.userId) ?? '',
+                              content: '', // Add empty content to avoid null issues
+                              createdAt: DateTime.now(), // Add current date to avoid null issues
+                              updatedAt: DateTime.now(), // Add current date to avoid null issues
+                              read: false,
+                              attachments: [],
+                              senderModel: 'User',
+                              receiverModel: 'Doctor',
                             ),
                             user: User(
                               id: doctor.id,

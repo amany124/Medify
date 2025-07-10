@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/features/chat/models/send_message_request_model.dart';
@@ -45,18 +43,45 @@ class _ChatTextFieldState extends State<ChatTextField> {
 
     // Determine the receiver ID (the other user in the conversation)
     String receiverId = '';
-    if (widget.messageData.lastMessage?.senderId == currentUserId) {
-      // If current user sent the last message, send to the receiver
-      receiverId = widget.messageData.lastMessage?.receiverId ?? '';
-    } else {
-      // If someone else sent the last message, send to the sender
-      receiverId = widget.messageData.lastMessage?.senderId ?? '';
+
+    // First try to get receiver ID from user object if it exists (for new conversations)
+    if (widget.messageData.user?.id != null &&
+        widget.messageData.user?.id != currentUserId) {
+      receiverId = widget.messageData.user!.id.toString();
+    }
+    // Otherwise try to determine from last message
+    else if (widget.messageData.lastMessage != null) {
+      if (widget.messageData.lastMessage?.senderId == currentUserId) {
+        // If current user sent the last message, send to the receiver
+        receiverId = widget.messageData.lastMessage?.receiverId ?? '';
+      } else {
+        // If someone else sent the last message, send to the sender
+        receiverId = widget.messageData.lastMessage?.senderId ?? '';
+      }
+    }
+    // If all else fails, use the conversation ID (which should be the doctor's ID for new conversations)
+    else if (widget.messageData.id != null) {
+      receiverId = widget.messageData.id.toString();
+    }
+
+    // Validate that we have a receiver ID before sending
+    if (receiverId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Could not determine recipient. Please try again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+      return;
     }
 
     try {
       await context.read<ChatCubit>().sendMessageAndRefresh(
             requestModel: SendMessageRequestModel(
-              receiverId: receiverId ,
+              receiverId: receiverId,
               content: messageText,
               token: LocalData.getAuthResponseModel()!.token,
             ),
