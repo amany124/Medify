@@ -122,7 +122,12 @@ class FavoriteDoctorsContent extends StatelessWidget {
           return _buildDoctorsList(doctors);
         }
 
-        return const SizedBox.shrink();
+        return  const Center(
+            child: CircularProgressIndicator(
+              color: AppColors.secondaryColor,
+              strokeWidth: 3.5,
+            ),
+          );
       },
     );
   }
