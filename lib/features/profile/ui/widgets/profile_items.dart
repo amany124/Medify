@@ -48,10 +48,10 @@ class ProfileItems extends StatelessWidget {
           },
         ),
         // history
-        const ProfileItem(
-          text: 'History',
-          iconPath: Assets.assetsImagesHistory,
-        ),
+        // const ProfileItem(
+        //   text: 'History',
+        //   iconPath: Assets.assetsImagesHistory,
+        // ),
         // settings
         ProfileItem(
           text: 'Settings',

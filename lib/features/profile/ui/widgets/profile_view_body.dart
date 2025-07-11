@@ -22,81 +22,95 @@ class ProfileViewBody extends StatefulWidget {
 }
 
 class _ProfileViewBodyState extends State<ProfileViewBody> {
+  String? name;
+  String? urlImage;
+  bool isLoading = true;
+  String? errorMessage;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final role = CacheManager.getData(key: Keys.role);
-      print('role is $role');
-      if (role == 'Doctor') {
-        context.read<GetProfileCubit>().getDoctorProfile();
+      final cubit = context.read<GetProfileCubit>();
+      if (role == 'Doctor'  || role == 'doctor') {
+        cubit.getDoctorProfile();
       } else {
-        context.read<GetProfileCubit>().getPatientProfile();
+        cubit.getPatientProfile();
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetProfileCubit, GetProfileState>(
-      builder: (context, state) {
-        if (state is GetProfileLoading) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
+    return BlocListener<GetProfileCubit, GetProfileState>(
+      listener: (context, state) {
+        if (state is GetDoctorProfileSuccess || state is GetPatientProfileSuccess ) {
+          final cubit = context.read<GetProfileCubit>();
+          setState(() {
+            name = cubit.name;
+            urlImage = cubit.urlImage;
+            isLoading = false;
+          });
+        } else if (state is GetProfileFailure) {
+          setState(() {
+            errorMessage = state.failure.message;
+            isLoading = false;
+          });
+        } else if (state is GetProfileLoading) {
+          setState(() {
+            isLoading = true;
+            errorMessage = null;
+          });
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: isLoading
+            ? Center(
                 child: LoadingAnimationWidget.threeArchedCircle(
                   color: AppColors.primaryColor,
                   size: 40,
                 ),
-              ),
-            ],
-          );
-        } else if (state is GetProfileFailure) {
-          return Center(
-            child: Text(
-              state.failure.message,
-              style: AppStyles.semiBold16.copyWith(
-                color: Colors.red,
-              ),
-            ),
-          );
-        } else {
-          // Success
-          final cubit = context.read<GetProfileCubit>();
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    cubit.urlImage.isEmpty
-                        ? CircleAvatar(
-                            radius: 50,
-                            backgroundColor: Colors.blue.shade200,
-                            child: Icon(Icons.person,
-                                size: 50, color: Colors.blue),
-                          )
-                        : ProfileImage(
-                            url: cubit.urlImage,
-                          ),
-                    const EditIcon(),
-                  ],
-                ),
-                const Gap(8),
-                Text(
-                  cubit.name,
-                  style: AppStyles.semiBold16.copyWith(
-                    color: Colors.black,
+              )
+            : errorMessage != null
+                ? Center(
+                    child: Text(
+                      errorMessage!,
+                      style: AppStyles.semiBold16.copyWith(color: Colors.red),
+                    ),
+                  )
+                : Column(
+                    children: [
+                      Stack(
+                        children: [
+                          (urlImage == null || urlImage!.isEmpty)
+                              ? CircleAvatar(
+                                  radius: 50,
+                                  backgroundColor: Colors.blue.shade200,
+                                  child: const Icon(
+                                    Icons.person,
+                                    size: 50,
+                                    color: Colors.blue,
+                                  ),
+                                )
+                              : ProfileImage(url: urlImage!),
+                          const EditIcon(),
+                        ],
+                      ),
+                      const Gap(8),
+                      Text(
+                        name ?? '',
+                        style: AppStyles.semiBold16.copyWith(
+                          color: Colors.black,
+                        ),
+                      ),
+                      const Gap(10),
+                      // ✅ Always visible and independent of state
+                      const ProfileItems(),
+                    ],
                   ),
-                ),
-                const Gap(10),
-                const ProfileItems(),
-              ],
-            ),
-          );
-        }
-      },
+      ),
     );
   }
 }

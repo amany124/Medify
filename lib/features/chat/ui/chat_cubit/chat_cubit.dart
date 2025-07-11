@@ -71,8 +71,9 @@ class ChatCubit extends Cubit<ChatState> {
     if (isClosed) return; // Safety check
 
     if (_currentUserId == null || _currentToken == null) {
-      if (!isClosed)
+      if (!isClosed) {
         emit(MessagesErrorState('No active conversation to refresh'));
+      }
       return;
     }
 
