@@ -63,8 +63,8 @@ class TopDoctorsView extends StatelessWidget {
               builder: (context, state) {
                 return Column(
                   children: [
-                    const Gap(14),
-                    _buildSearchBar(context),
+                    // const Gap(14),
+                    // _buildSearchBar(context),
                     const Gap(15),
                     _buildFilterRow(),
                     const Gap(15),
@@ -163,11 +163,11 @@ class TopDoctorsView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 _buildFilterChip(context, 'All', true),
-                _buildFilterChip(context, 'Cardiology', false),
-                _buildFilterChip(context, 'Neurology', false),
-                _buildFilterChip(context, 'Dermatology', false),
-                _buildFilterChip(context, 'Pediatrics', false),
-                _buildFilterChip(context, 'Orthopedics', false),
+                _buildFilterChip(context, 'cardiology', false),
+                _buildFilterChip(context, 'neurology', false),
+                _buildFilterChip(context, 'dermatology', false),
+                _buildFilterChip(context, 'pediatrics', false),
+                _buildFilterChip(context, 'orthopedics', false),
               ],
             ),
           ),

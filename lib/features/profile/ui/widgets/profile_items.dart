@@ -53,13 +53,13 @@ class ProfileItems extends StatelessWidget {
         //   iconPath: Assets.assetsImagesHistory,
         // ),
         // settings
-        ProfileItem(
-          text: 'Settings',
-          iconPath: Assets.assetsImagesSetting,
-          onTap: () {
-            context.pushNamed(Routes.settingsScreen);
-          },
-        ),
+        // ProfileItem(
+        //   text: 'Settings',
+        //   iconPath: Assets.assetsImagesSetting,
+        //   onTap: () {
+        //     context.pushNamed(Routes.settingsScreen);
+        //   },
+        // ),
         // heart diseases
         ProfileItem(
             text: 'heart diseases',

@@ -147,6 +147,8 @@ mixin ProfileControllersMixin {
       clinicName: clinicNameController.text,
       experienceYears: int.tryParse(experienceYearsController.text) ?? 0,
       gender: genderController.text,
+      nationality: nationalityController.text,
+      specialization: specializationController.text,
     );
   }
 

@@ -38,36 +38,10 @@ class PostActions extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildActionButton(
-          icon: Icons.favorite_border,
-          activeIcon: Icons.favorite,
-          count: likes ?? 0,
-          isActive:
-              false, // You can add logic to determine if user liked the post
-          onPressed: () {
-            // Handle like action
-          },
-          color: Colors.grey.shade600,
-          activeColor: Colors.red,
-        ),
-        _buildActionButton(
-          icon: Icons.comment_outlined,
-          count: commentsCount ?? 0,
-          onPressed: onCommentPressed,
-          color: Colors.grey.shade600,
-        ),
-        _buildActionButton(
-          icon: Icons.share_outlined,
-          count: sharesCount ?? 0,
-          onPressed: () {
-            // Handle share action
-          },
-          color: Colors.grey.shade600,
-        ),
-
         // Only show edit and delete buttons if canEditDelete is true
         if (canEditDelete) ...[
           _buildActionButton(
+            title: 'Edit',
             icon: Icons.edit_outlined,
             onPressed: () {
               context.pushNamed(Routes.createPostpage, arguments: {
@@ -79,6 +53,7 @@ class PostActions extends StatelessWidget {
             color: Colors.grey.shade600,
           ),
           _buildActionButton(
+            title: 'Delete',
             icon: Icons.delete_outline,
             onPressed: () {
               _showDeleteConfirmationDialog(context, requestModel);
@@ -93,7 +68,7 @@ class PostActions extends StatelessWidget {
   Widget _buildActionButton({
     required IconData icon,
     IconData? activeIcon,
-    int? count,
+    String? title,
     bool isActive = false,
     required VoidCallback onPressed,
     required Color color,
@@ -112,17 +87,17 @@ class PostActions extends StatelessWidget {
               size: 20,
               color: isActive && activeColor != null ? activeColor : color,
             ),
-            if (count != null && count > 0) ...[
+            
               const SizedBox(width: 4),
               Text(
-                count.toString(),
+                title??'',
                 style: TextStyle(
                   fontSize: 14,
                   color: isActive && activeColor != null ? activeColor : color,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-            ],
+            
           ],
         ),
       ),

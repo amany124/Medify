@@ -168,62 +168,62 @@ class _UserPostWidgetState extends State<UserPostWidget> {
                 ),
               ),
 
-            // Engagement Stats (likes, comments, shares)
-            if (widget.likes != null ||
-                widget.commentsCount != null ||
-                widget.sharesCount != null)
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (widget.likes != null && widget.likes! > 0)
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                            size: 16,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            '${widget.likes}',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        if (widget.commentsCount != null &&
-                            widget.commentsCount! > 0) ...[
-                          Text(
-                            '${widget.commentsCount} comments',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 14,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                        ],
-                        if (widget.sharesCount != null &&
-                            widget.sharesCount! > 0)
-                          Text(
-                            '${widget.sharesCount} shares',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 14,
-                            ),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+            // // Engagement Stats (likes, comments, shares)
+            // if (widget.likes != null ||
+            //     widget.commentsCount != null ||
+            //     widget.sharesCount != null)
+            //   Padding(
+            //     padding:
+            //         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         if (widget.likes != null && widget.likes! > 0)
+            //           Row(
+            //             children: [
+            //               const Icon(
+            //                 Icons.favorite,
+            //                 color: Colors.red,
+            //                 size: 16,
+            //               ),
+            //               const SizedBox(width: 4),
+            //               Text(
+            //                 '${widget.likes}',
+            //                 style: TextStyle(
+            //                   color: Colors.grey.shade600,
+            //                   fontSize: 14,
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         const Spacer(),
+            //         Row(
+            //           children: [
+            //             if (widget.commentsCount != null &&
+            //                 widget.commentsCount! > 0) ...[
+            //               Text(
+            //                 '${widget.commentsCount} comments',
+            //                 style: TextStyle(
+            //                   color: Colors.grey.shade600,
+            //                   fontSize: 14,
+            //                 ),
+            //               ),
+            //               const SizedBox(width: 12),
+            //             ],
+            //             if (widget.sharesCount != null &&
+            //                 widget.sharesCount! > 0)
+            //               Text(
+            //                 '${widget.sharesCount} shares',
+            //                 style: TextStyle(
+            //                   color: Colors.grey.shade600,
+            //                   fontSize: 14,
+            //                 ),
+            //               ),
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ),
 
             // Divider
             if (widget.likes != null ||
@@ -239,7 +239,7 @@ class _UserPostWidgetState extends State<UserPostWidget> {
 
             // Post Actions
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(5),
               child: PostActions(
                 postId: widget.postId,
                 contentText: widget.content,

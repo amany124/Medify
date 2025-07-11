@@ -92,20 +92,20 @@ class PostHeader extends StatelessWidget {
         ),
 
         // More options button
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: Colors.grey.shade600,
-          ),
-          onPressed: () {
-            // Show more options menu
-          },
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(
-            minWidth: 32,
-            minHeight: 32,
-          ),
-        ),
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.more_vert,
+        //     color: Colors.grey.shade600,
+        //   ),
+        //   onPressed: () {
+        //     // Show more options menu
+        //   },
+        //   padding: EdgeInsets.zero,
+        //   constraints: const BoxConstraints(
+        //     minWidth: 32,
+        //     minHeight: 32,
+        //   ),
+        // ),
       ],
     );
   }

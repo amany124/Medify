@@ -48,7 +48,7 @@ class DoctorsRepoImpl implements DoctorsRepo {
       }
 
       final endpoint = Endpoints.searchDoctors + _buildQueryString(queryParams);
-
+      print(endpoint);
       final Response response = await apiServices.getRequest(
         endpoint: endpoint,
         token: CacheManager.getData(key: Keys.token),
