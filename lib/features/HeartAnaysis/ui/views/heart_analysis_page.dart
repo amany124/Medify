@@ -89,7 +89,16 @@ class HeartAnalysisPage extends StatelessWidget {
           );
         },
         backgroundColor: const Color(0xFF1E88E5),
-        child: const Icon(Icons.add, size: 30, color: Colors.white),
+        child: Row(
+          children: [
+            //text Upload ECG
+            const Text(
+              "Upload ECG",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            const Icon(Icons.add, size: 30, color: Colors.blue),
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
