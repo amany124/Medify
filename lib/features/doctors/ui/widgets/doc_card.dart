@@ -51,9 +51,9 @@ class DocCard extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: doctor.profileImage.isNotEmpty
+                    child: doctor.profilePicture.isNotEmpty
                         ? Image.network(
-                            doctor.profileImage,
+                            doctor.profilePicture,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
@@ -135,7 +135,7 @@ class DocCard extends StatelessWidget {
                           ),
                           const Gap(4),
                           Text(
-                            '${doctor.experience} ${doctor.experience == 1 ? 'year' : 'years'}',
+                            '${doctor.experienceYears} ${doctor.experienceYears == 1 ? 'year' : 'years'}',
                             style: AppStyles.regular12.copyWith(
                               color: Colors.black,
                             ),

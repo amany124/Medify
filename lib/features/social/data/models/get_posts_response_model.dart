@@ -53,6 +53,7 @@ class Posts {
   String? createdAt;
   String? doctorName;
   String? formattedDate;
+  String? doctorProfilePicture;
 
   Posts({
     this.sId,
@@ -62,6 +63,7 @@ class Posts {
     this.createdAt,
     this.doctorName,
     this.formattedDate,
+    this.doctorProfilePicture,
   });
 
   Posts.fromJson(Map<String, dynamic> json) {
@@ -72,6 +74,7 @@ class Posts {
     createdAt = json['createdAt'];
     doctorName = json['doctorName'];
     formattedDate = json['formattedDate'];
+    doctorProfilePicture = json['doctorProfilePicture'];
   }
 
   Map<String, dynamic> toJson() {
@@ -85,6 +88,7 @@ class Posts {
     data['createdAt'] = createdAt;
     data['doctorName'] = doctorName;
     data['formattedDate'] = formattedDate;
+    data['doctorProfilePicture'] = doctorProfilePicture;
     return data;
   }
 }

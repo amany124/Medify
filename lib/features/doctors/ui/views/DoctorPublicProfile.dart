@@ -92,7 +92,7 @@ class DoctorProfile extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(24),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withValues(alpha:0.05),
+                                      color: Colors.black.withAlpha(13),
                                       spreadRadius: 1,
                                       blurRadius: 10,
                                       offset: const Offset(0, 3),
@@ -124,11 +124,11 @@ class DoctorProfile extends StatelessWidget {
                                           horizontal: 12, vertical: 4),
                                       decoration: BoxDecoration(
                                         color: const Color(0xff1877F2)
-                                            .withValues(alpha:0.1),
+                                            .withAlpha(25),
                                         borderRadius: BorderRadius.circular(16),
                                       ),
                                       child: Text(
-                                        'Heart Specialist',
+                                        doctor.specialization,
                                         style: AppStyles.regular12.copyWith(
                                           color: const Color(0xff1877F2),
                                           fontWeight: FontWeight.w600,
@@ -146,16 +146,14 @@ class DoctorProfile extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 6),
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withValues(alpha:0.6),
+                                        color: Colors.white.withAlpha(153),
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                            color:
-                                                Colors.grey.withValues(alpha:0.2)),
+                                            color: Colors.grey.withAlpha(51)),
                                       ),
-                                      child: const CustomIconWithText(
-                                        icon: Icons.person,
-                                        text:
-                                            'Member of the Egyptian Society of Cardiology',
+                                      child: CustomIconWithText(
+                                        icon: Icons.business,
+                                        text: doctor.clinicName,
                                       ),
                                     ),
                                     const Gap(8),
@@ -163,15 +161,14 @@ class DoctorProfile extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 6),
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withValues(alpha:0.6),
+                                        color: Colors.white.withAlpha(153),
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                            color:
-                                                Colors.grey.withValues(alpha:0.2)),
+                                            color: Colors.grey.withAlpha(51)),
                                       ),
-                                      child: const CustomIconWithText(
+                                      child: CustomIconWithText(
                                         icon: Icons.location_on,
-                                        text: 'Cairo, Egypt',
+                                        text: doctor.clinicAddress,
                                       ),
                                     ),
                                   ],
@@ -189,19 +186,22 @@ class DoctorProfile extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withValues(alpha:0.1),
+                                        color: Colors.black.withAlpha(25),
                                         spreadRadius: 2,
                                         blurRadius: 10,
                                         offset: const Offset(0, 2),
                                       ),
                                     ],
                                   ),
-                                  child: const CircleAvatar(
+                                  child: CircleAvatar(
                                     backgroundColor: Colors.white,
                                     radius: 50,
-                                    backgroundImage: AssetImage(
-                                      Assets.assetsImagesDoctor,
-                                    ),
+                                    backgroundImage: doctor
+                                            .profilePicture.isNotEmpty
+                                        ? NetworkImage(doctor.profilePicture)
+                                        : const AssetImage(
+                                                Assets.assetsImagesDoctor)
+                                            as ImageProvider,
                                   ),
                                 ),
                               ),
@@ -240,6 +240,7 @@ class DoctorProfile extends StatelessWidget {
                               itemCount: state.profile.posts.length,
                               itemBuilder: (context, index) {
                                 return DoctorPostCard(
+                                  profilePicture: doctor.profilePicture,
                                   post: state.profile.posts[index],
                                 );
                               },
@@ -286,7 +287,7 @@ class DoctorProfile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withValues(alpha:0.1),
+                            color: Colors.grey.withValues(alpha: 0.1),
                             spreadRadius: 1,
                             blurRadius: 5,
                             offset: const Offset(0, 2),

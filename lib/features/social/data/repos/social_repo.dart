@@ -53,7 +53,8 @@ class SocialRepoImpl implements SocialRepo {
       final response = await apiServices.postRequest(
         endpoint: Endpoints.createPost,
         token: requestModel.token,
-        data: requestModel.toJson(),
+        contentType: ContentType.multipart,
+        data: await requestModel.toJson(),
       );
       // map response to the model
       final responseModel = CreatePostResponseModel.fromJson(response.data);
@@ -130,7 +131,7 @@ class SocialRepoImpl implements SocialRepo {
       final response = await apiServices.putRequest(
         endpoint: Endpoints.updatePost(requestModel.postId),
         token: requestModel.token,
-        data: requestModel.toJson(),
+        data:await requestModel.toJson(),
       );
       // map response to the model
       final responseModel = UpdatePostResponseModel.fromJson(response.data);

@@ -13,6 +13,7 @@ class DoctorModel {
   int experienceYears;
   String? verificationImage;
   String? profilePicture;
+  double? rating; // Added rating
 
   DoctorModel({
     required this.name,
@@ -29,6 +30,7 @@ class DoctorModel {
     required this.experienceYears,
     this.verificationImage,
     this.profilePicture,
+    this.rating, // Added rating
   });
 
   factory DoctorModel.fromJson(Map<String, dynamic> map) {
@@ -47,6 +49,7 @@ class DoctorModel {
       experienceYears: map['experienceYears'],
       verificationImage: map['verificationImage'] as String?,
       profilePicture: map['profilePicture'] as String?,
+      rating: map['rating'] != null ? (map['rating'] as num).toDouble() : null, // Added rating
     );
   }
 
@@ -66,6 +69,7 @@ class DoctorModel {
       'experienceYears': experienceYears,
       'verificationImage': verificationImage,
       'profilePicture': profilePicture,
+      'rating': rating, // Added rating
     };
   }
 
@@ -84,6 +88,7 @@ class DoctorModel {
     int? experienceYears,
     String? verificationImage,
     String? profilePicture,
+    double? rating, // Added rating
   }) {
     return DoctorModel(
       name: name ?? this.name,
@@ -100,6 +105,7 @@ class DoctorModel {
       experienceYears: experienceYears ?? this.experienceYears,
       verificationImage: verificationImage ?? this.verificationImage,
       profilePicture: profilePicture ?? this.profilePicture,
+      rating: rating ?? this.rating, // Added rating
     );
   }
 }

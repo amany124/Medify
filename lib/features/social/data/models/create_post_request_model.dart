@@ -1,21 +1,25 @@
 // TODO: token , content, image
 
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+
 class CreatePostRequestModel {
   final String token;
   final String content;
-  final String? image; // Optional field for image
-
+  final File? image; //
   CreatePostRequestModel({
     required this.token,
     required this.content,
     this.image,
   });
 
-  Map<String, dynamic> toJson() {
+  Future<Map<String, dynamic>> toJson() async {
     return {
       'token': token,
       'content': content,
-      // 'image': image, // Include image if provided
+      'image': image != null ? await MultipartFile.fromFile(image!.path) : null,
     };
   }
+  //ToMulti
 }

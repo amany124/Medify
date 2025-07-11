@@ -12,62 +12,48 @@ class PatientSocialView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<SocialCubit, SocialState>(
-          listener: (context, state) {
-            if (state is CreatePostCubitSuccess) {
-              // Refresh patient social posts after successful create
-              context.read<SocialCubit>().getPatientSocialPosts(
-                    token: CacheManager.getData(key: Keys.token) ?? '',
-                  );
-            }
-          },
-        ),
-      ],
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF8F9FA),
-        appBar: AppBar(
-          title: const Row(
-            children: [
-              Text(
-                'Social Feed',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Color(0xff223A6A),
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Poppins',
-                ),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      appBar: AppBar(
+        title: const Row(
+          children: [
+            Text(
+              'Social Feed',
+              style: TextStyle(
+                fontSize: 24,
+                color: Color(0xff223A6A),
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Poppins',
               ),
-              Gap(20),
-              Expanded(child: PatientSearchBarWidget()),
-            ],
-          ),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          elevation: 0,
-          surfaceTintColor: Colors.white,
-        ),
-        body: const PatientPostListView(),
-        floatingActionButton: FloatingActionButton.extended(
-          heroTag: 'patient_social_refresh',
-          backgroundColor: const Color(0xff223A6A),
-          onPressed: () {
-            // Refresh posts
-            context.read<SocialCubit>().getPatientSocialPosts(
-                  token: CacheManager.getData(key: Keys.token) ?? '',
-                );
-          },
-          icon: const Icon(
-            Icons.refresh,
-            color: Colors.white,
-          ),
-          label: const Text(
-            'Refresh',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
             ),
+            Gap(20),
+            Expanded(child: PatientSearchBarWidget()),
+          ],
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        surfaceTintColor: Colors.white,
+      ),
+      body: const PatientPostListView(),
+      floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'patient_social_refresh',
+        backgroundColor: const Color(0xff223A6A),
+        onPressed: () {
+          // Refresh posts
+          context.read<SocialCubit>().getPatientSocialPosts(
+                token: CacheManager.getData(key: Keys.token) ?? '',
+              );
+        },
+        icon: const Icon(
+          Icons.refresh,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Refresh',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

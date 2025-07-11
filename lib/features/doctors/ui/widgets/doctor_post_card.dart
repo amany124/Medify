@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../core/utils/app_images.dart';
 import '../../data/models/doctor_public_profile_model.dart';
 
 class DoctorPostCard extends StatefulWidget {
   final DoctorPost post;
+  final String profilePicture;
 
   const DoctorPostCard({
     super.key,
     required this.post,
+    required this.profilePicture, // Default profile picture
   });
 
   @override
@@ -41,9 +44,21 @@ class _DoctorPostCardState extends State<DoctorPostCard> {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const CircleAvatar(
-                  radius: 24,
-                  backgroundImage: AssetImage('assets/images/doctor.png'),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: widget.profilePicture.isNotEmpty
+                      ? Image.network(
+                          widget.profilePicture,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          Assets.assetsImagesDoctor,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 const Gap(12),
                 Expanded(

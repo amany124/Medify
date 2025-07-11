@@ -72,11 +72,14 @@ class FavoriteDoctorModel {
       id: id,
       name: name,
       specialty: specialization, // Map specialization to specialty
-      profileImage: profileImage ?? '',
+      profilePicture: profileImage ?? '',
       rating: rating,
-      experience: experience ?? 0,
+      experienceYears: experience ?? 0,
       about: about ?? '',
       isFavorite: true,
+      clinicName: '', // Default or empty value
+      clinicAddress: '', // Default or empty value
+      specialization: specialization, // Keep specialization for DoctorModel
     );
   }
 }

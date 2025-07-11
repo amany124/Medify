@@ -99,6 +99,7 @@ mixin ProfileControllersMixin {
     clinicAddressController.text = doctor.clinicAddress;
     specializationController.text = doctor.specialization;
     experienceYearsController.text = doctor.experienceYears.toString();
+    ratingController.text = doctor.rating.toString();
   }
 
   /// Create updated patient model from controllers
