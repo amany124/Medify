@@ -29,7 +29,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final role = CacheManager.getData(key: 'role');
       print('role is $role');
-      if (role == 'Doctor') {
+      if (role == 'Doctor'|| role == 'doctor') {
         context.read<GetProfileCubit>().getDoctorProfile();
       } else {
         context.read<GetProfileCubit>().getPatientProfile();

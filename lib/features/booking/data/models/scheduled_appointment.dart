@@ -4,7 +4,7 @@ import 'patient.dart';
 class ScheduledAppointment {
   final String id;
   final Patient patient;
-  final Doctor doctor;
+  final Doctor? doctor;
   final DateTime date;
   final String time;
   final String status;
@@ -29,7 +29,7 @@ class ScheduledAppointment {
     return ScheduledAppointment(
       id: json['_id'],
       patient: Patient.fromJson(json['patientId']),
-      doctor: Doctor.fromJson(json['doctorId']),
+      doctor: Doctor?.fromJson(json['doctorId']) as Doctor? ,
       date: DateTime.parse(json['date']),
       time: json['time'],
       status: json['status'],
@@ -44,7 +44,7 @@ class ScheduledAppointment {
     return {
       '_id': id,
       'patientId': patient.toJson(),
-      'doctorId': doctor.toJson(),
+      'doctorId': doctor?.toJson(),
       'date': date.toIso8601String(),
       'time': time,
       'status': status,

@@ -148,7 +148,7 @@ class AppointmentNotificationTile extends StatelessWidget {
       return 'Appointment with $patientName for $reason';
     } else {
       // If user is a patient, show doctor name
-      final doctorName = appointment.doctor.name;
+      final doctorName = appointment.doctor!.name;
       return 'Appointment with Dr. $doctorName for $reason';
     }
   }

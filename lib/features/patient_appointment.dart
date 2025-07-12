@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,8 +111,10 @@ class AppointmentsList extends StatelessWidget {
               ),
             );
           } else if (state is AppointmentScheduledState) {
+            log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm$status');
             final appointments = state.scheduledAppointments;
-            if (appointments.isEmpty) {
+            // log(appointments[0].doctor.toString());
+            if (appointments.isEmpty) { 
               return Center(
                 child: Text(
                   'No $status appointments available.',
@@ -179,7 +183,7 @@ class AppointmentsList extends StatelessWidget {
                                       ),
                                     ),
                                   Text(
-                                    "Dr. ${appointment.doctor.name}",
+                                    "Dr. ${appointment.doctor?.name}",
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -189,7 +193,7 @@ class AppointmentsList extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    appointment.doctor.specialization,
+                                    appointment.doctor?.specialization ?? '',
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,

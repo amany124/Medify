@@ -26,7 +26,8 @@ class ProfileItems extends StatelessWidget {
         ),
         // favorite doc
         // Show "Favorite Doctors" only if the role is not 'Doctor'
-        if (CacheManager.getData(key: Keys.role) != 'Doctor')
+        if (CacheManager.getData(key: Keys.role) != 'Doctor' &&
+            CacheManager.getData(key: Keys.role) != 'doctor')
           ProfileItem(
             text: 'Favorite Doctors',
             iconPath: Assets.assetsImagesFavoriteDoctors,
@@ -40,7 +41,7 @@ class ProfileItems extends StatelessWidget {
           iconPath: Assets.assetsImagesAppointment,
           onTap: () {
             String role = CacheManager.getData(key: Keys.role);
-            if (role == 'Doctor') {
+            if (role == 'Doctor' || role == 'doctor') {
               context.pushNamed(Routes.doctorAppointment);
             } else {
               context.pushNamed(Routes.patientAppointments);
