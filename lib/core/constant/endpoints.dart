@@ -3,6 +3,9 @@ class Endpoints {
   static const String register = '$baseUrl/api/auth/register';
   static const String login = '$baseUrl/api/auth/login';
   static const String patientProfile = '$baseUrl/api/patients/profile';
+  //by id
+  static String patientProfileById(String patientId) =>
+      '$baseUrl/api/doctors/patient-profile/$patientId';
   static const String doctorProfile = '$baseUrl/api/doctors/profile';
   //create appointment
   static const String appointment = '$baseUrl/api/appointments';

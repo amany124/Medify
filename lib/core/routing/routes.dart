@@ -43,4 +43,8 @@ class Routes {
   // Reset password routes
   static const String resetPasswordRequest = '/resetPasswordRequest';
   static const String resetPasswordOtp = '/resetPasswordOtp';
+  // Patient edit screen
+  static const String patientEditScreen = '/patientEditScreen';
+  // Simple patient profile screen
+  static const String simplePatientProfile = '/simplePatientProfile';
 }

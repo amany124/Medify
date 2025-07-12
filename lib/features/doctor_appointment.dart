@@ -149,50 +149,60 @@ class AppointmentsList extends StatelessWidget {
   }
 
   Widget _buildAppointmentCard(BuildContext context, dynamic appointment) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      elevation: 4,
-      color: const Color(0xffffffff),
-      shadowColor: Colors.grey[300],
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildPatientImage(),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (status == "Cancelled") _buildCancelledHeader(),
-                      _buildPatientName(appointment),
-                      const SizedBox(height: 6),
-                      _buildDateTimeInfo(appointment),
-                      const SizedBox(height: 6),
-                      _buildReasonInfo(appointment),
-                      const SizedBox(height: 8),
-                      _buildStatusBadge(appointment),
-                    ],
+    return GestureDetector(
+      onTap: () {
+        // Navigate to SimplePatientProfileScreen with the patient ID
+        Navigator.pushNamed(
+          context,
+          Routes.simplePatientProfile,
+          arguments: appointment.patient.id, // Pass the patient ID
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        elevation: 4,
+        color: const Color(0xffffffff),
+        shadowColor: Colors.grey[300],
+        margin: const EdgeInsets.only(bottom: 16),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildPatientImage(),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (status == "Cancelled") _buildCancelledHeader(),
+                        _buildPatientName(appointment),
+                        const SizedBox(height: 6),
+                        _buildDateTimeInfo(appointment),
+                        const SizedBox(height: 6),
+                        _buildReasonInfo(appointment),
+                        const SizedBox(height: 8),
+                        _buildStatusBadge(appointment),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            if (status == "Upcoming") ...[
-              const SizedBox(height: 16),
-              const Divider(
-                height: 1,
-                thickness: 1,
-                color: Color(0xFFEEEEEE),
+                ],
               ),
-              const SizedBox(height: 16),
-              _buildActionButtons(context, appointment),
+              if (status == "Upcoming") ...[
+                const SizedBox(height: 16),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: Color(0xFFEEEEEE),
+                ),
+                const SizedBox(height: 16),
+                _buildActionButtons(context, appointment),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

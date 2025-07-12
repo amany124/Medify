@@ -15,6 +15,7 @@ class PatientSocialView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Row(
           children: [
             Text(

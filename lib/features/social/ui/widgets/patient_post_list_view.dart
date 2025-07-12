@@ -91,13 +91,18 @@ class _PatientPostListViewState extends State<PatientPostListView> {
         itemCount: allPosts!.length,
         itemBuilder: (context, index) {
           final post = allPosts![index];
-          return UserPostWidget(
-            postId: post.sId ?? '',
-            username: post.doctorName ?? 'Unknown',
-            timestamp: post.formattedDate ?? '',
-            content: post.content ?? '',
-            imageUrl: post.image ?? "",
-            canEditDelete: false, // Patients cannot edit/delete posts
+          return InkWell(
+            onTap: () {
+              // Navigate to post details or perform any action
+            },
+            child: UserPostWidget(
+              postId: post.sId ?? '',
+              username: post.doctorName ?? 'Unknown',
+              timestamp: post.formattedDate ?? '',
+              content: post.content ?? '',
+              imageUrl: post.image ?? "",
+              canEditDelete: false, // Patients cannot edit/delete posts
+            ),
           );
         },
       );

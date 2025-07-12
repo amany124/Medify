@@ -7,7 +7,9 @@ import 'package:medify/core/routing/routes.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/heart_analysis_page.dart';
 import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
+import 'package:medify/features/ProfileScreen/ui/views/patient_edit_screen.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
+import 'package:medify/features/ProfileScreen/ui/views/simple_patient_profile_screen.dart';
 import 'package:medify/features/Scheduling/views/Scheduling.dart'
     show ScheduleTimingsPage;
 import 'package:medify/features/about%20us/ui/views/aboutus_view.dart';
@@ -28,7 +30,6 @@ import 'package:medify/features/doctors/data/models/doctor_model.dart';
 import 'package:medify/features/doctors/ui/pages/favorite_doctors_screen.dart';
 import 'package:medify/features/doctors/ui/views/DoctorPublicProfile.dart';
 import 'package:medify/features/doctors/ui/views/doc_view.dart';
-import 'package:medify/features/doctors/ui/views/myappointment.dart';
 import 'package:medify/features/feedback/feedback_view.dart';
 import 'package:medify/features/medical_records/presentation/cubit/medical_records_cubit.dart';
 import 'package:medify/features/medical_records/ui/views/create_medical_record_page.dart';
@@ -36,7 +37,6 @@ import 'package:medify/features/notification/ui/views/notification_page.dart';
 import 'package:medify/features/onboarding/ui/views/onboarding_view.dart';
 import 'package:medify/features/onboarding/ui/views/start_view.dart';
 import 'package:medify/features/patient_appointment.dart';
-import 'package:medify/features/profile/ui/views/MyAppointments_view.dart';
 import 'package:medify/features/profile/ui/views/profile_view.dart';
 import 'package:medify/features/profile/ui/views/public_profile.dart';
 import 'package:medify/features/settings/ui/views/password_manager.dart';
@@ -200,10 +200,10 @@ class AppRouter {
           }
         }
         return MaterialPageRoute(builder: (_) => const PublicProfile());
-      case Routes.myAppointments:
-        return MaterialPageRoute(builder: (_) => const AppointmentsView());
-      case Routes.doctorAppointments:
-        return MaterialPageRoute(builder: (_) => const MyAppointmentsPage());
+      // case Routes.myAppointments:
+      //   return MaterialPageRoute(builder: (_) => const AppointmentsView());
+      // case Routes.doctorAppointments:
+      //   return MaterialPageRoute(builder: (_) => const MyAppointmentsPage());
       case Routes.appointment:
         return MaterialPageRoute(
             builder: (_) => AppointmentPage(
@@ -258,6 +258,44 @@ class AppRouter {
             create: (context) => getIt<MedicalRecordsCubit>(),
             child: CreateMedicalRecordPage(
               appointment: settings.arguments as dynamic,
+            ),
+          ),
+        );
+      case Routes.simplePatientProfile:
+        // This route requires the patient ID as argument
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => GetProfileCubit(
+              ProfileRepoImpl(
+                apiServices: ApiServices(Dio()),
+              ),
+            )..getPatientProfileById(settings.arguments as String),
+            child: BlocBuilder<GetProfileCubit, GetProfileState>(
+              builder: (context, state) {
+                if (state is GetPatientProfileSuccess &&
+                    state.patientModel != null) {
+                  return SimplePatientProfileScreen(
+                    patient: state.patientModel!,
+                  );
+                }
+                // Show loading while fetching patient data
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      case Routes.patientEditScreen:
+        // This route requires a PatientModel as argument
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<PredictDiseaseCubit>(),
+            child: PatientEditScreen(
+              patient: settings.arguments as dynamic,
+              navigateToPrediction: true,
             ),
           ),
         );

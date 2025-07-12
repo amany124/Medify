@@ -29,6 +29,10 @@ abstract class ProfileRepo {
   Future<Either<Failure, ProfilePictureResponse>> uploadDoctorProfilePicture({
     required File imageFile,
   });
+  //get patient profile by id
+  Future<Either<Failure, PatientModel>> getPatientProfileById(
+      {required String patientId}
+  );
 }
 
 class ProfileRepoImpl implements ProfileRepo {
@@ -163,6 +167,23 @@ class ProfileRepoImpl implements ProfileRepo {
       print(e.response?.data);
       return Left(Failure(e.response?.data['message'] ??
           'An error occurred during profile picture upload'));
+    }
+  }
+  @override
+  Future<Either<Failure, PatientModel>> getPatientProfileById(
+      {required String patientId}) async {
+    try {
+      final Response response = await apiServices.getRequest(
+        endpoint: Endpoints.patientProfileById(patientId),
+        token: CacheManager.getData(
+          key: Keys.token,
+        ),
+      );
+      return Right(PatientModel.fromJson(response.data));
+    } on DioException catch (e) {
+      print(e.response?.data);
+      return Left(Failure(
+          e.response?.data['message'] ?? 'An error occurred during profile fetch'));
     }
   }
 }

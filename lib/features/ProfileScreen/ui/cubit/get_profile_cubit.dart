@@ -65,4 +65,15 @@ class GetProfileCubit extends Cubit<GetProfileState> {
       print('name: $name');
     });
   }
+
+  //get patient profile by id
+  void getPatientProfileById(String patientId) async {
+    emit(GetProfileLoading());
+    final result =
+        await profileRepo.getPatientProfileById(patientId: patientId);
+    return result.fold((failure) => emit(GetProfileFailure(failure)), (model) {
+      emit(GetPatientProfileSuccess(patientModel: model));
+      print('Fetched patient profile by ID: ${model.name}');
+    });
+  }
 }

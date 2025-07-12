@@ -19,15 +19,15 @@ class SocialCubit extends Cubit<SocialState> {
   Future<void> createPost({
     required CreatePostRequestModel requestModel,
   }) async {
-    emit(CreatePostCubitLoading());
+    if (!isClosed) emit(CreatePostCubitLoading());
+
     final result = await socialRepo.createPost(requestModel: requestModel);
     result.fold(
       (failure) {
-        emit(CreatePostCubitError(failure.message));
+        if (!isClosed) emit(CreatePostCubitError(failure.message));
       },
       (response) {
-        print('object');
-        emit(CreatePostCubitSuccess());
+        if (!isClosed) emit(CreatePostCubitSuccess());
       },
     );
   }
@@ -35,14 +35,15 @@ class SocialCubit extends Cubit<SocialState> {
   Future<void> deletepost({
     required DeletePostRequestModel requestModel,
   }) async {
-    emit(DeletePostLoading());
+    if (!isClosed) emit(DeletePostLoading());
+
     final result = await socialRepo.deletePost(requestModel: requestModel);
     result.fold(
       (failure) {
-        emit(DeletePostError(failure.message));
+        if (!isClosed) emit(DeletePostError(failure.message));
       },
       (response) async {
-        emit(DeletePostSuccess(response));
+        if (!isClosed) emit(DeletePostSuccess(response));
         await getAllPosts(
           requestModel: GetPostsRequestModel(
             doctorId: LocalData.getAuthResponseModel()!.user.id.toString(),
@@ -53,56 +54,47 @@ class SocialCubit extends Cubit<SocialState> {
     );
   }
 
-  // Store all posts for search functionality
   List<Posts> _allPosts = [];
 
   void searchPosts(String query) {
     if (query.isEmpty) {
-      emit(SearchPostsInitial());
+      if (!isClosed) emit(SearchPostsInitial());
       return;
     }
 
-    emit(SearchPostsLoading());
+    if (!isClosed) emit(SearchPostsLoading());
 
     try {
       final searchResults = _allPosts.where((post) {
         final content = post.content?.toLowerCase() ?? '';
         final doctorName = post.doctorName?.toLowerCase() ?? '';
         final searchQuery = query.toLowerCase();
-
-        return content.contains(searchQuery) ||
-            doctorName.contains(searchQuery);
+        return content.contains(searchQuery) || doctorName.contains(searchQuery);
       }).toList();
 
-      emit(SearchPostsSuccess(searchResults));
+      if (!isClosed) emit(SearchPostsSuccess(searchResults));
     } catch (e) {
-      emit(SearchPostsError('Error searching posts: $e'));
+      if (!isClosed) emit(SearchPostsError('Error searching posts: $e'));
     }
   }
 
   void clearSearch() {
-    // When clearing search, emit the last successful posts state if available
-    if (_allPosts.isNotEmpty) {
-      emit(SearchPostsInitial());
-    } else {
-      emit(SearchPostsInitial());
-    }
+    if (!isClosed) emit(SearchPostsInitial());
   }
 
   Future<void> getAllPosts({
     required GetPostsRequestModel requestModel,
   }) async {
-    emit(GetPostsLoading());
+    if (!isClosed) emit(GetPostsLoading());
+
     final result = await socialRepo.getAllPosts(requestModel: requestModel);
     result.fold(
       (failure) {
-        print('Error fetching posts: ${failure.message}');
-        emit(GetPostsError(failure.message));
+        if (!isClosed) emit(GetPostsError(failure.message));
       },
       (response) {
-        // Store all posts for search functionality
         _allPosts = response.posts ?? [];
-        emit(GetPostsSuccess(response));
+        if (!isClosed) emit(GetPostsSuccess(response));
       },
     );
   }
@@ -110,14 +102,15 @@ class SocialCubit extends Cubit<SocialState> {
   Future<void> updatePost({
     required UpdatePostsRequestModel requestModel,
   }) async {
-    emit(UpdatePostLoading());
+    if (!isClosed) emit(UpdatePostLoading());
+
     final result = await socialRepo.updatePost(requestModel: requestModel);
     result.fold(
       (failure) {
-        emit(UpdatePostError(failure.message));
+        if (!isClosed) emit(UpdatePostError(failure.message));
       },
       (response) async {
-        emit(UpdatePostSuccess(response));
+        if (!isClosed) emit(UpdatePostSuccess(response));
         await getAllPosts(
           requestModel: GetPostsRequestModel(
             doctorId: LocalData.getAuthResponseModel()!.user.id.toString(),
@@ -131,17 +124,16 @@ class SocialCubit extends Cubit<SocialState> {
   Future<void> getPatientSocialPosts({
     required String token,
   }) async {
-    emit(GetPatientSocialPostsLoading());
+    if (!isClosed) emit(GetPatientSocialPostsLoading());
+
     final result = await socialRepo.getPatientSocialPosts(token: token);
     result.fold(
       (failure) {
-        print('Error fetching patient social posts: ${failure.message}');
-        emit(GetPatientSocialPostsError(failure.message));
+        if (!isClosed) emit(GetPatientSocialPostsError(failure.message));
       },
       (response) {
-        // Store all posts for search functionality
         _allPosts = response.posts ?? [];
-        emit(GetPatientSocialPostsSuccess(response));
+        if (!isClosed) emit(GetPatientSocialPostsSuccess(response));
       },
     );
   }

@@ -3,6 +3,7 @@ import 'package:medify/core/utils/app_styles.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
 
+import '../views/patient_edit_screen.dart';
 import '../widgets/ProfileTextField.dart';
 import 'medical_records_section.dart';
 
@@ -28,12 +29,27 @@ class PatientProfileFields extends StatelessWidget {
           return PatientProfileHeaderWidget(
             name: patient.name,
             onEditPressed: () {
-              // Find the nearest StatefulWidget ancestor and toggle editing state
-              final PrivateProfileScreenState? parent =
-                  context.findAncestorStateOfType<PrivateProfileScreenState>();
-              if (parent != null) {
-                parent.toggleEditing();
-              }
+              // Navigate to patient edit screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PatientEditScreen(
+                    patient: patient,
+                    navigateToPrediction: false,
+                  ),
+                ),
+              ).then((updatedPatient) {
+                // Handle the returned updated patient if needed
+                if (updatedPatient != null) {
+                  // Find the nearest StatefulWidget ancestor and trigger a refresh
+                  final PrivateProfileScreenState? parent = context
+                      .findAncestorStateOfType<PrivateProfileScreenState>();
+                  if (parent != null) {
+                    // Trigger a refresh of the profile data
+                    parent.setState(() {});
+                  }
+                }
+              });
             },
             isEditing: isEditing,
           );
