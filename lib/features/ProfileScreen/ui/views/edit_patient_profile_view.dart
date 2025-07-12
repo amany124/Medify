@@ -344,6 +344,8 @@ class _EditPatientProfileViewState extends State<EditPatientProfileView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+                    maintainState: true, // Keep the cubit alive
+
                     builder: (context) => BadResultPage(
                       heartDiseasesResponse: state.response,
                     ),
@@ -353,6 +355,7 @@ class _EditPatientProfileViewState extends State<EditPatientProfileView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+                    maintainState: true,
                     builder: (context) => GoodResultPage(
                       heartDiseasesResponse: state.response,
                     ),
@@ -1131,16 +1134,20 @@ class _EditPatientProfileViewState extends State<EditPatientProfileView> {
     _formKey.currentState!.save();
 
     // First update the patient profile using the cubit
-    context
-        .read<GetProfileCubit>()
-        .updatePatientProfile(patientModel: patientModel);
+    final profileCubit = context.read<GetProfileCubit>();
+    final predictCubit = context.read<PredictDiseaseCubit>();
+
+    // Update profile first
+    profileCubit.updatePatientProfile(patientModel: patientModel);
 
     // Create heart disease prediction request
     final HeartDiseasesRequest request = _createHeartDiseaseRequest();
 
     // Set request and trigger prediction
-    context.read<PredictDiseaseCubit>().setRequest(request);
-    context.read<PredictDiseaseCubit>().predictHeartDisease();
+    predictCubit.setRequest(request);
+
+    // Only navigate in the BlocListener after the prediction state is emitted
+    predictCubit.predictHeartDisease();
 
     showCustomSnackBar('Profile updated! Analyzing health data...', context);
   }
