@@ -9,9 +9,9 @@ import 'package:medify/core/routing/extensions.dart';
 import 'package:medify/core/routing/routes.dart';
 import 'package:medify/core/widgets/app_logo.dart';
 import 'package:medify/core/widgets/app_name.dart';
-import 'package:medify/core/widgets/custom_image_picker_widget.dart';
 import 'package:medify/features/HeartAnaysis/data/models/heart_models.dart';
 import 'package:medify/features/HeartAnaysis/ui/cubit/heart_analysis_cubit.dart';
+import 'package:medify/features/ProfileScreen/ui/utils/image_picker_utils.dart';
 
 class HeartAnalysisPage extends StatelessWidget {
   const HeartAnalysisPage({super.key});
@@ -70,30 +70,22 @@ class HeartAnalysisPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           final cubit = context.read<HeartAnalysisCubit>();
-          showModalBottomSheet(
-            context: context,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            builder: (ctx) {
-              return BlocProvider.value(
-                value: cubit,
-                child: CustomImagePickerWidget(
-                  onImageSelected: (File image) {
-                    Navigator.pop(ctx);
-                    cubit.analyzeImage(image);
-                  },
-                ),
-              );
+          ImagePickerUtils.showGeneralImagePicker(
+            context,
+            title: 'Upload ECG Image',
+            subtitle: 'Select an ECG image for heart analysis',
+            primaryColor: const Color(0xFF1E88E5),
+            onImageSelected: (File image) {
+              cubit.analyzeImage(image);
             },
           );
         },
         backgroundColor: const Color(0xFF1E88E5),
-         icon: const Icon(Icons.add, size: 24, color: Colors.white),
-  label: const Text(
-    "Upload ECG",
-    style: TextStyle(color: Colors.white, fontSize: 16),
-  ),
+        icon: const Icon(Icons.add, size: 24, color: Colors.white),
+        label: const Text(
+          "Upload ECG",
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

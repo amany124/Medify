@@ -182,6 +182,105 @@ class ImagePickerUtils {
     );
   }
 
+  /// Show general image picker bottom sheet
+  static void showGeneralImagePicker(
+    BuildContext context, {
+    required Function(File) onImageSelected,
+    String title = 'Select Image',
+    String subtitle = 'Choose an image from camera or gallery',
+    Color primaryColor = Colors.blue,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext ctx) {
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildBottomSheetHandle(),
+              const SizedBox(height: 20),
+              Text(
+                title,
+                style: AppStyles.semiBold18.copyWith(color: Colors.black87),
+              ),
+              if (subtitle.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Text(
+                  subtitle,
+                  style:
+                      AppStyles.regular14.copyWith(color: Colors.grey.shade600),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildImagePickerOption(
+                    context,
+                    icon: Icons.camera_alt,
+                    label: 'Camera',
+                    color: primaryColor,
+                    onTap: () => _pickImageFromSource(
+                        ctx, ImageSource.camera, onImageSelected),
+                  ),
+                  _buildImagePickerOption(
+                    context,
+                    icon: Icons.photo_library,
+                    label: 'Gallery',
+                    color: primaryColor,
+                    onTap: () => _pickImageFromSource(
+                        ctx, ImageSource.gallery, onImageSelected),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// Helper method to pick image from specified source
+  static Future<void> _pickImageFromSource(
+    BuildContext context,
+    ImageSource source,
+    Function(File) onImageSelected,
+  ) async {
+    Navigator.pop(context);
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedFile = await picker.pickImage(
+        source: source,
+        imageQuality: 80,
+      );
+
+      if (pickedFile != null) {
+        onImageSelected(File(pickedFile.path));
+      }
+    } catch (e) {
+      // Handle error
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error picking image: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   // Private helper methods
 
   static Widget _buildBottomSheetHandle() {

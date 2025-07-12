@@ -201,8 +201,10 @@ class ProfilePictureHeaderWidget extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  isEditing ? Icons.check : Icons.edit,
-                  color: Colors.white,
+                  isEditing ? Icons.cancel : Icons.edit,
+                  color: !isEditing
+                      ? Colors.white
+                      : Colors.red.withValues(alpha: 0.8),
                   size: 20,
                 ),
               ),

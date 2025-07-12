@@ -38,6 +38,14 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
   // List of gender options
   final List<String> genderOptions = ['male', 'female'];
 
+  // List of specialization options
+  final List<String> specializationOptions = [
+    'Cardiology',
+    'Neurology',
+    'Dermatology',
+    'Pediatrics'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -257,65 +265,102 @@ class _DoctorRegisterSectionState extends State<DoctorRegisterSection> {
           const Gap(20),
 
           // Years of Experience and Specialization (in a row)
-          Row(
+            Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CustomTextfieldLabel(label: 'Years of Experience'),
-                    const Gap(5),
-                    CustomTextField(
-                      hintText: 'Enter years',
-                      prefixIcon: Icons.work_history_outlined,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter years of experience';
-                        }
-                        final years = int.tryParse(value);
-                        if (years == null) {
-                          return 'Please enter a valid number';
-                        }
-                        if (years < 0 || years > 50) {
-                          return 'Please enter a valid range (0-50)';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        doctorModel.experienceYears = int.parse(val ?? '0');
-                      },
-                    ),
-                  ],
-                ),
+              const CustomTextfieldLabel(label: 'Years of Experience'),
+              const Gap(5),
+              CustomTextField(
+              hintText: 'Enter years',
+              prefixIcon: Icons.work_history_outlined,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                return 'Please enter years of experience';
+                }
+                final years = int.tryParse(value);
+                if (years == null) {
+                return 'Please enter a valid number';
+                }
+                if (years < 0 || years > 50) {
+                return 'Please enter a valid range (0-50)';
+                }
+                return null;
+              },
+              onSaved: (val) {
+                doctorModel.experienceYears = int.parse(val ?? '0');
+              },
               ),
               const Gap(15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CustomTextfieldLabel(label: 'Specialization'),
-                    const Gap(5),
-                    CustomTextField(
-                      hintText: 'Enter specialization',
-                      prefixIcon: Icons.medical_services_outlined,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your specialization';
-                        }
-                        if (value.length < 3) {
-                          return 'Specialization must be at least 3 characters';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        doctorModel.specialization = val ?? '';
-                      },
-                    ),
-                  ],
+              const CustomTextfieldLabel(label: 'Specialization'),
+              const Gap(5),
+              DropdownButtonFormField<String>(
+              decoration: InputDecoration(
+                hintText: 'Select specialization',
+                prefixIcon: const Icon(
+                Icons.medical_services_outlined,
+                color: AppColors.primaryColor,
+                ),
+                border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide:
+                  const BorderSide(color: AppColors.primaryColor),
+                ),
+                filled: true,
+                fillColor: Colors.grey.shade50,
+                contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
                 ),
               ),
+              value: doctorModel.specialization.isEmpty
+                ? null
+                : doctorModel.specialization,
+              items: specializationOptions.map((String specialization) {
+                return DropdownMenuItem<String>(
+                value: specialization,
+                child: Text(
+                  specialization,
+                  style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                  ),
+                ),
+                );
+              }).toList(),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                return 'Please select your specialization';
+                }
+                return null;
+              },
+              onChanged: (String? newValue) {
+                setState(() {
+                doctorModel.specialization = newValue ?? '';
+                });
+              },
+              onSaved: (val) {
+                doctorModel.specialization = val ?? '';
+              },
+              icon: const Icon(
+                Icons.keyboard_arrow_down,
+                color: AppColors.primaryColor,
+              ),
+              dropdownColor: Colors.white,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black87,
+              ),
+              ),
             ],
-          ),
+            ),
           const Gap(20),
 
           // Agreement Text with Checkbox

@@ -225,12 +225,11 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ...fields,
             if (isEditing)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: CustomButton(
-                  text: 'Save',
+                  text: 'Save Changes',
                   backgroundColor: AppColors.secondaryColor,
                   textColor: Colors.white,
                   buttonWidth: 200,
@@ -254,6 +253,7 @@ class PrivateProfileScreenState extends State<PrivateProfileScreen>
                   },
                 ),
               ),
+            ...fields,
           ],
         ),
       ),
