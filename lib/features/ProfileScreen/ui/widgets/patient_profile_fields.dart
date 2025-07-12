@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/core/di/di.dart';
 import 'package:medify/core/utils/app_styles.dart';
+import 'package:medify/features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
 import 'package:medify/features/heart%20diseases/presentation/cubit/predict_disease_cubit.dart';
@@ -35,8 +36,15 @@ class PatientProfileFields extends StatelessWidget {
             final updatedPatient = await Navigator.push<PatientModel>(
               context,
               MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (context) => getIt<PredictDiseaseCubit>(),
+                builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => getIt<GetProfileCubit>(),
+                    ),
+                    BlocProvider(
+                      create: (context) => getIt<PredictDiseaseCubit>(),
+                    ),
+                  ],
                   child: EditPatientProfileView(
                     patient: patient,
                   ),

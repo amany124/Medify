@@ -60,13 +60,12 @@ setup() {
     () => MedicalRecordsCubit(medicalRecordsRepo: getIt()),
   );
 
-  getIt.registerFactory<VerifyDoctorCubit>(
-    () => VerifyDoctorCubit(profileRepo: getIt()),
-  );
   getIt.registerLazySingleton<ProfileRepo>(
     () => ProfileRepoImpl(apiServices: getIt()),
   );
-
+  getIt.registerFactory<VerifyDoctorCubit>(
+    () => VerifyDoctorCubit(profileRepo: getIt()),
+  );
   getIt.registerFactory<GetProfileCubit>(
     () => GetProfileCubit(getIt()),
   );
