@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:medify/features/ProfileScreen/data/repos/profile_repo.dart';
+import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_cubit.dart';
 import 'package:medify/features/booking/data/repos/appointment_repo.dart';
 import 'package:medify/features/chat/repo/chat_repo.dart';
 import 'package:medify/features/chat/ui/chat_cubit/chat_cubit.dart';
@@ -7,10 +9,9 @@ import 'package:medify/features/medical_records/data/repos/medical_records_repo.
 import 'package:medify/features/medical_records/data/repos/medical_records_repo_impl.dart';
 import 'package:medify/features/medical_records/presentation/cubit/medical_records_cubit.dart';
 import 'package:medify/features/notification/presentation/cubit/notification_cubit.dart';
-import 'package:medify/features/ProfileScreen/data/repos/profile_repo.dart';
-import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_cubit.dart';
 import 'package:medify/features/social/ui/cubit/social_cubit.dart';
 
+import '../../features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
 import '../../features/heart diseases/data/repos/predict_disease_repo.dart';
 import '../../features/heart diseases/presentation/cubit/predict_disease_cubit.dart';
 import '../../features/social/data/repos/social_repo.dart';
@@ -59,11 +60,14 @@ setup() {
     () => MedicalRecordsCubit(medicalRecordsRepo: getIt()),
   );
 
-  // Profile repository and verify doctor cubit
+  getIt.registerFactory<VerifyDoctorCubit>(
+    () => VerifyDoctorCubit(profileRepo: getIt()),
+  );
   getIt.registerLazySingleton<ProfileRepo>(
     () => ProfileRepoImpl(apiServices: getIt()),
   );
-  getIt.registerFactory<VerifyDoctorCubit>(
-    () => VerifyDoctorCubit(profileRepo: getIt()),
+
+  getIt.registerFactory<GetProfileCubit>(
+    () => GetProfileCubit(getIt()),
   );
 }

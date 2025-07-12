@@ -7,6 +7,7 @@ import 'package:medify/core/routing/routes.dart';
 import 'package:medify/features/HeartAnaysis/ui/views/heart_analysis_page.dart';
 import 'package:medify/features/ProfileScreen/presentation/cubit/verify_doctor_cubit.dart';
 import 'package:medify/features/ProfileScreen/ui/cubit/get_profile_cubit.dart';
+import 'package:medify/features/ProfileScreen/ui/views/edit_patient_profile_view.dart';
 import 'package:medify/features/ProfileScreen/ui/views/patient_edit_screen.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/ProfileScreen/ui/views/simple_patient_profile_screen.dart';
@@ -15,6 +16,7 @@ import 'package:medify/features/Scheduling/views/Scheduling.dart'
 import 'package:medify/features/about%20us/ui/views/aboutus_view.dart';
 import 'package:medify/features/authentication/login/ui/cubits/cubit/login_cubit.dart';
 import 'package:medify/features/authentication/login/ui/views/login_view.dart';
+import 'package:medify/features/authentication/register/data/models/patient_model.dart';
 import 'package:medify/features/authentication/register/data/repo/register_repo.dart';
 import 'package:medify/features/authentication/register/ui/cubit/register_cubit/register_cubit.dart';
 import 'package:medify/features/authentication/register/ui/views/intial_sign_up_view.dart';
@@ -274,17 +276,36 @@ class AppRouter {
               builder: (context, state) {
                 if (state is GetPatientProfileSuccess &&
                     state.patientModel != null) {
-                  return SimplePatientProfileScreen(
+                  return ModernPatientProfileScreen(
                     patient: state.patientModel!,
                   );
                 }
                 // Show loading while fetching patient data
                 return const Scaffold(
                   body: Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
                   ),
                 );
               },
+            ),
+          ),
+        );
+      case Routes.editPatientProfileView:
+        // This route requires a PatientModel as argument
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<GetProfileCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<PredictDiseaseCubit>(),
+              ),
+            ],
+            child: EditPatientProfileView(
+              patient: settings.arguments as PatientModel,
             ),
           ),
         );

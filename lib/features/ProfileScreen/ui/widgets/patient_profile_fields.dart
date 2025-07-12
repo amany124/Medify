@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medify/core/di/di.dart';
 import 'package:medify/core/utils/app_styles.dart';
 import 'package:medify/features/ProfileScreen/ui/views/private_profile_screen.dart';
 import 'package:medify/features/authentication/register/data/models/patient_model.dart';
+import 'package:medify/features/heart%20diseases/presentation/cubit/predict_disease_cubit.dart';
 
-import '../views/patient_edit_screen.dart';
+import '../views/edit_patient_profile_view.dart';
 import '../widgets/ProfileTextField.dart';
 import 'medical_records_section.dart';
 
@@ -25,35 +28,35 @@ class PatientProfileFields extends StatelessWidget {
     return Column(
       children: [
         // Patient Profile Header with name and edit functionality
-        Builder(builder: (context) {
-          return PatientProfileHeaderWidget(
-            name: patient.name,
-            onEditPressed: () {
-              // Navigate to patient edit screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PatientEditScreen(
+        PatientProfileHeaderWidget(
+          name: patient.name,
+          onEditPressed: () async {
+            // Navigate to patient edit screen
+            final updatedPatient = await Navigator.push<PatientModel>(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => getIt<PredictDiseaseCubit>(),
+                  child: EditPatientProfileView(
                     patient: patient,
-                    navigateToPrediction: false,
                   ),
                 ),
-              ).then((updatedPatient) {
-                // Handle the returned updated patient if needed
-                if (updatedPatient != null) {
-                  // Find the nearest StatefulWidget ancestor and trigger a refresh
-                  final PrivateProfileScreenState? parent = context
-                      .findAncestorStateOfType<PrivateProfileScreenState>();
-                  if (parent != null) {
-                    // Trigger a refresh of the profile data
-                    parent.setState(() {});
-                  }
-                }
-              });
-            },
-            isEditing: isEditing,
-          );
-        }),
+              ),
+            );
+
+            // Handle the returned updated patient if needed
+            if (updatedPatient != null) {
+              // Find the nearest StatefulWidget ancestor and trigger a refresh
+              final PrivateProfileScreenState? parent =
+                  context.findAncestorStateOfType<PrivateProfileScreenState>();
+              if (parent != null) {
+                // Trigger a refresh of the profile data
+                parent.setState(() {});
+              }
+            }
+          },
+          isEditing: isEditing,
+        ),
 
         const SizedBox(height: 20),
 
@@ -105,7 +108,7 @@ class PatientProfileFields extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
+              color: Colors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: Colors.white, size: 20),
@@ -297,14 +300,14 @@ class DiagnosisDataSection extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             Colors.white,
-            Colors.blue.shade50.withValues(alpha: 0.3),
+            Colors.blue.shade50.withOpacity(0.3),
           ],
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.blue.shade200),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.shade100.withValues(alpha: 0.3),
+            color: Colors.blue.shade100.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 8,
             offset: const Offset(0, 2),
@@ -333,7 +336,7 @@ class DiagnosisDataSection extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(
@@ -357,7 +360,7 @@ class DiagnosisDataSection extends StatelessWidget {
                       Text(
                         'Health metrics and risk factors',
                         style: AppStyles.regular12.copyWith(
-                          color: Colors.white.withValues(alpha: 0.8),
+                          color: Colors.white.withOpacity(0.8),
                         ),
                       ),
                     ],
@@ -379,7 +382,7 @@ class DiagnosisDataSection extends StatelessWidget {
 
     return GridView.builder(
       shrinkWrap: true,
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -518,10 +521,10 @@ class DiagnosisDataSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
+        border: Border.all(color: color.withOpacity(0.2)),
         boxShadow: [
           BoxShadow(
-            color: color.withValues(alpha: 0.1),
+            color: color.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 4,
             offset: const Offset(0, 1),
@@ -533,7 +536,7 @@ class DiagnosisDataSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
+              color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
@@ -598,14 +601,14 @@ class PatientProfileHeaderWidget extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             Colors.white,
-            Colors.blue.shade50.withValues(alpha: 0.3),
+            Colors.blue.shade50.withOpacity(0.3),
           ],
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.blue.shade200),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.shade100.withValues(alpha: 0.3),
+            color: Colors.blue.shade100.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 8,
             offset: const Offset(0, 2),
@@ -630,7 +633,7 @@ class PatientProfileHeaderWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
+                color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(
@@ -654,7 +657,7 @@ class PatientProfileHeaderWidget extends StatelessWidget {
                   Text(
                     'Patient Profile',
                     style: AppStyles.regular12.copyWith(
-                      color: Colors.white.withValues(alpha: 0.8),
+                      color: Colors.white.withOpacity(0.8),
                     ),
                   ),
                 ],
@@ -666,7 +669,7 @@ class PatientProfileHeaderWidget extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: Colors.white.withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(

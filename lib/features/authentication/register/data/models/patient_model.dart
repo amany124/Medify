@@ -75,9 +75,8 @@ class PatientModel {
       name: json['name'],
       email: json['email'],
       username: json['username'],
-      password: json['password'],
-      role:
-          json['role'] ?? '', // role is missing in your sample, provide default
+      password: json['password'] ?? '',
+      role: json['role'] ?? '',
       gender: json['gender'],
       dateOfBirth: json['dateOfBirth'],
       bloodType: json['bloodType'],

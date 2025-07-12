@@ -1,7 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medify/features/social/data/models/get_posts_request_model.dart';
 import 'package:medify/features/social/data/models/get_posts_response_model.dart';
 import 'package:medify/features/social/data/repos/social_repo.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'get_posts_state.dart';
 
@@ -10,7 +10,7 @@ class GetPostsCubit extends Cubit<GetPostsState> {
     required this.socialRepo,
   }) : super(GetPostsInitial());
 
-   final SocialRepo socialRepo;
+  final SocialRepo socialRepo;
 
   Future<void> getAllPosts({
     required GetPostsRequestModel requestModel,
@@ -26,5 +26,4 @@ class GetPostsCubit extends Cubit<GetPostsState> {
       },
     );
   }
-  
 }

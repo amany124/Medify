@@ -85,7 +85,6 @@ class _BadResultPageState extends State<BadResultPage>
                     ),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         'Diagnosis Result:',
@@ -114,9 +113,7 @@ class _BadResultPageState extends State<BadResultPage>
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Text(
+                      Text(
                             widget.heartDiseasesResponse.probability,
                             style: const TextStyle(
                               color: Colors.white,
@@ -124,29 +121,6 @@ class _BadResultPageState extends State<BadResultPage>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(width: 16),
-                          // Expanded(
-                          //   child: Container(
-                          //     height: 8,
-                          //     decoration: BoxDecoration(
-                          //       color: Colors.white.withOpacity(0.3),
-                          //       borderRadius: BorderRadius.circular(4),
-                          //     ),
-                          //     child: FractionallySizedBox(
-                          //       alignment: Alignment.centerLeft,
-                          //       widthFactor:
-                          //           widget.heartDiseasesResponse.probability,
-                          //       child: Container(
-                          //         decoration: BoxDecoration(
-                          //           color: Colors.white,
-                          //           borderRadius: BorderRadius.circular(4),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
