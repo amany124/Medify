@@ -18,7 +18,6 @@ A full-featured mobile application developed using Flutter to assist doctors and
 ## 📸 App Screenshots
 
 
-![1](https://github.com/user-attachments/assets/f1ecfd87-1768-4597-b8ce-9c5ffe1167ef)
 
 ---
 
@@ -32,15 +31,10 @@ A full-featured mobile application developed using Flutter to assist doctors and
 - **Node.js / Express** (or your backend) - Server side
 - **MongoDB / MySQL** (حسب اللي استخدمتوه) - Database
 
----
 
-## 🛠️ Installation
 
-```bash
-git clone https://github.com/YourUsername/medify.git
-cd medify
-flutter pub get
-flutter run
+
+
 
 
 
