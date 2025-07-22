@@ -17,7 +17,7 @@ A full-featured mobile application developed using Flutter to assist doctors and
 
 ## 📸 App Screenshots
 
-
+In medify screenshots folder
 
 ---
 
