@@ -6,12 +6,12 @@ A full-featured mobile application developed using Flutter to assist doctors and
 
 ## 📲 App Features
 
-- 🫀 **Cardiac Image Analysis** using AI
-- 💬 **Smart Chat** between doctors and patients
-- 🗂️ **Medical Records** management
-- 👤 **Social Profiles** for doctors and patients
-- 🔒 **Secure Login** and authentication system
-- 📅 **Appointments** scheduling (if applicable)
+- 🫀 **Cardiac Image Analysis** 
+- 💬 **Smart Chat**
+- 🗂️ **Medical Records**
+- 👤 **Social Profiles** 
+- 🔒 **Secure Login** 
+- 📅 **Appointments** 
 
 ---
 
@@ -23,13 +23,13 @@ In medify screenshots folder
 
 ## 🚀 Technologies Used
 
-- **Flutter** - Cross-platform UI toolkit
-- **Cubit (Bloc)** - State Management
-- **RESTful APIs** - Communication with backend
-- **Postman** - For API testing
-- **Dart** - Programming language
-- **Node.js / Express** (or your backend) - Server side
-- **MongoDB / MySQL** (حسب اللي استخدمتوه) - Database
+- **Flutter** 
+- **Cubit (Bloc)** 
+- **RESTful APIs** 
+- **Postman** 
+- **Dart** 
+- **Node.js**
+- **MongoDB / MySQL** 
 
 
 
