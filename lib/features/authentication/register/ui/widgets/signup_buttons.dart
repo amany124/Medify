@@ -24,7 +24,7 @@ class SignupButtons extends StatelessWidget {
             context.pushNamed(Routes.signUpAsDoctor);
           },
         ),
-        const Gap(15),
+        const Gap(10),
         CustomSignUpButton(
           icon: Assets.assetsImagesPatientIcon,
           type: 'Patient',
